@@ -1,0 +1,59 @@
+@import "./Home.scss";
+@import "./LoginOption.scss";
+@import "./SideBar.scss";
+@import "./Company/CompanyDetails.scss";
+@import "./Company/UpdateData.scss";
+@import "./Company/WorkShiftPanel.scss";
+@import "./Company/DocumentsPanel.scss";
+@import "./Company/RolesTaskPanel.scss";
+@import "./Company/ChartsReports.scss";
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+    color: #146f62;
+    text-transform: uppercase;
+    .headLeft {
+        display: flex;
+        align-items: center;
+        h2 {
+            margin-left: 2rem !important;
+            text-transform: uppercase;
+        }
+        i {
+            font-size: 25px;
+            color: #146f62;
+            cursor: pointer;
+        }
+    }
+    button {
+        border: none;
+        padding: 7px 0;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 15rem;
+        border-radius: 5px;
+        background-color: #146f62;
+        color: #fff;
+        font-size: 1rem;
+        text-transform: uppercase;
+        font-weight: 450;
+    }
+    p {
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
+.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+    top: -9px !important;
+    font-size: 14px !important;
+}
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+    padding: 5px !important;
+}
+.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+    box-shadow: 0.4rem 0.4rem 0.4rem #0000001a !important;
+}

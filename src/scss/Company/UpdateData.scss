@@ -1,0 +1,61 @@
+.dragdrop_row {
+    h4 {
+        color: #146f62;
+        font-weight: bold;
+        text-transform: uppercase;
+        // letter-spacing: 7px;
+    }
+    .pull-right {
+        color: #707070;
+        font-size: 14px;
+        font-weight: normal;
+        text-transform: uppercase;
+        border-bottom: 1px solid #707070;
+        cursor: pointer;
+        margin-top: 8px !important;
+    }
+    .restrictions_text {
+        margin-top: 3rem;
+        .checkBoxWithText {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px;
+            border: 1px solid lightgray;
+            border-radius: 5px;
+            box-shadow: 0.4rem 0.4rem 0.4rem #0000001a !important;
+        }
+    }
+    .updata_img_m {
+        box-shadow: 0px 0px 4px #00000099;
+        border-radius: 5px;
+        padding: 10px;
+        h5 {
+            color: #146f62;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .dottedborderbox {
+            width: 100%;
+            border: 2px dotted lightgray;
+            border-radius: 5px;
+            padding: 1rem;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            cursor: pointer;
+            p {
+                font-size: 20px;
+                line-height: 28px;
+                text-align: center;
+                color: #a1a1a1;
+                width: 100%;
+                text-transform: uppercase;
+            }
+            #file-input {
+                display: none;
+            }
+        }
+    }
+}

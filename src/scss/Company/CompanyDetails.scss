@@ -1,0 +1,149 @@
+.company-detail {
+    .detailCard {
+        padding: 0.7rem;
+        box-shadow: 0px 0px 4px #00000080;
+        border-radius: 5px;
+        height: 100%;
+
+        .detailCard-head {
+            display: flex;
+            justify-content: space-between;
+            color: #146f62;
+            text-transform: uppercase;
+            align-items: center;
+            img {
+                cursor: pointer;
+            }
+            .dropdown-menu {
+                inset: -1.1rem auto -6.6rem -7.5rem !important;
+                height: 11.5rem !important;
+                padding: 0;
+                box-shadow: 0px 0px 5px -1px grey;
+                border-radius: 8px;
+            }
+            .dropdownDiv {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 11rem;
+                padding: 0.5rem;
+                &:hover {
+                    background-color: lightgray;
+                }
+                i {
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+                span {
+                    font-size: 14px;
+                }
+            }
+            // .dropdown-item {
+            //     padding: 0.5rem !important;
+            //     text-transform: none;
+            //     font-weight: 400;
+            //     width: 11rem;
+            // }
+        }
+        p {
+            margin: 0;
+            color: lightgray;
+        }
+        ul {
+            list-style: none;
+            color: gray;
+            font-weight: bold;
+            font-size: 14px;
+            margin: 0;
+        }
+    }
+    .companyImg {
+        width: 100%;
+    }
+    .employeeVehicleHead {
+        margin: 2rem 0;
+        h3 {
+            font-weight: normal;
+        }
+        sub {
+            font-size: 15px;
+            color: black;
+            text-decoration: underline;
+            margin-left: 10px;
+        }
+        p {
+            span {
+                font-weight: bold;
+            }
+        }
+    }
+    .employeeVehicleCard {
+        position: relative;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        box-shadow: 0px 0px 4px #00000099;
+        border: none;
+        border-radius: 5px;
+        padding: 5px;
+        text-align: center;
+        .person4Img {
+            position: absolute;
+            width: 6rem;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .pencelIcon {
+            position: absolute;
+            right: 3%;
+            font-size: 20px;
+            color: red;
+            top: 3%;
+        }
+        .headName {
+            padding-top: 3.2rem;
+            p {
+                font-size: 12px;
+            }
+            h6 {
+                font-size: 16px;
+            }
+        }
+        .bodyCard {
+            display: flex;
+            justify-content: space-between;
+            p {
+                font-size: 10px;
+            }
+            h6 {
+                font-size: 12px;
+                margin: 5px 0;
+            }
+        }
+        p {
+            text-transform: uppercase;
+            color: gray;
+            margin-bottom: 0;
+        }
+        h6 {
+            color: #146f62;
+            margin-bottom: 0;
+        }
+    }
+    .addFile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        border: 2px dashed #70707066;
+        .addFileImg {
+            width: 3rem;
+            height: 3rem;
+        }
+        p {
+            text-transform: uppercase;
+            width: 40%;
+            text-align: center;
+            display: flex;
+            color: lightgray;
+        }
+    }
+}
