@@ -1,0 +1,90 @@
+.modal-content {
+  width: 400px !important;
+  border-radius: 4px !important;
+  overflow: hidden;
+}
+
+.main-modal-heading {
+  text-align: center;
+  font: normal normal bold 17px Montserrat;
+  letter-spacing: 3px;
+  color: #006837;
+  opacity: 1;
+  padding: 15px 0;
+}
+
+
+.button-sec {
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  font: normal normal bold 11px Montserrat;
+  width: 165px;
+  letter-spacing: 1px;
+  font-weight: 400;
+  padding: 5px 0;
+}
+
+.btn-cancel {
+  background-color: #fff;
+  color: #006837;
+}
+.btn-confirm {
+  background-color: #006837;
+  color: #fff;
+}
+.btn-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+  margin-bottom: 10px;
+}
+
+.modal-close-btn {
+  border: none;
+  outline: none;
+  font-weight: 700;
+  font-size: 18px;
+  position: absolute;
+  width: 30px;
+  background-color: #fff;
+  color: #f44336;
+  top: 0;
+  right: 0;
+}
+
+.second-heading {
+  text-align: left;
+  font: normal normal bold 17px Montserrat;
+  letter-spacing: 3px;
+  color: #006837;
+  opacity: 1;
+  padding: 15px 0 0 30px;
+}
+
+
+.second-heading-first {
+  font: normal normal 600 12px Montserrat;
+  letter-spacing: 0px;
+  color: #707070;
+  opacity: 1;
+  display: block;
+  margin-bottom: 0;
+  line-height: 0;
+  padding-top: 10px;
+}
+
+.modal-desc-text{
+    text-align: center;
+    font: normal normal 300 12px Montserrat;
+    letter-spacing: 0px;
+    color: #65ABA0;
+    opacity: 1;
+    display: block;
+    line-height: 20px;
+}
+
+.unlink-modal-body{
+    width: 340px;
+    margin: auto;
+}

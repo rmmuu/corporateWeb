@@ -1,59 +1,60 @@
+// Employees section
+@import "./Mixins.scss";
+@import "./global.scss";
+
 @import "./Home.scss";
 @import "./LoginOption.scss";
-@import "./SideBar.scss";
-@import "./Company/CompanyDetails.scss";
-@import "./Company/UpdateData.scss";
-@import "./Company/WorkShiftPanel.scss";
-@import "./Company/DocumentsPanel.scss";
-@import "./Company/RolesTaskPanel.scss";
-@import "./Company/ChartsReports.scss";
 
-.head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 1rem 0;
-    color: #146f62;
-    text-transform: uppercase;
-    .headLeft {
-        display: flex;
-        align-items: center;
-        h2 {
-            margin-left: 2rem !important;
-            text-transform: uppercase;
-        }
-        i {
-            font-size: 25px;
-            color: #146f62;
-            cursor: pointer;
-        }
-    }
-    button {
-        border: none;
-        padding: 7px 0;
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        width: 15rem;
-        border-radius: 5px;
-        background-color: #146f62;
-        color: #fff;
-        font-size: 1rem;
-        text-transform: uppercase;
-        font-weight: 450;
-    }
-    p {
-        font-size: 20px;
-        font-weight: bold;
-    }
-}
-.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
-    top: -9px !important;
-    font-size: 14px !important;
-}
-.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
-    padding: 5px !important;
-}
-.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
-    box-shadow: 0.4rem 0.4rem 0.4rem #0000001a !important;
-}
+@import "./SideBar.scss";
+
+@import "./Company/CompanyDetails.scss";
+@import "./Company/Employees/Employees.scss";
+@import "./Company/Vehicles/Vehicles.scss";
+@import "./Company/UpdateData.scss";
+// @import "./Company/WorkShiftPanel.scss";
+@import "./Company/UserDocPanel.scss";
+@import "./Company/VehicleDocPanel.scss";
+@import "./Company/RolesPanel.scss";
+@import "./Company/NotificationPanel.scss";
+
+@import "./Zones/Zones.scss";
+
+@import "./EmployeeProviders/providersPanel.scss";
+@import "./EmployeeProviders/createOrder.scss";
+@import "./EmployeeProviders/orderDetails.scss";
+@import"./EmployeeProviders/addNewProvider.scss";
+@import "./EmployeeProviders/Provider.scss";
+
+@import './EmployeeContractors/contractorsPanel.scss';
+
+@import './Events/events.scss';
+
+// Providers section
+
+@import "./Provider/AddVehicles.scss";
+@import "./Provider/AllEmployeesProvider.scss";
+@import "./Provider/AllOrderProvider.scss";
+@import "./Provider/AllVehiclesProvider.scss";
+@import "./Provider/completeOrder.scss";
+@import "./Provider/CreateEmployeeProvider.scss";
+@import "./Provider/DocumentUpload.scss";
+@import "./Provider/NotificationProvider.scss";
+@import "./Provider/Orderdetail.scss";
+@import "./Provider/ProfileProvider.scss";
+@import "./Provider/Provider.scss";
+@import "./Provider/providersPanel.scss";
+@import "./Provider/vehicledetail.scss";
+
+// Contractors section
+@import './Contractor/Profile/profile.scss';
+@import './Contractor/Profile/notifications.scss';
+@import './Contractor/Profile/editProfile.scss';
+@import './Contractor/Contracts/unlinkModal.scss';
+@import './Contractor/Contracts/contracts.scss';
+@import './Contractor/Vehicle/SearchVehicle.scss';
+@import './Contractor/Vehicle/ViewCard.scss';
+@import './Contractor/Vehicle/EmployeCard.scss';
+@import './Contractor/Vehicle/AddNewEmploye.scss';
+@import './Contractor/Vehicle/AddVehicleDocuments.scss';
+@import './Contractor/Vehicle/EmployeContractDetail.scss';
+@import './Contractor/Vehicle/VehicalContractDetail.scss';

@@ -1,8 +1,3 @@
-import React from 'react'
-import { CompanyDetails } from './CompanyDetails'
+import { Outlet } from 'react-router-dom'
 
-export const Company = () => {
-    return (
-        <CompanyDetails />
-    )
-}
+export const Company = () => <Outlet />

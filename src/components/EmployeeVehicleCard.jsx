@@ -1,33 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import person4 from '../assets/images/person-4.png';
+import ic_edit_outline from '../assets/images/ic-edit-outline-red.svg'
 
-const EmployeeVehicleCard = () => {
+const EmployeeVehicleCard = ({ employeeCardData }) => {
+    localStorage.setItem("deleteId", employeeCardData?.user.id)
+    // console.log(employeeCardData)
     return (
         <div className='employeeVehicleCard'>
             <img src={person4} className="person4Img" alt="person2" />
-            <Link to=''>
-                <i
-                    className="fa fa-pencil pencelIcon"
-                    aria-hidden="true"
-                ></i>
+            <Link to={{
+                pathname: `addemployee/${employeeCardData?.user.id}`,
+                state: employeeCardData
+            }}
+            >
+                <img src={ic_edit_outline} className="pencelIcon" alt="ic_edit_outline" />
             </Link>
             <div className="headName">
-                <p>name</p>
-                <h6>Luis Enrique Cornejo Arreola</h6>
+                <p>Name</p>
+                <h6>{employeeCardData?.user.name}</h6>
             </div>
             <div className="bodyCard">
                 <div className="bodyLeftSide">
                     <p>job title</p>
-                    <h6>CEO</h6>
+                    <h6>{employeeCardData?.role.name}</h6>
                     <p>email</p>
-                    <h6>lcornejo@ibl.mx</h6>
+                    <h6>{employeeCardData?.user.email}</h6>
                 </div>
                 <div className="bodyRightSide">
                     <p>schedule</p>
-                    <h6>Morning Work Shift</h6>
+                    <h6>Morning Shift</h6>
                     <p>telephone</p>
-                    <h6>123455767</h6>
+                    <h6>{employeeCardData?.user.phoneNumber}</h6>
                 </div>
             </div>
         </div>

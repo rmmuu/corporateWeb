@@ -1,0 +1,30 @@
+.emloyee-contract-detail-sec{
+    width: 992px;    margin:70px  auto;
+}
+
+.emloyee-contract-detail{
+    display: flex;
+    &-first{
+        flex: 1 0 33.3%;
+    }
+    &-second{
+        flex: 1 0 33.3%;
+        border-right: 2px solid #65ABA0;
+        border-left: 2px solid #65ABA0;
+
+
+    }
+    &-third{
+        flex: 1 0 33.3%;
+
+    }
+}
+.emloyee-contract-detail .contract-card__title{
+    display: block;
+    text-align: center;
+}
+
+.emloyee-contract-detail  .contract-card__desc{
+    display: block;
+    text-align: end;
+}

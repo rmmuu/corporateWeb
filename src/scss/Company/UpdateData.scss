@@ -16,14 +16,80 @@
     }
     .restrictions_text {
         margin-top: 3rem;
-        .checkBoxWithText {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px;
+        .updateDataDiv {
+            padding: 8px 14px 8px 14px;
             border: 1px solid lightgray;
             border-radius: 5px;
             box-shadow: 0.4rem 0.4rem 0.4rem #0000001a !important;
+            .checkBoxWithText {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 2px #146f62 dotted;
+                padding-bottom: 10px;
+
+                .container {
+                    display: block;
+                    cursor: pointer;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+                    input {
+                        position: absolute;
+                        opacity: 0;
+                        cursor: pointer;
+                        height: 0;
+                        width: 0;
+                        &:checked {
+                            ~ {
+                                .checkmark {
+                                    background-color: #178a7b;
+                                    &:after {
+                                        display: block;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .checkmark {
+                        &:after {
+                            left: 5px;
+                            top: 0;
+                            width: 5px;
+                            height: 10px;
+                            border: solid white;
+                            border-width: 0 2px 2px 0;
+                            -webkit-transform: rotate(45deg);
+                            -ms-transform: rotate(45deg);
+                            transform: rotate(45deg);
+                        }
+                    }
+                }
+
+                .checkmark {
+                    position: absolute;
+                    right: 2rem;
+                    height: 15px;
+                    width: 15px;
+                    border: 1px solid #178A7B;
+                    border-radius: 2px;
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        display: none;
+                    }
+                }
+            }
+            p {
+                color: lightgray;
+                font-size: 12px;
+                span {
+                    font-size: 14px;
+                    font-weight: bold;
+                    color: gray;
+                }
+            }
         }
     }
     .updata_img_m {
@@ -35,27 +101,9 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        .dottedborderbox {
+        .uploadedPath {
             width: 100%;
-            border: 2px dotted lightgray;
-            border-radius: 5px;
-            padding: 1rem;
-            margin-top: 10px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            cursor: pointer;
-            p {
-                font-size: 20px;
-                line-height: 28px;
-                text-align: center;
-                color: #a1a1a1;
-                width: 100%;
-                text-transform: uppercase;
-            }
-            #file-input {
-                display: none;
-            }
+            height: 169px;
         }
     }
 }

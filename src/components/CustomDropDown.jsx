@@ -3,6 +3,11 @@ import threedotsicon from "../assets/images/threedotsicon.svg";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Link } from 'react-router-dom';
 
+import ic_edit_outline from '../assets/images/ic-edit-outline-1.svg'
+import ic_table from '../assets/images/ic-table.svg'
+import ic_list_detail from '../assets/images/ic-list-detail.svg'
+import id_badge from '../assets/images/id-badge.svg'
+
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => {
     return (
         <div
@@ -29,46 +34,36 @@ const CustomDropDown = () => {
         <Dropdown>
             <Dropdown.Toggle as={CustomToggle} />
             <Dropdown.Menu size="sm" title="go to details">
-                {/* <Dropdown.Item> */}
-                <Link to='/dashboard/updatedata'>
+                <Link to='/dashboard/company/update-data'>
                     <div className='dropdownDiv'>
-                        <i className="fa fa-building-o" aria-hidden="true"></i>
+                        <img src={ic_edit_outline} alt="images" />
                         <span>Update Data</span>
                     </div>
                 </Link>
-                {/* </Dropdown.Item> */}
-                {/* <Dropdown.Item> */}
-                <Link to='/dashboard/zones'>
+                <Link to='/dashboard/company/workshift-panel'>
                     <div className='dropdownDiv'>
-                        <i className="fa fa-building-o" aria-hidden="true"></i>
+                        <img src={ic_table} alt="images" />
                         <span>Work Shift Panel</span>
                     </div>
                 </Link>
-                {/* </Dropdown.Item> */}
-                {/* <Dropdown.Item> */}
-                <Link to='/dashboard/zones'>
+                <Link to='/dashboard/company/user-doc-panel'>
                     <div className='dropdownDiv'>
-                        <i className="fa fa-building-o" aria-hidden="true"></i>
-                        <span>Documents Panel</span>
+                        <img src={ic_list_detail} alt="images" />
+                        <span>User Doc Panel</span>
                     </div>
                 </Link>
-                {/* </Dropdown.Item> */}
-                {/* <Dropdown.Item> */}
-                <Link to='/dashboard/zones'>
+                <Link to='/dashboard/company/roles-panel'>
                     <div className='dropdownDiv'>
-                        <i className="fa fa-building-o" aria-hidden="true"></i>
+                        <img src={id_badge} alt="images" />
                         <span>Roles - Task Panel</span>
                     </div>
                 </Link>
-                {/* </Dropdown.Item> */}
-                {/* <Dropdown.Item> */}
-                <Link to='/dashboard/zones'>
+                <Link to='/dashboard/company/vehicle-doc-panel'>
                     <div className='dropdownDiv'>
-                        <i className="fa fa-building-o" aria-hidden="true"></i>
-                        <span>Charts {"&"} Reports</span>
+                        <img src={id_badge} alt="images" />
+                        <span>Vehicle Doc Panel</span>
                     </div>
                 </Link>
-                {/* </Dropdown.Item> */}
             </Dropdown.Menu>
         </Dropdown>
     )

@@ -1,0 +1,1756 @@
+table {
+  border-collapse: collapse !important;
+}
+
+.subhead {
+  margin: 1rem 0;
+
+  h5 {
+    color: #65aba0;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    letter-spacing: 0.2rem;
+    font-weight: 600;
+  }
+
+  p {
+    color: #707070;
+    text-transform: uppercase;
+    font-size: 11px;
+  }
+}
+
+.accordion-item {
+  margin-bottom: 12px !important;
+  box-shadow: 0px 0px 4px #000000b3 !important;
+  border-radius: 8px !important;
+
+  :focus {
+    box-shadow: none !important;
+  }
+
+  .accordion-button {
+    border-radius: 8px !important;
+    padding: 10px !important;
+  }
+
+  .accordion-item:not(:first-of-type) {
+    border-top: 1px solid rgba(0, 0, 0, 0.125) !important;
+  }
+
+  .main {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .leftText {
+      font-size: 18px;
+      font-weight: 600;
+      color: #263238;
+
+      sub {
+        font-size: 10px;
+        text-transform: uppercase;
+        text-decoration: underline;
+        color: #000000;
+        opacity: 0.5;
+      }
+    }
+
+    .rightText {
+      margin-right: 12rem;
+      position: relative;
+      color: #000000;
+      opacity: 0.9;
+      text-transform: uppercase;
+      font-size: 10px;
+
+      span {
+        color: #21643c;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .circle_status {
+        position: absolute;
+        top: 4px;
+        right: -13px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: #21643c;
+
+      }
+    }
+  }
+
+  .zoneCardDetail {
+    border-top: 2px dashed #178a7b;
+    margin: 4px;
+
+    tr {
+      box-shadow: none;
+      height: auto;
+      background: none;
+      border: none;
+
+      // border-style: none !important;
+    }
+
+    tbody,
+    tfoot,
+    thead {
+      border: none;
+    }
+
+    th,
+    td {
+      padding: 0;
+      // border-top: none;
+      text-align: left;
+      border: none;
+    }
+
+    th {
+      color: #707070 !important;
+    }
+
+    .nameTD {
+      color: #146f62 !important;
+      // opacity: 0.9;
+      font-weight: 600;
+
+      sub {
+        font-size: 8px;
+        text-decoration: underline;
+      }
+    }
+
+    h5 {
+      color: #146f62;
+    }
+
+    p {
+      color: #707070;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.addBtn {
+  outline: none;
+  border: none;
+  width: 40%;
+  height: 1.4rem;
+  border-radius: 5px;
+  background-color: #146f62;
+  color: #fff;
+  margin-top: 1rem;
+  margin-left: 4.5rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.cancelBtn {
+  outline: none;
+  border: none;
+  width: 40%;
+  // height: 1.4rem;
+  // border-radius: 5px;
+  background-color: white;
+  color: red;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.seeLocation {
+  color: #263238;
+  text-decoration: underline;
+}
+
+.modal-header {
+  padding: 0 1rem !important;
+  border-bottom: 0 !important;
+  color: #146f62 !important;
+  text-transform: uppercase;
+
+  .btn-close {
+    margin-top: 5px !important;
+
+    :focus {
+      box-shadow: none !important;
+    }
+  }
+}
+
+// .zones_head_m {
+//   h1 {
+//     @include color(#146f62, 3.2rem, 600, capitalize);
+//   }
+//   h2 {
+//     margin: 2rem 0rem 0rem 0rem;
+//     @include color(#65aba0, 2.4rem, bold, capitalize);
+//     button {
+//       width: 20.1rem;
+//       height: 3rem;
+//       letter-spacing: 3.6px;
+//       color: #ffffff;
+//       background: #146f62 0% 0% no-repeat padding-box;
+//       border-radius: 8px;
+//       i {
+//         margin-left: 2rem;
+//       }
+//     }
+//   }
+//   p {
+//     @include color(#707070, 1.2rem, normal, capitalize);
+//   }
+// }
+
+// .accordion-button:not(.collapsed) {
+//   color: #000000;
+//   box-shadow: none;
+//   background-color: white;
+// }
+
+// .zonescard_m {
+//   button {
+//     span {
+//       @include color(#000000, 0.8rem, normal, capitalize);
+//       text-decoration: underline;
+//       margin-left: 1rem;
+//     }
+//   }
+//   h2 {
+//     @include color(#263238, 2.2rem, 600, capitalize);
+//     button {
+//       @include color(#263238, 2.2rem, 600, capitalize);
+//       cursor: pointer;
+//     }
+//   }
+//   .accordion-body {
+//     h3 {
+//       @include color(#65aba0, 1.4rem, bold, capitalize);
+//       letter-spacing: 4.2px;
+//       a {
+//         @include color(#000000, 1.2rem, normal, capitalize);
+//         letter-spacing: 0rem;
+//         margin-left: 1.5rem;
+//         border-bottom: 2px solid #000000;
+//         cursor: pointer;
+//       }
+//     }
+//     p {
+//       line-height: 3rem;
+//       margin: 0rem;
+//       @include color(#707070, 1.2rem, 600, uppercase);
+//     }
+//     h2 {
+//       @include color(#707070, 1.2rem, 600, uppercase);
+//     }
+//     span {
+//       line-height: 3rem;
+//       margin-left: 3rem;
+//       @include color(#707070, 1.2rem, normal, uppercase);
+//     }
+//   }
+// }
+
+// .status_text_zones {
+//   position: absolute;
+//   right: 25%;
+//   top: 35%;
+//   p {
+//     @include color(#707070, 1.2rem, 600, uppercase);
+//     span {
+//       @include color(#146f62, 1.4rem, bold, uppercase);
+//       margin-left: 2rem;
+//       word-spacing: 1rem;
+//       text-decoration: none;
+//       i {
+//         font-size: 1rem;
+//       }
+//     }
+//   }
+// }
+
+.zonescollaps_building {
+  h4 {
+    @include color(#178a7b, 1.2rem, 600, uppercase);
+
+    a {
+      margin-left: 1.5rem;
+      @include color(#000000, 0.6rem, normal, uppercase);
+      border-bottom: 1px solid #000000;
+    }
+
+    p {
+      @include color(#707070, 1.2rem, 600, uppercase);
+
+      span {
+        @include color(#146f62, 1.4rem, bold, uppercase);
+        // margin-left: 2rem;s
+        word-spacing: 1rem;
+
+        i {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}
+
+.room_access_text {
+
+  // line-height: 3rem;
+  // margin-bottom: 1rem;
+
+
+  tr {
+    box-shadow: none;
+  }
+
+  td {
+    border: none;
+    border-top: none !important;
+  }
+
+  h5 {
+    @include color(#707070, 1rem, 600, uppercase);
+    // margin-bottom: 2rem;
+  }
+
+  h6 {
+    line-height: 1rem;
+    @include color(#146f62, 1rem, bold, uppercase);
+
+    i {
+      font-size: 1rem;
+    }
+  }
+
+  h2 {
+    line-height: 2.6rem;
+    @include color(#bc0000, 1.6rem, bold, uppercase);
+
+    i {
+      // font-size: 0.6rem !important;
+
+    }
+  }
+
+  li {
+    @include color(#707070, 1.2rem, 600, capitalize);
+    list-style: none;
+
+    // margin-left: 2rem;
+    a {
+      // margin-left: 2rem;
+      @include color(#707070, 0.7rem, normal, capitalize);
+      text-decoration: underline !important;
+    }
+  }
+
+  img {
+    // margin-left: 4rem;
+  }
+
+  h4 {
+    // margin-top: 2.6rem;
+  }
+}
+
+.buildingmodal {
+  h3 {
+    @include color(#146f62, 2rem, bold, capitalize);
+    letter-spacing: 7px;
+  }
+}
+
+.input_zones {
+  select {
+    padding: 1rem;
+    box-shadow: 4px 4px 4px #0000001a;
+    border-radius: 7px;
+    margin-bottom: 2rem;
+    @include color(#707070, 1.4rem, 600, capitalize);
+  }
+
+  button {
+    margin-top: 2rem;
+    background: #178a7b 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 4px #00000099;
+    border-radius: 4px;
+    width: 100%;
+    @include color(#ffffff, 1.6rem, bold, capitalize);
+  }
+
+  h1 {
+    @include color(#146f62, 2rem, bold, uppercase);
+    letter-spacing: 7px;
+    margin-left: 3rem;
+  }
+}
+
+.buildingadd_card {
+  box-shadow: 0px 0px 4px #00000080;
+  border-radius: 6px;
+
+  img {
+    float: right;
+    padding: 1rem;
+  }
+
+  h1 {
+    @include color(#146f62, 2rem, bold, uppercase);
+    letter-spacing: 7px;
+  }
+
+  select {
+    padding: 1rem;
+    box-shadow: 4px 4px 4px #0000001a;
+    border-radius: 7px;
+    @include color(#707070, 1.4rem, 600, capitalize);
+  }
+}
+
+#addzones_modal {
+  .modal-content {
+    transition: transform 0.3s ease-out;
+    transform: translate(10%, 35%) !important;
+  }
+}
+
+#addemp_imgchange {
+  .modal-sm {
+    transition: transform 0.3s ease-out;
+    transform: translate(97%, 35%) !important;
+  }
+}
+
+.zonescard_m_center {
+  transition: transform 0.3s ease-out;
+  transform: translate(10%, 45%) !important;
+}
+
+// --------------------- Zones BuildingDetails  page Css Start ------------------------
+.plus_building_details {
+  color: white !important;
+  font-size: 1rem !important;
+  margin-left: 1.5rem !important;
+  font-weight: normal !important;
+}
+
+.building_details_text {
+  margin: 2rem 0rem;
+
+  h1 {
+    letter-spacing: 3.6px;
+    // padding-top: 2rem;
+    @include color(#65aba0, 1.2rem, bold, uppercase);
+  }
+
+  p {
+    margin: 2rem 0rem 0rem 0rem;
+    @include color(#707070, 0.8rem, bold, uppercase);
+    letter-spacing: 2.1px;
+  }
+
+  h2 {
+    @include color(#146f62, 1rem, normal, uppercase);
+  }
+
+  h3 {
+    @include color(#707070, 0.6rem, bold, uppercase);
+    letter-spacing: 2.1px;
+
+    span {
+      @include color(#146f62, 0.6rem, bold, uppercase);
+    }
+  }
+}
+
+.building_details_text_border {
+
+  // border-right: 1px solid #000000;
+  margin-top: 5rem;
+}
+
+.rooms_text {
+  .col-lg-4 {
+    p {
+      @include color(#707070, 1.2rem, 600, uppercase);
+    }
+  }
+}
+
+.building_cardone {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 4px #000000b3;
+  border-radius: 8px;
+  height: 26.6rem;
+
+  h2 {
+    margin-top: 3.5rem;
+    @include color(#707070, 1.8rem, bold, uppercase);
+  }
+
+  h3 {
+    line-height: 4.2rem;
+    @include color(#707070, 1.8rem, bold, uppercase);
+  }
+
+  p {
+    @include color(#707070, 1.8rem, normal, uppercase);
+  }
+}
+
+.main_meeting_building {
+  height: 22.4rem;
+
+  h2 {
+    @include color(#146f62, 1.8rem, 600, uppercase);
+  }
+}
+
+.img_preview_set {
+  width: 100%;
+  position: absolute;
+  left: 0%;
+  top: 118%;
+  height: 20rem;
+}
+
+.building_details_updata {
+  button {
+    float: right;
+    background: #146f62 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 4px #00000080;
+    border-radius: 4px;
+    @include color(#ffffff, 1.2rem, 600, uppercase);
+
+    i {
+      margin-left: 1rem;
+      font-size: 1.4rem;
+    }
+  }
+}
+
+.wifi_block {
+  .ic_wifi_building {
+    @include positions(absolute, 10%, 10%);
+  }
+
+  i {
+    position: absolute;
+    top: 10%;
+    right: 15%;
+    font-size: 2rem;
+    color: #0c4523;
+  }
+
+  .ic_phone_building {
+    @include positions(absolute, 38%, 10%);
+  }
+}
+
+.building_ipmodal {
+  position: relative;
+  top: 128%;
+  padding: 0rem 2rem;
+
+  .text-center {
+    @include color(#707070, 1.8rem, bold, capitalize);
+  }
+
+  p {
+    justify-content: space-between;
+    display: flex;
+    // width: 133%;
+    line-height: 1rem;
+    @include color(#c4ccd5, 1.6rem, normal, capitalize);
+
+    span {
+      @include color(#006594, 1.4rem, bold, capitalize);
+    }
+  }
+}
+
+.buildingdetail_access_txt {
+  h1 {
+    letter-spacing: 2.4px;
+    @include color(#65aba0, 1.2rem, bold, capitalize);
+
+    span {
+      margin: 0rem 0rem 0rem 1rem;
+      text-decoration: underline;
+      letter-spacing: 0rem;
+      @include color(#000000, 0.8rem, normal, capitalize);
+    }
+  }
+}
+
+.scedule_text_building {
+  position: absolute;
+  top: 18%;
+  right: 35%;
+
+  h3 {
+    @include color(#707070, 1.8rem, bold, uppercase);
+
+    span {
+      @include color(#707070, 1.8rem, normal, uppercase);
+      float: right;
+    }
+  }
+}
+
+.secondcard_bulding {
+  h2 {
+    @include color(#146f62, 1.8rem, 600, uppercase);
+  }
+}
+
+.na_text_building {
+  p {
+    @include color(#707070, 1.8rem, normal, uppercase);
+  }
+}
+
+.schedule_zoneb {
+  h2 {
+    opacity: 0.8;
+    @include color(black, 1rem, bold, uppercase);
+  }
+
+  h3 {
+    opacity: 0.8;
+    line-height: 4.2rem;
+    @include color(black, 1rem, bold, uppercase);
+  }
+
+  p {
+    @include color(#707070, 1rem, normal, uppercase);
+  }
+}
+
+.zones_d_access {
+  padding: 0rem 3rem;
+  border-left: 2px solid #0c4523;
+  border-right: 2px solid #0c4523;
+
+  .d-flex {
+    justify-content: space-between;
+
+    i {
+      font-size: 1.5rem;
+      color: #0c4523;
+    }
+  }
+
+  .text-center {
+    margin: 1rem 0rem 1rem 0rem;
+    @include color(#707070, 1rem, bold, capitalize);
+  }
+
+  p {
+    line-height: 1rem;
+    @include color(#c4ccd5, 1rem, normal, capitalize);
+
+    span {
+      float: right;
+      @include color(#006594, 1rem, bold, capitalize);
+    }
+  }
+}
+
+.building_logo {
+  @include positions(relative, 0%, 0%);
+
+  span {
+    @include color(#146f62, 2rem, 600, capitalize);
+    margin-left: 1rem;
+
+  }
+
+  i {
+    @include colorr(#146f62, 1.8rem, bold);
+  }
+}
+
+.buildingdetail_access_d {
+
+  // margin: 4rem 0rem 0rem 0rem;
+  h1 {
+    letter-spacing: 3.6px;
+    text-align: left;
+    @include color(#65aba0, 1.4rem, bold, uppercase);
+  }
+
+  td {
+    // font-size: 0.4rem;
+  }
+
+  tr {
+    box-shadow: none;
+  }
+
+  td {
+    border: none;
+    padding: 0px !important;
+
+  }
+
+  p {
+    line-height: 2rem;
+    @include color(#707070, 0.8rem, 600, uppercase);
+
+    span {
+      @include color(#707070, 0.8rem, 600, uppercase);
+    }
+  }
+
+  h4 {
+    margin: 0rem;
+    line-height: 2rem;
+    @include color(#0c4523, 0.8rem, 600, uppercase);
+
+    span {
+      @include color(#707070, 0.8rem, 600, uppercase);
+    }
+  }
+
+  h3 {
+    line-height: 2rem;
+    text-align: left;
+    margin: 0rem;
+    @include color(#707070, 0.9rem, 600, uppercase);
+  }
+}
+
+.buildingetails_btn_update {
+  @include color(#ffffff, 1rem, 600, uppercase);
+  font-size: 0.9rem !important;
+  background-color: #65aba0 !important;
+  height: 28px;
+  // width: 100%;
+  display: flex;
+  // justify-content: space-around;
+  margin-right: 1rem;
+  padding: 0 !important;
+  padding-left: 0.8rem !important;
+  margin-top: 1rem;
+  border: none !important;
+}
+
+.buildingetails_btn_device {
+  @include color(#ffffff, 1rem, 600, uppercase);
+  font-size: 0.9rem !important;
+  background-color: #65aba0 !important;
+  height: 28px;
+  display: flex;
+  justify-content: space-around;
+  margin-right: 3rem;
+  margin-top: 1rem;
+  border: none !important;
+
+  span {
+    padding-right: 30px;
+  }
+}
+
+// --------------------- General ------------------------
+
+.table {
+  th tr td {
+    border: hidden;
+  }
+}
+
+.profile_ancel_img {
+  float: right;
+  padding: 0.8rem 0.8rem;
+  color: rgb(193, 28, 28);
+
+  cursor: pointer;
+}
+
+.previewText {
+  width: 30%;
+  margin-top: 20px;
+}
+
+.imgPreview {
+  width: 10rem;
+  // position: absolute;
+  // left: 0%;
+  // top: 118%;
+  height: 10rem;
+}
+
+// .custom_inputfile {
+//   width: 100%;
+//   // position: relative;
+//   padding: 4rem;
+//   background: #fcfcfc 0% 0% no-repeat padding-box;
+//   border: 1px dashed #70707080;
+//   border-radius: 4px;
+//   cursor: pointer;
+//   .fa-cloud-upload {
+//     font-size: 5rem;
+//     color: #c4ccd599;
+//     width: 100%;
+//     // position: relative;
+//     span {
+//       margin-top: 2rem;
+//       margin-bottom: 2rem;
+//       @include color(#c4ccd580, 1.6rem, normal, uppercase);
+//       line-height: 2.5rem;
+//       @include positions(absolute, 44%, 15%);
+//     }
+//   }
+// }
+
+// --------------------- Zones Show Devices  page Css Start ------------------------
+
+.showdevices_res {
+  .showdevice_left {
+    width: 30rem;
+    @include positions(absolute, 1%, 0%);
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 4px #00000080;
+    border-radius: 6px;
+
+    h1 {
+      @include color(#65aba0, 1.4rem, bold, uppercase);
+    }
+
+    p {
+      @include color(#707070, 1.2rem, bold, uppercase);
+
+      span {
+        @include color(#707070, 1.2rem, normal, capitalize);
+      }
+    }
+
+    span {
+      @include color(#707070, 1.2rem, normal, capitalize);
+    }
+
+    select {
+      margin: 2rem 0rem;
+      @include color(#707070, 1.2rem, normal, capitalize);
+      padding: 1.2rem;
+      border: 1px solid #707070;
+      border-radius: 6px;
+    }
+
+    h3 {
+      cursor: pointer;
+      text-decoration: underline;
+      @include color(#bc0000, 1.2rem, normal, capitalize);
+    }
+
+    i {
+      color: #146f62;
+      font-size: 3rem;
+      @include positions(absolute, 5%, 6%);
+    }
+  }
+
+  // .showdevice_addbtn {
+  //   position: absolute;
+  //   right: 3%;
+  //   top: 1%;
+  //   button {
+  //     @include color(#ffffff, 1.6rem, normal, capitalize);
+  //     background: #146f62 0% 0% no-repeat padding-box;
+  //     border-radius: 8px;
+  //     width: 22.8rem;
+  //     height: 4.6rem;
+  //     img {
+  //       margin-left: 2rem;
+  //     }
+  //   }
+  // }
+  // .showdevice_addmap {
+  //   position: absolute;
+  //   right: 3%;
+  //   top: 9%;
+  //   button {
+  //     @include color(#ffffff, 1.6rem, normal, capitalize);
+  //     background: #146f62 0% 0% no-repeat padding-box;
+  //     border-radius: 8px;
+  //     width: 22.8rem;
+  //     height: 4.6rem;
+  //     img {
+  //       margin-left: 2rem;
+  //     }
+  //   }
+  // }
+}
+
+
+
+.showdevice_img_upload {
+  width: 100%;
+  position: relative;
+  padding: 2rem;
+  background: #fcfcfc 0% 0% no-repeat padding-box;
+  border: 1px dashed #70707080;
+  border-radius: 4px;
+  cursor: pointer;
+
+  .fa-cloud-upload {
+    font-size: 10rem;
+    color: #c4ccd599;
+    width: 100%;
+    position: relative;
+
+    span {
+      @include color(#c4ccd580, 1.6rem, normal, uppercase);
+      line-height: 2.5rem;
+      @include positions(absolute, 44%, 15%);
+    }
+  }
+}
+
+.showdevice_imgpreview {
+  width: 100%;
+  position: absolute;
+  left: 0%;
+  top: 118%;
+  height: 20rem;
+}
+
+
+
+
+// .showdevice_list {
+//   position: absolute;
+//   right: 3%;
+//   top: 17%;
+//   button {
+//     @include color(#ffffff, 1.6rem, normal, capitalize);
+//     background: #146f62 0% 0% no-repeat padding-box;
+//     border-radius: 8px;
+//     width: 48px;
+//     height: 48px;
+//     img {
+//     }
+//   }
+// }
+
+
+/////////////////////////////Update Zone///////////////////////////////////
+
+
+
+.row_input_addroom {
+  .col-lg-6 {
+    .form-group {
+      input {
+        margin-bottom: 2rem;
+        @include color(#707070, 1.2rem, bold, capitalize);
+        box-shadow: 4px 4px 4px #0000001a;
+        border: 2px solid #707070;
+        height: 4.4rem;
+        border-radius: 0.7rem;
+      }
+    }
+  }
+}
+
+// .readers_addroom {
+//   margin: 2rem 0rem 0rem 0rem;
+//   .col-lg-6 {
+//     h1 {
+//       @include color(#707070, 1.2rem, bold, capitalize);
+//     }
+//   }
+//   .checkbox_addroom {
+//     span {
+//       margin-left: 1rem;
+//       @include color(#707070, 1rem, normal, capitalize);
+//       line-height: 2.5rem;
+//     }
+//   }
+// }
+
+.button-cover:before {
+  counter-increment: button-counter;
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  color: #d7e3e3;
+  font-size: 12px;
+  line-height: 1;
+  padding: 5px;
+}
+
+.button-cover,
+.knobs,
+.layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.custom_addroom_toggle {
+  position: relative;
+  top: 59%;
+  left: 0%;
+  width: 66px;
+  height: 25px;
+  margin: -20px auto 0 auto;
+  overflow: hidden;
+}
+
+.button.r,
+.button.r .layer {
+  border-radius: 100px;
+}
+
+.button.b2 {
+  border-radius: 2px;
+}
+
+.custom_addroom_toggle {
+  .checkbox {
+    opacity: 0;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    z-index: 3;
+  }
+}
+
+// .bi-eye-slash {
+//   position: absolute;
+//   right: 4%;
+//   top: 30%;
+//   color: #146f62;
+// }
+
+.displayshow {
+  display: block !important;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.reveal {
+  visibility: visible;
+}
+
+.knobs {
+  z-index: 2;
+}
+
+.layer {
+  width: 100%;
+  background-color: #65aba0;
+  transition: 0.3s ease all;
+  z-index: 1;
+}
+
+#button-1 .knobs:before {
+  content: " ";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 20px;
+  height: 10px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  padding: 9px 4px;
+  background-color: #146f62;
+  border-radius: 50%;
+  transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
+}
+
+#button-1 .checkbox:checked+.knobs:before {
+  content: " ";
+  left: 40px;
+  background-color: #146f62;
+}
+
+#button-1 .checkbox:checked~.layer {
+  background-color: #65aba0;
+}
+
+#button-1 .knobs,
+#button-1 .knobs:before,
+#button-1 .layer {
+  transition: 0.3s ease all;
+}
+
+.addroom_unlink {
+  p {
+    @include color(#bc0000, 1.4rem, normal, capitalize);
+  }
+
+  span {
+    position: absolute;
+    right: 0%;
+    @include color(#0c4523, 1.4rem, normal, capitalize);
+  }
+}
+
+.addroom_selecttime {
+  i {
+    position: absolute;
+    right: 2%;
+    top: 16%;
+    font-size: 2.5rem;
+  }
+}
+
+
+//arman_balti
+
+// update data Zone section
+.update_zone_header {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+
+  .update_zone_header_Left {
+    display: flex;
+    align-items: center;
+
+    a {
+      i {
+        font-size: 2rem;
+        margin-right: 10px;
+        color: #178a7b
+      }
+    }
+
+    h2 {
+      padding-left: 1rem;
+      @include color(#178a7b, 2rem, bold, uppercase);
+    }
+
+  }
+
+  .update_zone_header_right {
+    a {
+      button {
+        background-color: #178a7b;
+        border: none;
+        font-weight: 600;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+}
+
+// zone second section 
+.zone_Data_info {
+  margin: 2.4rem 0rem;
+
+  h1 {
+
+    @include color(#65aba0, 2rem, bold, uppercase);
+    margin-bottom: 1rem;
+  }
+
+  .form_data_zone_info {
+    margin-top: 1rem;
+    width: 27%;
+
+    .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+      padding: 7px !important;
+      //  border: 2px solid #707070;
+      // border-color: #707070;  
+    }
+  }
+
+  .form_data_zone_select {
+    width: 27%;
+  }
+
+  .bottom_line {
+
+    border-bottom: 3px dashed #146f62;
+    margin-top: 1.8rem;
+  }
+
+}
+
+// update zone access device
+.addzone_accessdevice {
+  display: flex;
+  align-items: center;
+
+  h2 {
+    letter-spacing: 0.4rem;
+    @include color(#65aba0, 1.6rem, bold, uppercase);
+  }
+
+  input {
+    margin-left: 1rem !important;
+  }
+
+  span {
+    font-size: 0.9rem;
+    margin-left: 0.6rem !important;
+    color: #707070;
+  }
+
+}
+
+// access device zone_update form
+.zone_update_access_device {
+  margin-top: 1rem;
+
+  h4 {
+    color: #146F62;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 4.5px;
+  }
+
+  .zone_update_access_device_form {
+    select {
+      // background: var(--white-ffffff) 0% 0% no-repeat padding-box;
+      border: 2px solid var(--gray-707070);
+      // background: #FFFFFF 0% 0% no-repeat padding-box;
+      box-shadow: 4px 4px 4px #0000001A;
+      border: 2px solid #707070;
+      opacity: 1;
+    }
+
+    .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+      padding: 8px !important;
+    }
+
+    .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border-color: #707070;
+    }
+
+    .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select {
+      min-height: 1.9em !important
+    }
+
+    .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
+
+      font-weight: 600 !important;
+    }
+  }
+}
+
+// zone update reader
+.zone_update_reader {
+  margin-top: 1rem;
+
+  h1 {
+    @include color(#146F62, 1.6rem, 600, uppercase);
+  }
+
+  input[type=checkbox] {
+    accent-color: #146f62;
+    margin-right: 0.8rem;
+  }
+
+  label {
+    color: #707070;
+  }
+}
+
+// zone update options
+.zone_update_options {
+  margin-top: 1rem;
+
+  h1 {
+    @include color(#146F62, 1.6rem, 600, uppercase);
+  }
+
+  input[type=checkbox] {
+    accent-color: #146f62;
+    margin-right: 0.8rem;
+  }
+
+  label {
+    color: #707070;
+  }
+
+}
+
+//zone update lock
+.zone_update_lock {
+  margin-top: 1rem;
+
+  h1 {
+    @include color(#146F62, 1.6rem, 600, uppercase);
+  }
+
+  .label_unlink {
+    color: #BC0000;
+    font-size: 14px;
+  }
+
+  .label_link {
+    color: #0C4523;
+    font-size: 14px;
+  }
+
+  .css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked {
+
+    color: #0C4523;
+  }
+
+  .css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase {
+    color: #BC0000;
+  }
+
+  .css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track {
+    background-color: #65ABA0;
+  }
+
+
+}
+
+//common aera zone update
+.common_area_zone_update {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+
+  h2 {
+    letter-spacing: 0.4rem;
+    @include color(#65aba0, 1.6rem, bold, uppercase);
+  }
+
+  input {
+    margin-left: 1rem !important;
+  }
+
+  span {
+    font-size: 0.9rem;
+    margin-left: 0.6rem !important;
+    color: #707070;
+  }
+
+}
+
+.common_area_zone_upadate_sub_section {
+  margin-top: 0.6rem;
+  margin-bottom: 3rem;
+
+  h4 {
+    color: #65ABA0;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2.1px;
+  }
+}
+
+
+// show device zone information
+
+.show_device {
+  position: relative;
+
+  .show_device_navigation {
+
+    position: absolute;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 4px #00000080;
+    border-radius: 6px;
+    opacity: 1;
+    width: 250px;
+    // height: 43px;
+    margin-top: 1.5rem;
+    padding: 0rem 1rem;
+
+    .show_device_navigation_item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 0.6rem;
+
+
+
+
+    }
+
+    a {
+      i {
+        margin-right: 1rem;
+        color: #146F62;
+        font-size: 16px;
+      }
+    }
+
+    h4 {
+      color: #146F62;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    h6 {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: #65ABA0;
+      text-align: end;
+
+    }
+
+    p {
+      font-size: 12px;
+      color: #707070;
+      text-align: end;
+
+    }
+
+    span {
+      font-weight: bold;
+    }
+
+    a {
+      color: #BC0000 !important;
+      font-weight: bold;
+      font-size: 12px;
+      float: right;
+
+    }
+
+  }
+
+  .showdevice_addbtn {
+    position: absolute;
+    right: 0%;
+    top: 2%;
+
+    button:hover {
+      @include color(#ffffff, 1.6rem, normal, capitalize);
+      background: #146f62 0% 0% no-repeat padding-box;
+      border-radius: 8px;
+      width: 14rem;
+      height: 48px;
+      display: flex;
+      justify-content: space-around;
+
+      span {
+        display: block;
+        font-size: 1.2rem;
+
+      }
+
+      img {
+        display: block;
+        margin-top: 0.3rem;
+
+      }
+    }
+
+    button {
+      width: 46px;
+      height: 48px;
+      background: #146f62 0% 0% no-repeat padding-box;
+
+      span {
+        display: none;
+      }
+
+      img {
+        margin-left: 0rem;
+      }
+    }
+  }
+
+  .showdevice_addmap {
+    position: absolute;
+    right: 0%;
+    top: 8%;
+
+    button:hover {
+      @include color(#ffffff, 1.6rem, normal, capitalize);
+      background: #146f62 0% 0% no-repeat padding-box;
+      border-radius: 8px;
+      width: 14rem;
+      height: 48px;
+      display: flex;
+      justify-content: space-around;
+
+      span {
+        display: block;
+        font-size: 1.2rem;
+      }
+
+      img {
+        display: block;
+        // margin-right: 2rem;
+        margin-top: 0.3rem;
+      }
+    }
+
+    button {
+      width: 46px;
+      height: 48px;
+      background: #146f62 0% 0% no-repeat padding-box;
+
+      span {
+        display: none;
+      }
+
+      img {
+        margin-left: 0rem;
+      }
+    }
+  }
+
+  .showdevice_list {
+    position: absolute;
+    right: 0%;
+    top: 14%;
+
+    button {
+      @include color(#ffffff, 1.6rem, normal, capitalize);
+      background: #146f62 0% 0% no-repeat padding-box;
+      border-radius: 8px;
+      width: 48px;
+      height: 48px;
+
+      img {
+        margin-bottom: 0.4rem;
+      }
+    }
+  }
+}
+
+//add plane Model zone update
+.add_new_model_plane {
+
+
+  h1 {
+    @include color(#146F62, 1.6rem, 600, uppercase);
+    letter-spacing: 7px;
+  }
+
+  .upload_image_plane {
+    span {
+      color: red;
+    }
+  }
+
+  // #showdeviceModal {
+  //   transition: transform 0.3s ease-out;
+  //   transform: translate(10%, 0%) !important;
+  //   h1 {
+  //     margin-top: -1rem;
+  //     letter-spacing: 7px;
+  //     @include color(#146f62, 2rem, bold, capitalize);
+  //   }
+  //   .modal-body {
+  //     button {
+  //       background-color: #146f62;
+  //       @include color(#ffffff, 1.8em, bold, uppercase);
+  //     }
+  //   }
+  // }
+
+}
+
+// add new  update plane model
+.add_new_plane_image_upload {
+  border: 1px dashed #707070B3;
+  border-radius: 4px;
+  opacity: 1;
+  padding: 2.6rem;
+  cursor: pointer;
+
+  .inner_item {
+    display: flex;
+    justify-content: space-around;
+
+    .fa-cloud-upload {
+      font-size: 5rem;
+      color: #c4ccd599;
+    }
+
+    h4 {
+      color: #707070B3;
+      font-size: 1.2rem;
+    }
+
+    h5 {
+      color: #707070B3;
+      font-size: 1.2rem;
+    }
+
+    p {
+      color: #707070B3;
+      font-size: 0.7rem;
+      font-weight: bold;
+    }
+  }
+
+
+}
+
+.add_plane_footer_button {
+  display: flex;
+  justify-content: space-between;
+
+  .btncancel {
+    color: #BC0000;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    opacity: 1;
+  }
+
+  .btnUpload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #146F62;
+    border: none;
+    box-shadow: 0px 0px 4px #00000080;
+    height: 30px;
+  }
+
+  .btnUpload:hover {
+    background: #093c34;
+  }
+}
+
+// add new model map
+
+.add_new_model_map {
+  h1 {
+    @include color(#146F62, 1.6rem, 600, uppercase);
+    letter-spacing: 7px;
+  }
+
+  .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+    padding: 8px !important;
+  }
+
+  .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #707070;
+  }
+
+  .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select {
+    min-height: 1.9em !important
+  }
+
+  .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
+
+    font-weight: 600 !important;
+  }
+
+  p {
+    font-size: 12px;
+    text-decoration: underline;
+  }
+
+}
+
+.zones_map {
+  width: 100%;
+  height: 174px;
+  border-radius: 4px;
+}
+
+//show device list model 
+#showdevice_listModal {
+  transition: transform 0.3s ease-out;
+  transform: translate(43%, 24%) !important;
+
+  h1 {
+    // margin: -1rem 0rem 6rem 0rem;
+    margin-top: -1rem !important;
+    letter-spacing: 7px;
+    @include color(#146F62, 1.2rem, bold, capitalize);
+  }
+
+  .modal-content {
+    width: 65%;
+  }
+
+  p {
+    padding-bottom: 0.8rem;
+    border-bottom: 1px dashed #146f62;
+    margin-top: 1rem !important;
+    @include color(#707070, 1.2rem, normal, capitalize);
+
+    span {
+      float: right;
+      @include color(#707070, 1.2rem, bold, capitalize);
+
+      img {
+        margin-left: 3rem;
+        margin-top: -0.1rem;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+
+
+.hide_filter {
+  .tss-tlx3x1-MUIDataTableToolbar-root {
+    display: none;
+  }
+
+}
+
+
+// #showdevicemapModal {
+//   transition: transform 0.3s ease-out;
+//   transform: translate(10%, 0%) !important;
+
+//   h1 {
+//     margin: -1rem 0rem 3rem 0rem;
+//     letter-spacing: 7px;
+//     @include color(#146f62, 2rem, bold, capitalize);
+//   }
+
+//   input {
+//     height: 4rem;
+//     margin: 0rem 0rem 2rem 0rem;
+//     padding: 1.8rem;
+//     @include color(#707070, 1.2em, bold, uppercase);
+//     border: 1px solid #707070;
+//     border-radius: 6px;
+//   }
+
+//   .modal-content {
+//     // height: 50rem;
+//   }
+
+//   p {
+//     margin-top: 0.5rem;
+//     text-decoration: underline;
+//     @include color(#000000, 1.2em, normal, uppercase);
+//   }
+
+//   .modal-body {
+//     button {
+//       background-color: #146f62;
+//       @include color(#ffffff, 1.8em, bold, uppercase);
+//     }
+//   }
+// }

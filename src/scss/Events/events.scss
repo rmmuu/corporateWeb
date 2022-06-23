@@ -1,0 +1,504 @@
+.events {
+  .steps {
+    width: 100% !important;
+  }
+
+  .tss-58la38-MUIDataTable-paper .tss-tlx3x1-MUIDataTableToolbar-root {
+    display: none !important;
+  }
+
+  .tss-58la38-MUIDataTable-paper .css-1ex1afd-MuiTableCell-root:first-child {
+    color: #707070;
+    text-align: left;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0px;
+    color: #707070;
+  }
+}
+
+.records {
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0px 0px 4px #00000080;
+  border-radius: 6px;
+
+  .not_available {
+    height: 92px;
+    display: flex;
+    grid-gap: 49px;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0;
+
+    span {
+      font-weight: 300;
+      font-size: 48px;
+      line-height: 58px;
+      letter-spacing: 0px;
+      color: #bc0000;
+    }
+  }
+}
+.manage_others_modal_body {
+  .findPersonDiv {
+    margin-top: 1rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #146f62;
+  }
+  .bottomText {
+    font-size: 10px;
+    color: #707070;
+    margin: 5px 0;
+    span {
+      color: #bc0000;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+  }
+  .preRegisterUserFields {
+    margin: 10px 0;
+  }
+}
+
+// incoming page scss
+.eventTables {
+  overflow-y: scroll;
+  // height: 13rem;
+  padding: 0 1rem;
+  table {
+    border-collapse: separate !important;
+    border-spacing: 0 15px;
+
+    thead {
+      th {
+        font-size: 14px;
+        color: #65aba0;
+        text-transform: uppercase;
+        text-align: center;
+      }
+    }
+
+    .first {
+      text-align: left !important;
+      padding-left: 1rem;
+    }
+
+    .last {
+      text-align: right !important;
+      padding-right: 1rem;
+
+      img {
+        cursor: pointer;
+      }
+
+      .dropdown-menu.show {
+        inset: -16% auto auto 11%;
+        transform: translate(0px, 25px);
+        padding: 20px;
+        width: 216px;
+        height: 99px;
+        border-radius: 15px;
+
+        .dropdownDiv {
+          margin-bottom: 10px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          img {
+            width: 18px;
+            height: 24px;
+          }
+
+          span {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    tr {
+      box-shadow: 0px 0px 6px 0px black;
+      border-radius: 5px;
+      height: 36px;
+
+      td {
+        text-align: center;
+      }
+    }
+  }
+}
+
+.CreateEventPanel {
+  .name {
+    margin-top: 18px;
+  }
+
+  .content {
+    margin-top: 70px;
+
+    .name {
+      margin-left: 150px;
+
+      p {
+        text-transform: uppercase;
+        font-size: 10px;
+        font-weight: 600;
+        color: #707070;
+        margin-bottom: 18px !important;
+      }
+    }
+
+    .inputs {
+      width: 346px;
+    }
+
+    .dateTimeInput {
+      margin: 20px 0px 0 150px;
+
+      input {
+        font-size: 12px;
+        padding: 6px 15px !important;
+      }
+
+      p {
+        text-transform: uppercase;
+        font-size: 10px;
+        font-weight: 600;
+        color: #707070;
+        margin-bottom: 13px !important;
+      }
+
+      .dateTimeInput-container {
+        display: flex;
+
+        .dateInput {
+          margin-right: 29px;
+        }
+
+        .timeInput {
+          width: 100% !important;
+        }
+      }
+    }
+  }
+
+  .content2 {
+    margin-top: 40px;
+
+    .headline {
+      font-size: 12px;
+      font-weight: bold;
+      color: #707070;
+      margin-bottom: 11px !important;
+      margin-top: 40px !important;
+    }
+
+    .headline2 {
+      font-size: 12px;
+      font-weight: bold;
+      color: #707070;
+      margin-bottom: 11px !important;
+    }
+
+    margin: 0px 171px;
+
+    .reservationCard {
+      box-shadow: 0px 0px 6px #000000b0;
+      border-radius: 12px;
+      background: #fcfcfc;
+      display: flex;
+      font-size: 14px;
+      margin-bottom: 12px;
+      cursor: pointer;
+
+      .data {
+        padding: 20px 15px;
+      }
+
+      .heading {
+        font-weight: bold;
+      }
+
+      .description {
+        color: #707070;
+      }
+
+      .status {
+        color: #178a7b;
+      }
+
+      .flowerImg {
+        width: 35px;
+        height: 35px;
+        margin: 10px 0 0 10px;
+      }
+
+      .companyImage {
+        width: 92px;
+        margin: 5px 14px;
+      }
+    }
+
+    .unavailableEventParent {
+      box-shadow: 0px 0px 4px #00000080;
+      border-radius: 6px;
+      background: #ffffff;
+      width: 99%;
+      margin: auto;
+
+      .unavailableEvent {
+        font-size: 24px;
+        color: #bc0000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        i {
+          margin-left: 41px;
+        }
+      }
+    }
+  }
+}
+
+.searchItem {
+  max-height: 10rem;
+  overflow-y: scroll;
+  .add_some_one_item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    cursor: pointer;
+    margin: 5px 0;
+    &:hover {
+      background-color: lightgray;
+    }
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.EventBtns {
+  display: flex;
+  justify-content: flex-end;
+  margin: 14% 11% 0 11%;
+  .EventNextBtn {
+    background-color: #146f62;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    width: 284px;
+
+    /* left: 737px; */
+    &:hover {
+      background-color: #65aba0;
+    }
+  }
+
+  .EventPreviousBtn {
+    font-size: 14px;
+    font-weight: 600;
+    color: #bc0000;
+    width: 284px;
+  }
+}
+
+.CreateOnuEventPanel {
+  .HostSection {
+    .checkboxOther {
+      margin: 37px 0 !important;
+
+      input {
+        margin-right: 11px;
+      }
+    }
+  }
+
+  .content {
+    .contentStart {
+      margin-top: 126px;
+      margin-left: 223px;
+      margin-right: 223px;
+    }
+  }
+
+  .content4 {
+    margin-top: 76px;
+    margin-left: 177px;
+    margin-right: 191px;
+
+    .headingText {
+      font-size: 14px;
+      font-weight: bold;
+      color: #707070;
+      margin-top: 28px !important;
+    }
+
+    .yesNoCheckbox {
+      display: flex;
+      font-size: 14px;
+      color: #707070;
+      margin-left: 62px;
+    }
+  }
+}
+
+.css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+  width: 100% !important;
+}
+
+// Events-modal
+.events_modal {
+  .modal-header {
+    position: relative;
+    height: 2rem;
+
+    img {
+      position: absolute;
+      right: 0;
+      top: 0;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 3px;
+
+      &:hover {
+        background-color: lightgray;
+      }
+    }
+  }
+
+  .modal-body {
+    padding: 10px 1rem;
+
+    .heading {
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: 7px;
+      color: #146f62;
+      margin-bottom: 14px;
+    }
+
+    .modal_excerpt {
+      text-align: center;
+      font-weight: normal;
+      font-size: 11px;
+      line-height: 14px;
+      letter-spacing: 0px;
+      color: #707070;
+      margin-bottom: 5px;
+    }
+
+    ul {
+      li {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 18px;
+        letter-spacing: 0px;
+        color: #000000;
+        margin-bottom: 8px;
+
+        ::marker {
+          color: #146f62 !important;
+        }
+      }
+    }
+  }
+
+  .modal-dialog {
+    max-width: 317px !important;
+  }
+}
+
+.visitors {
+  padding: 38px 80px;
+
+  .tss-58la38-MUIDataTable-paper .tss-tlx3x1-MUIDataTableToolbar-root {
+    display: none !important;
+  }
+
+  .tss-1ork7hi-MUIDataTablePagination-tableCellContainer {
+    display: none !important;
+  }
+}
+
+.vehicles {
+  padding: 0 86px;
+
+  .vehicleTable {
+    position: relative;
+
+    .head {
+      button {
+        width: 100% !important;
+        padding: 7px 30px;
+      }
+    }
+
+    .add_vehicle {
+      position: absolute;
+      top: 20%;
+      right: 0;
+      max-width: 30% !important;
+    }
+  }
+
+  .tss-58la38-MUIDataTable-paper .tss-tlx3x1-MUIDataTableToolbar-root {
+    max-width: 70% !important;
+    // ::after{
+    //   content: 'Add button';
+    //   max-width: 20%;
+    //   background-color: red;
+    //   color: #fff;
+    // }
+  }
+}
+
+.EventIncomingDeatil {
+  margin-top: 2rem;
+}
+
+.EventValidationDeatil {
+  margin-top: 2rem;
+}
+
+.remove_filter_visitor {
+  .tss-58la38-MUIDataTable-paper .tss-tlx3x1-MUIDataTableToolbar-root {
+    display: none;
+  }
+}
+
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+  border: 0.114rem solid #707070 !important;
+  border-radius: 6px !important;
+}
+
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
+  font-size: 12px !important;
+  font-weight: 900 !important;
+}
+
+.duration-min {
+  position: absolute;
+  right: 10px;
+  top: 52px;
+  text-align: left;
+  font: normal normal bold 12px/15px Montserrat;
+  letter-spacing: 0px;
+  color: #707070;
+  opacity: 1;
+}
+
+.hostContainer .content {
+  margin-top: 0px;
+}
+
+.hostContainer .content .name {
+  margin-left: 0px;
+}

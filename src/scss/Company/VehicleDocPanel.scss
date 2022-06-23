@@ -1,0 +1,214 @@
+.documentsPanel {
+    padding: 26px 0rem 2rem 1rem;
+    .page-heading {
+        font-size: 39px;
+        font-weight: 500;
+        text-align: left;
+        letter-spacing: 0px;
+        color: #146f62;
+        opacity: 1;
+        h1 {
+            font-size: 39px;
+            font-weight: 500;
+            text-align: left;
+            letter-spacing: 0px;
+            color: #146f62;
+            opacity: 1;
+        }
+    }
+    .row {
+        margin-top: 105px;
+        justify-content: center;
+        .table-heading {
+            margin: 14px 0;
+            padding: 0 14.34px;
+            display: flex;
+            justify-content: center;
+            p {
+                height: 24px;
+                font-size: 20px;
+                font-weight: 500;
+                text-align: left;
+                letter-spacing: 7px;
+                color: #146f62;
+                opacity: 1;
+                font-weight: bold;
+                text-transform: capitalize;
+            }
+            button {
+                border: none;
+                text-decoration: underline;
+                text-decoration-color: #000000;
+                background-color: Transparent;
+                text-transform: capitalize;
+                &:focus {
+                    border: none;
+                    outline: none;
+                    outline: none !important;
+                }
+            }
+        }
+        .contractors {
+            margin-top: 182px;
+        }
+    }
+}
+.documents-detail-sec {
+    width: 505px;
+    .table-header {
+        padding: 0 14.34px;
+        display: flex;
+        justify-content: space-between;
+        div {
+            // width: 33.33%;
+            // height: 18px;
+            font: normal normal bold 14px/18px Montserrat;
+            letter-spacing: 0px;
+            color: #65aba0;
+            opacity: 1;
+        }
+    }
+    .no-data {
+        display: flex;
+        justify-content: center;
+        height: 34px;
+        padding: 0 14.34px;
+        box-shadow: 0px 0px 4px #000000b3;
+        border-radius: 8px;
+        margin: 5px 0;
+        align-items: center;
+    }
+    .data-row {
+        display: flex;
+        justify-content: space-between;
+        left: 500px;
+        padding: 0 14.34px;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        box-shadow: 0px 0px 4px #000000b3;
+        border-radius: 8px;
+        opacity: 1;
+        margin: 5px 0;
+        align-items: center;
+        font: normal normal bold 14px/18px Montserrat;
+        div {
+            width: 33.33%;
+        }
+        .cancel {
+            height: 12px;
+            width: 12px;
+            cursor: pointer;
+        }
+    }
+    .second-row {
+        height: 96px;
+        .download-pdf {
+            width: 30%;
+            font-size: 12px;
+            text-align: center;
+        }
+    }
+    .first-row,
+    .third-row {
+        height: 34px;
+    }
+}
+
+.documents-panel-modal {
+    .modal-content {
+        justify-content: center !important;
+        .modal-header {
+            border-bottom: none;
+            .h4 {
+                margin: 10px auto !important;
+                font-size: 15px;
+                letter-spacing: 3px;
+                color: #146f62;
+                font-weight: bold;
+            }
+            .modalClose {
+                padding: 3px;
+                margin: 2px;
+                width: 16px;
+                height: 16px;
+                position: absolute;
+                right: 0;
+                cursor: pointer;
+                &:hover {
+                    background-color: #e1e1e1;
+                    opacity: 0.5;
+                    border-radius: 4px;
+                }
+            }
+        }
+        .docsModalBody {
+            display: flex;
+            flex-direction: column;
+            grid-gap: 8px;
+
+            .dottedborderbox {
+                height: 97px;
+                border: 1px dashed #707070b3;
+                border-radius: 4px;
+                opacity: 1;
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                .cloud {
+                    width: 20%;
+                    height: auto;
+                }
+                .dragAndDrop {
+                    width: 50%;
+                    text-align: center;
+                    color: #707070b3;
+                    p {
+                        font-size: 16px !important;
+                    }
+                    span {
+                        font-size: 10px;
+                    }
+                }
+                #file-input {
+                    display: none;
+                }
+            }
+            .uploadImg {
+                height: 97px;
+                border: 1px dashed #707070b3;
+                border-radius: 4px;
+                opacity: 1;
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                .cloud {
+                    width: 20%;
+                    height: auto;
+                }
+            }
+            .buttonArea {
+                width: 100%;
+                .btn-light {
+                    padding: 0;
+                    width: 50% !important;
+                    height: 30px;
+                    border-radius: 4px;
+                    opacity: 1;
+                    color: #bc0000 !important;
+                    font-size: 16px;
+                    text-transform: uppercase;
+                }
+                .btn-success {
+                    padding: 0;
+                    width: 50%;
+                    border-radius: 4px;
+                    opacity: 1;
+                    background-color: #146f62;
+                    font-size: 16px;
+                    height: 30px;
+                    color: #fff !important;
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+}

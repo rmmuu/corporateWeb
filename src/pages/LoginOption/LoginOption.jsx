@@ -1,19 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../../Apis/Authentication";
 import bglogout from "../../assets/images/bglogout.png";
 import logouticon from "../../assets/images/logouticon.svg";
-// import LoginOptionChild from "./LoginOptionChild";
 
 const LoginOption = () => {
+    const navigate = useNavigate();
     const users = [1, 2]
     return (
         <>
             <div className="home_bg_m">
                 <div className="p-3 logout_m d-flex">
-                    <Link to='/'>
-                        <img src={logouticon} alt="logout_img" />
-                        <span>LOG OUT</span>
-                    </Link>
+                    <img src={logouticon} alt="logout_img" />
+                    <span onClick={() => logoutUser(navigate)}>LOG OUT</span>
                 </div>
                 <div className="container">
                     <div className="d-flex justify-content-center">
@@ -25,7 +24,7 @@ const LoginOption = () => {
                                         users.map(item => (
                                             <div className="col-lg-5" key={item}>
                                                 <div className="mb-4 card loginop_child_card ">
-                                                    <Link to="/dashboard">
+                                                    <a href="/dashboard/company">
                                                         <div className="p-2">
                                                             <img
                                                                 src={bglogout}
@@ -42,7 +41,7 @@ const LoginOption = () => {
                                                             <p className="pt-2">ROLE</p>
                                                             <h6>General Employee</h6>
                                                         </div>
-                                                    </Link>
+                                                    </a>
                                                 </div>
                                             </div>
                                         ))

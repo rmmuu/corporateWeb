@@ -35,6 +35,7 @@ const Header = () => {
                 console.log("please select one thing.")
         }
     };
+    const [iconClick, seticonClick] = useState();
 
     return (
         <Navbar expand="lg">
@@ -47,20 +48,17 @@ const Header = () => {
                         DOWNLOAD <img style={{ marginLeft: "10px" }} src={mobile} alt="mobileimg" />
                         {
                             download && <div className="dropdown_css">
-                                <p>
+                                <p onClick={() => seticonClick("ios")}>
                                     ios
                                     <span className="pull-right">
-                                        <i className="fa fa-apple" aria-hidden="true"></i>
+                                        {iconClick == "ios" && <i className="fa fa-check" aria-hidden="true"></i>}
                                     </span>
                                 </p>
 
-                                <p>
+                                <p onClick={() => seticonClick("andriod")}>
                                     andriod
                                     <span className="pull-right">
-                                        <i
-                                            className="fa fa-android"
-                                            aria-hidden="true"
-                                        ></i>
+                                        {iconClick == "andriod" && <i className="fa fa-check" aria-hidden="true"></i>}
                                     </span>
                                 </p>
                             </div>
@@ -70,28 +68,22 @@ const Header = () => {
                         LANGUAGES <img style={{ marginLeft: "10px" }} src={languageimg} alt="languageimg" />
                         {
                             language && <div className="dropdown_css">
-                                <p>
+                                <p onClick={() => seticonClick("spanish")}>
                                     spanish
                                     <span className="pull-right">
-                                        <i className="fa fa-apple" aria-hidden="true"></i>
+                                        {iconClick == "spanish" && <i className="fa fa-check" aria-hidden="true"></i>}
                                     </span>
                                 </p>
-                                <p>
+                                <p onClick={() => seticonClick("english")}>
                                     english
                                     <span className="pull-right">
-                                        <i
-                                            className="fa fa-android"
-                                            aria-hidden="true"
-                                        ></i>
+                                        {iconClick == "english" && <i className="fa fa-check" aria-hidden="true"></i>}
                                     </span>
                                 </p>
-                                <p>
+                                <p onClick={() => seticonClick("french")}>
                                     french
                                     <span className="pull-right">
-                                        <i
-                                            className="fa fa-android"
-                                            aria-hidden="true"
-                                        ></i>
+                                        {iconClick == "french" && <i className="fa fa-check" aria-hidden="true"></i>}
                                     </span>
                                 </p>
                             </div>
