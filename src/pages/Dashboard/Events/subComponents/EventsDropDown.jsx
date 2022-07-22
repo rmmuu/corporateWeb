@@ -5,14 +5,22 @@ import listIcon from "../../../../assets/images/viewDetails.png"
 import fileIcon from "../../../../assets/images/saveFile.png"
 import { useNavigate } from 'react-router-dom';
 import AllowDenyModal from "./AllowDenyModal";
+import { useDispatch, useSelector } from "react-redux";
+import CancelEventModal from "../CancelEventModal";
+import { downloadOnuFile, getEventDetail } from "../../../../reduxToolkit/EmployeeEvents/EmployeeEventsApi";
+import { URL } from "../../../../Apis/Constants";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => {
+    // console.log(children?._owner?.memoizedProps?.event?.id)
+    // const dispatch = useDispatch();
+    // let childId = children?._owner?.memoizedProps?.event?.id
 
     return (
         <div
             ref={ref}
             onClick={(e) => {
                 onClick(e);
+                // dispatch(getEventDetail(childId));
             }}
         >
             {children}
@@ -25,72 +33,94 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => {
     );
 });
 
-const EventDropDown = ({ dropDownProps, eventid }) => {
+const EventDropDown = ({ dropDownProps, event }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const companyRestrictionsData = useSelector(state => state?.EmployeeEventsSlice?.companyRestrictionsData);
 
     const [show, setShow] = useState(false);
+    const [cancelshow, setCancelShow] = useState(false);
+    const handleDownload = () => {
+        // dispatch(downloadOnuFile(event?.id))
+        fetch(`${URL}file-service/download-report-onu/${event?.id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/pdf',
+                "Authorization": `Bearer ${sessionStorage.getItem("bearerToken")}`,
+            },
+        })
+            .then((response) => response.blob())
+            .then((blob) => {
+                const url = window.URL.createObjectURL(
+                    new Blob([blob]),
+                );
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute(
+                    'download',
+                    `FileName.pdf`,
+                );
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+            });
+    }
 
-    const handleOptions = () => {
-        if (dropDownProps.firstItem === "DOWNLOAD FILE") {
-            fetch(`${URL}file-service/download-report-onu/${eventid}`, {
-                method: 'GET',
-                headers: {
-                    "Accept": "application/json",
-                    'Content-Type': 'application/form-data',
-                    "Authorization": `Bearer ${sessionStorage.getItem("bearerToken")}`,
-                    "responseType": "blob",
-                },
-            })
-                .then((response) => response.blob())
-                .then((blob) => {
-                    // Create blob link to download
-                    const url = window.URL.createObjectURL(
-                        new Blob([blob]),
-                    );
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.setAttribute(
-                        'download',
-                        `FileName.pdf`,
-                    );
-
-                    // Append to html link element page
-                    document.body.appendChild(link);
-
-                    // Start download
-                    link.click();
-
-                    // Clean up and remove the link
-                    link.parentNode.removeChild(link);
-                });
-        }
-        if (dropDownProps.firstItem === "ALLOW EVENT") {
-            setShow(true);
-        }
+    const handleViewDetails = () => {
+        navigate(companyRestrictionsData?.isOnuEvent ?
+            `/dashboard/events-panel/incomming-envent-detail/${event?.id}` :
+            `/dashboard/events-panel/validation-envent-detail/${event?.id}`
+        )
     }
 
     return (
         <Dropdown>
             <Dropdown.Toggle as={CustomToggle} >
                 <Dropdown.Menu size="sm" title="go to details">
-                    <div className="dropdownDiv" style={{ cursor: 'pointer' }}>
-                        <img src={fileIcon} alt="fileIcon" />
-                        <span onClick={handleOptions}>
-                            {dropDownProps.firstItem}
-                        </span>
-                    </div>
+                    {
+                        companyRestrictionsData?.isOnuEvent && dropDownProps.panel !== 'records' ?
+                            <div className="dropdownDiv" style={{ cursor: 'pointer' }}>
+                                <img src={fileIcon} alt="fileIcon" />
+                                <span onClick={handleDownload}>
+                                    {dropDownProps.firstItem}
+                                </span>
+                            </div> : null
+                    }
                     <div className="dropdownDiv" style={{ cursor: 'pointer' }}>
                         <img src={listIcon} alt="viewDetails" />
                         <span
-                            onClick={() => navigate(dropDownProps.panel === 'incoming' ? `/dashboard/events-panel/incomming-envent-detail/${eventid}` : `/dashboard/events-panel/validation-envent-detail/${eventid}`)}
+                            onClick={handleViewDetails}
                         >
                             {dropDownProps.secondItem}
                         </span>
                     </div>
+                    {
+                        event?.status.name !== "EVENT_CANCEL" && dropDownProps.panel === 'incoming' || dropDownProps.panel === 'valication' ?
+                            <div className="dropdownDiv" style={{ cursor: 'pointer' }}>
+                                <img src={fileIcon} alt="fileIcon" />
+                                <span onClick={() => setCancelShow(true)}>
+                                    {dropDownProps.thirdItem}
+                                </span>
+                            </div> : null
+                    }
+                    {
+                        dropDownProps.panel === 'valication' ?
+                            <div className="dropdownDiv" style={{ cursor: 'pointer' }}>
+                                <img src={fileIcon} alt="fileIcon" />
+                                <span onClick={() => setShow(true)}>
+                                    {dropDownProps.fourthItem}
+                                </span>
+                            </div> : null
+                    }
                     <AllowDenyModal
-                        eventid={eventid}
+                        eventid={event?.id}
                         show={show}
                         onHide={() => setShow(false)}
+                    />
+                    <CancelEventModal
+                        eventid={event?.id}
+                        show={cancelshow}
+                        onHide={() => setCancelShow(false)}
                     />
                 </Dropdown.Menu>
             </Dropdown.Toggle>

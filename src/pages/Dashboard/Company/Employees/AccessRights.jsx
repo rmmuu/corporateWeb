@@ -3,7 +3,8 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 import AccessRightCard from "./AccessRightCard";
-import pdfpng from "../../../../assets/images/PDF.PNG";
+import pdfpng from "../../../../assets/images/pdf.svg";
+
 const AccessRights = () => {
   const cards = [
     {

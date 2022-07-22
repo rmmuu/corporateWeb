@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import FilterPopus from "../Vehicles/FilterPopus";
 import EmployeeCards from "./EmployeeCard/EmployeeCards";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import SortFilter from "./Modal/SortFilter";
-import FilterModal from "./Modal/FilterModal";
 
 const AllEmployees = (props) => {
   const [modalShow, setModalShow] = useState(false);

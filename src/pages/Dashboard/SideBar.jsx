@@ -1,9 +1,7 @@
 
 import sideLogo from '../../assets/images/assidebar_log.png';
-import angelright_icon from "../../assets/images/angelright.svg";
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import SidebarDropDownOption from '../../components/SidebarDropDownOption';
 import EmployeeTabs from './SideBars/EmployeeTabs';
 import ProviderTabs from './SideBars/ProviderTabs';
 import ContractorTabs from './SideBars/ContractorTabs';

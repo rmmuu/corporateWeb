@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 // Material Ui Components
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
@@ -34,31 +34,13 @@ import {
   UpdateExtraData,
   updateUser
 } from "../../../../Apis/CompanyEmployee";
-
 import { toast } from "react-toastify";
-import { override } from "../../../../Helpers/spinnercss";
-import HashLoader from "react-spinners/HashLoader";
 
 
 const AddEmployeeRecord = () => {
-  const location = useLocation();
-  const updateUserId = location.pathname.split("addemployee/")[1]
-  const companyId = "bc9789f1-3f16-4759-851d-5501cc37ec97";
-  const { data } = JSON.parse(sessionStorage.getItem("userdata"));
-  const employeeData = JSON.parse(sessionStorage.getItem("getuserbyuserid"));
-  // const deleteId = localStorage.getItem("deleteId");
+  const { id } = useParams()
+  const companyId = "a6bd2887-0f4a-4e5f-b0b5-000d9817ab23";
 
-  // const days = [
-  //   "monday",
-  //   "tuesday",
-  //   "wednesday",
-  //   "thursday",
-  //   "friday",
-  //   "saturday",
-  //   "sunday",
-  // ];
-
-  const [loading, setLoading] = useState(updateUserId ? true : false);
   const [updateUserData, setUpdateUserData] = useState();
   const [changeImageModal, setChangeImageModal] = useState();
   const [name, setName] = useState("");
@@ -106,6 +88,7 @@ const AddEmployeeRecord = () => {
   // };
 
 
+  console.log(contractRoles)
 
   useEffect(() => {
 
@@ -116,13 +99,7 @@ const AddEmployeeRecord = () => {
       toast.error("something went wrong.")
     })
 
-    const getWorkStationsObj = {
-      companyId: companyId,
-      email: email,
-      userId: data.id
-    }
-
-    getWorkStations(getWorkStationsObj).then(({ data: { data } }) => {
+    getWorkStations().then(({ data: { data } }) => {
       setContractAllowedZones(data)
       // console.log(data);
     }).catch(error => {
@@ -130,11 +107,9 @@ const AddEmployeeRecord = () => {
     })
 
 
-    if (updateUserId) {
-      // console.log(updateUserId);
-      getUserByUserId(updateUserId).then(({ data: { data } }) => {
-        console.log("data");
-        setLoading(false)
+    if (id) {
+      // console.log(id);
+      getUserByUserId(id).then(({ data: { data } }) => {
         setUpdateUserData(data);
         setName(data?.user.name);
         setGender(data?.user.gender);
@@ -156,7 +131,7 @@ const AddEmployeeRecord = () => {
           id: data?.user?.role.id
         })
       }).catch(error => {
-        // toast.error("something went wrong in geting update user data")
+        toast.error("something went wrong in geting update user data")
       })
     }
   }, [])
@@ -175,7 +150,6 @@ const AddEmployeeRecord = () => {
 
   const handleSaveChanges = () => {
     if (updateUserData) {
-      setLoading(true)
 
       const updatedUserObj = {
         companyId: companyId,
@@ -225,11 +199,9 @@ const AddEmployeeRecord = () => {
 
       updateUser(updatedUserObj).then(({ data: { data } }) => {
         toast.success("data updated successfully..!");
-        setLoading(false)
         // console.log(data)
       }).catch(error => {
         toast.error("something went wrong!")
-        setLoading(false)
         console.log(error)
       })
 
@@ -240,9 +212,7 @@ const AddEmployeeRecord = () => {
       //   toast.error("Please Fill all fields")
       // }
 
-      setLoading(true)
       getUserByEmail(email).then(({ data: { data } }) => {
-        setLoading(false)
         toast.error("Email Already Exist")
         // console.log(data)
       }).catch(error => {
@@ -278,6 +248,7 @@ const AddEmployeeRecord = () => {
             endDate: 1639065970000
           }
 
+          console.log(employeeObj)
           createEmployee(employeeObj).then(({ data: { data } }) => {
             toast.success("Employee Created Successfully..!")
             // console.log(data)
@@ -316,573 +287,567 @@ const AddEmployeeRecord = () => {
 
   return (
     <>
-      {
-        loading ?
-          <div className="overlay">
-            <HashLoader loading="true" css={override} size={50} color="#fff" />
-          </div> :
-          <>
-            <div className="head">
-              <h2>
-                <Link to='/dashboard/company'>
-                  <ArrowBackIcon style={{ fontSize: "30px", marginRight: "30px" }} />
-                </Link>
-                User Data
-              </h2>
-              <span
-                style={{
-                  backgroundColor: "#BC0000",
-                  color: "white",
-                  fontWeight: "600",
-                  padding: "5px",
-                  width: "153px",
-                  borderRadius: "100px",
-                  textAlign: "center",
-                  position: "absolute",
-                  textTransform: "uppercase",
-                  float: "left",
-                  marginLeft: "300px",
-                }}
-              >
-                Inactive
-              </span>
-              <div>
-                <button
-                  className="btn "
-                  style={{ backgroundColor: "#BC0000", marginBottom: "5px" }}
-                >
-                  Unlink Device
-                  <PhoneIphoneIcon />
-                </button>
-                <button
-                  className="btn"
-                  style={{ width: "100%", backgroundColor: "#A2CBF4" }}
-                >
-                  SEND QR CODE BY EMAIL
-                  <MailOutlineIcon />
-                </button>
+      <div className="head">
+        <h2>
+          <Link to='/dashboard/company'>
+            <ArrowBackIcon style={{ fontSize: "30px", marginRight: "30px" }} />
+          </Link>
+          User Data
+        </h2>
+        <span
+          style={{
+            backgroundColor: "#BC0000",
+            color: "white",
+            fontWeight: "600",
+            padding: "5px",
+            width: "153px",
+            borderRadius: "100px",
+            textAlign: "center",
+            position: "absolute",
+            textTransform: "uppercase",
+            float: "left",
+            marginLeft: "300px",
+          }}
+        >
+          Inactive
+        </span>
+        <div>
+          <button
+            className="btn "
+            style={{ backgroundColor: "#BC0000", marginBottom: "5px" }}
+          >
+            Unlink Device
+            <PhoneIphoneIcon />
+          </button>
+          <button
+            className="btn"
+            style={{ width: "100%", backgroundColor: "#A2CBF4" }}
+          >
+            SEND QR CODE BY EMAIL
+            <MailOutlineIcon />
+          </button>
+        </div>
+      </div>
+      <div className="main_all_p">
+        <div className="text-center exchange_icon">
+          <img
+            src={person4}
+            className="img-fluid"
+            alt="employeedetail-person4"
+          />
+
+          <Link
+            to="#"
+            onClick={() => setChangeImageModal(true)}
+            className="position-relative"
+          >
+            <span className="dot ">
+              <img
+                src={exchangealt}
+                className="img-fluid exchange_alt_m"
+                alt="exchange_alt"
+              />
+            </span>
+          </Link>
+        </div>
+        <div className="pt-3 mb-4 row">
+          <div className="col-lg-6 col-md-12 col-12">
+            <p className="mb-2 infoEmpl_text">INFORMATION</p>
+
+            <div
+              className="main_content empdetail_c"
+              style={{ height: "342px" }}
+            >
+              <div className="mb-4 row addemp_input_m gy-4">
+                <div className="mt-5">
+                  <Box
+                    sx={{
+                      width: "100%",
+                      maxWidth: "100%",
+                      fontSize: "20px",
+                      height: "40px",
+                    }}
+                  >
+                    <TextField
+                      fullWidth
+                      placeholder="LUIS ENRIQUE"
+                      label="NAME"
+                      id="NAME"
+                      value={name}
+                      required
+                      onChange={(e) => setName(e.target.value)}
+                      className=""
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <img
+                              src={userregular}
+                              className="user_regular_img"
+                              alt="acadd_logo"
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Box>
+                </div>
+
+                <div className="col-lg-6">
+                  <Box>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">
+                        Gender
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={gender}
+                        label="Age"
+                        onChange={(e) => setGender(e.target.value)}
+                      >
+                        <MenuItem value={10}>Male</MenuItem>
+                        <MenuItem value={20}>Female</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                </div>
+                <div className="col-lg-6">
+                  <Box
+                    sx={{
+                      width: "100%",
+                      maxWidth: "100%",
+                      fontSize: "20px",
+                      height: "40px",
+                    }}
+                  >
+                    <TextField
+                      fullWidth
+                      placeholder="4426562658"
+                      label="CELULAR"
+                      id="CELULAR"
+                      value={cellular}
+                      onChange={(e) => setCellular(e.target.value)}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <PhoneIphoneIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Box>
+                </div>
+                {
+                  id !== undefined ?
+                    <div className="col-lg-6">
+                      <Box>
+                        <FormControl fullWidth>
+                          <InputLabel id="demo-simple-select-label">
+                            Status
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={status}
+                            onChange={(e) => setStatus(e.target.value)}
+                            label="Status"
+                          >
+                            <MenuItem value={10}>Active</MenuItem>
+                            <MenuItem value={20}>InActive</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Box>
+                    </div> : ""
+                }
+
+                <div className="col-lg-6">
+                  <FormControl fullWidth>
+                    <Box
+                      sx={{
+                        width: "100%",
+                        maxWidth: "100%",
+                        fontSize: "20px",
+                        height: "40px",
+                      }}
+                    >
+                      <TextField
+                        fullWidth
+                        placeholder="lcornejo@ibl.mx"
+                        label="EMAIL"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        id="EMAIL"
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <MailOutlineIcon />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    </Box>
+                  </FormControl>
+                </div>
+                <div className="col-lg-6">
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <Stack spacing={3}>
+                      <DesktopDatePicker
+                        label="DOB"
+                        inputFormat="MM/dd/yyyy"
+                        value={dob}
+                        onChange={(e) => setDob(e)}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </Stack>
+                  </LocalizationProvider>
+                </div>
               </div>
             </div>
-            <div className="main_all_p">
-              <div className="text-center exchange_icon">
-                <img
-                  src={person4}
-                  className="img-fluid"
-                  alt="employeedetail-person4"
-                />
+          </div>
 
-                <Link
-                  to="#"
-                  onClick={() => setChangeImageModal(true)}
-                  className="position-relative"
-                >
-                  <span className="dot ">
-                    <img
-                      src={exchangealt}
-                      className="img-fluid exchange_alt_m"
-                      alt="exchange_alt"
-                    />
-                  </span>
-                </Link>
-              </div>
-              <div className="pt-3 mb-4 row">
-                <div className="col-lg-6 col-md-12 col-12">
-                  <p className="mb-2 infoEmpl_text">INFORMATION</p>
-
-                  <div
-                    className="main_content empdetail_c"
-                    style={{ height: "342px" }}
-                  >
-                    <div className="mb-4 row addemp_input_m gy-4">
-                      <div className="mt-5">
-                        <Box
-                          sx={{
-                            width: "100%",
-                            maxWidth: "100%",
-                            fontSize: "20px",
-                            height: "40px",
-                          }}
-                        >
-                          <TextField
-                            fullWidth
-                            placeholder="LUIS ENRIQUE"
-                            label="NAME"
-                            id="NAME"
-                            value={name}
-                            required
-                            onChange={(e) => setName(e.target.value)}
-                            className=""
-                            InputProps={{
-                              endAdornment: (
-                                <InputAdornment position="end">
-                                  <img
-                                    src={userregular}
-                                    className="user_regular_img"
-                                    alt="acadd_logo"
-                                  />
-                                </InputAdornment>
-                              ),
-                            }}
-                          />
-                        </Box>
-                      </div>
-
-                      <div className="col-lg-6">
-                        <Box>
-                          <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">
-                              Gender
-                            </InputLabel>
-                            <Select
-                              labelId="demo-simple-select-label"
-                              id="demo-simple-select"
-                              value={gender}
-                              label="Age"
-                              onChange={(e) => setGender(e.target.value)}
-                            >
-                              <MenuItem value={10}>Male</MenuItem>
-                              <MenuItem value={20}>Female</MenuItem>
-                            </Select>
-                          </FormControl>
-                        </Box>
-                      </div>
-                      <div className="col-lg-6">
-                        <Box
-                          sx={{
-                            width: "100%",
-                            maxWidth: "100%",
-                            fontSize: "20px",
-                            height: "40px",
-                          }}
-                        >
-                          <TextField
-                            fullWidth
-                            placeholder="4426562658"
-                            label="CELULAR"
-                            id="CELULAR"
-                            value={cellular}
-                            onChange={(e) => setCellular(e.target.value)}
-                            InputProps={{
-                              endAdornment: (
-                                <InputAdornment position="end">
-                                  <PhoneIphoneIcon />
-                                </InputAdornment>
-                              ),
-                            }}
-                          />
-                        </Box>
-                      </div>
-                      {
-                        updateUserId !== undefined ?
-                          <div className="col-lg-6">
-                            <Box>
-                              <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">
-                                  Status
-                                </InputLabel>
-                                <Select
-                                  labelId="demo-simple-select-label"
-                                  id="demo-simple-select"
-                                  value={status}
-                                  onChange={(e) => setStatus(e.target.value)}
-                                  label="Status"
-                                >
-                                  <MenuItem value={10}>Active</MenuItem>
-                                  <MenuItem value={20}>InActive</MenuItem>
-                                </Select>
-                              </FormControl>
-                            </Box>
-                          </div> : ""
-                      }
-
-                      <div className="col-lg-6">
-                        <FormControl fullWidth>
-                          <Box
-                            sx={{
-                              width: "100%",
-                              maxWidth: "100%",
-                              fontSize: "20px",
-                              height: "40px",
-                            }}
-                          >
-                            <TextField
-                              fullWidth
-                              placeholder="lcornejo@ibl.mx"
-                              label="EMAIL"
-                              value={email}
-                              onChange={(e) => setEmail(e.target.value)}
-                              id="EMAIL"
-                              InputProps={{
-                                endAdornment: (
-                                  <InputAdornment position="end">
-                                    <MailOutlineIcon />
-                                  </InputAdornment>
-                                ),
-                              }}
-                            />
-                          </Box>
-                        </FormControl>
-                      </div>
-                      <div className="col-lg-6">
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
-                          <Stack spacing={3}>
-                            <DesktopDatePicker
-                              label="DOB"
-                              inputFormat="MM/dd/yyyy"
-                              value={dob}
-                              onChange={(e) => setDob(e)}
-                              renderInput={(params) => <TextField {...params} />}
-                            />
-                          </Stack>
-                        </LocalizationProvider>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* {
+          {/* {
             companyRestructions?.extraDataEmployee ? */}
-                <div className="col-lg-6 col-md-12 col-12 ">
-                  <p className="mb-2 infoEmpl_text">extra data</p>
+          <div className="col-lg-6 col-md-12 col-12 ">
+            <p className="mb-2 infoEmpl_text">extra data</p>
 
-                  <div className="main_content empdetail_c">
-                    <div className="mb-4 mt-1 row addemp_input_m gy-4">
-                      <div className="col-lg-6">
-                        <Box
-                          sx={{
-                            width: "100%",
-                            maxWidth: "100%",
-                            fontSize: "20px",
-                            height: "40px",
-                          }}
-                        >
-                          <TextField
-                            fullWidth
-                            placeholder="Paseos de san miguel 5041"
-                            label="ADDRESS 1"
-                            id="ADDRESS 1"
-                            value={address1}
-                            onChange={(e) => setAddress1(e.target.value)}
-                          />
-                        </Box>
-                      </div>
-                      <div className="col-lg-6">
-                        <Box
-                          sx={{
-                            width: "100%",
-                            maxWidth: "100%",
-                            fontSize: "20px",
-                            height: "40px",
-                          }}
-                        >
-                          <TextField
-                            fullWidth
-                            placeholder="Paseos de san miguel 5041"
-                            label="ADDRESS 2"
-                            id="ADDRESS 2"
-                            value={address2}
-                            onChange={(e) => setAddress2(e.target.value)}
-                          />
-                        </Box>
-                      </div>
-
-                      <div className="col-lg-6">
-                        <Box
-                          sx={{
-                            width: "100%",
-                            maxWidth: "100%",
-                            fontSize: "20px",
-                            height: "40px",
-                          }}
-                        >
-                          <TextField
-                            fullWidth
-                            placeholder="Querétaro"
-                            label="STATE"
-                            value={state}
-                            onChange={(e) => setState(e.target.value)}
-                            id="STATE"
-                          />
-                        </Box>
-                      </div>
-                      <div className="col-lg-6">
-                        <Box
-                          sx={{
-                            width: "100%",
-                            maxWidth: "100%",
-                            fontSize: "20px",
-                            height: "40px",
-                          }}
-                        >
-                          <TextField
-                            fullWidth
-                            placeholder="México"
-                            label="COUNTRY"
-                            id="COUNTRY"
-                            value={country}
-                            onChange={(e) => setCountry(e.target.value)}
-                          />
-                        </Box>
-                      </div>
-                      <div className="col-lg-6">
-                        <Box
-                          sx={{
-                            width: "100%",
-                            maxWidth: "100%",
-                            fontSize: "20px",
-                            height: "40px",
-                          }}
-                        >
-                          <TextField
-                            fullWidth
-                            placeholder="76118"
-                            label="POST CODE"
-                            value={postcode}
-                            onChange={(e) => setPostCode(e.target.value)}
-                            id="POST CODE"
-                          />
-                        </Box>
-                      </div>
-                      <div className="col-lg-6">
-                        <Box
-                          sx={{
-                            width: "100%",
-                            maxWidth: "100%",
-                            fontSize: "20px",
-                            height: "40px",
-                          }}
-                        >
-                          <TextField
-                            fullWidth
-                            placeholder="4425625658"
-                            label="HOME NUMBER"
-                            value={homeNumber}
-                            onChange={(e) => setHomeNumber(e.target.value)}
-                            id="HOME NUMBER"
-                          />
-                        </Box>
-                      </div>
-
-                      <div className="col-lg-6">
-                        <Box
-                          sx={{
-                            width: "100%",
-                            maxWidth: "100%",
-                            fontSize: "20px",
-                            height: "40px",
-                          }}
-                        >
-                          <TextField
-                            fullWidth
-                            placeholder="A+"
-                            label="BLOOD TYPE"
-                            value={bloodType}
-                            onChange={(e) => setBloodType(e.target.value)}
-                            id="BLOOD TYPE"
-                          />
-                        </Box>
-                      </div>
-
-                      <div className="col-lg-6">
-                        <Box
-                          sx={{
-                            width: "100%",
-                            maxWidth: "100%",
-                            fontSize: "20px",
-                            height: "40px",
-                          }}
-                        >
-                          <TextField
-                            fullWidth
-                            placeholder="لويس إنريكي كورنيجو أريولا"
-                            label="ARABIC NAME"
-                            id="ARABIC NAME"
-                            value={arabicName}
-                            onChange={(e) => setArabicName(e.target.value)}
-                          />
-                        </Box>
-                      </div>
-
-                      <div className="col-lg-6">
-                        <Box>
-                          <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">
-                              GENDER
-                            </InputLabel>
-                            <Select
-                              labelId="demo-simple-select-label"
-                              id="demo-simple-select"
-                              value={gender}
-                              label="Age"
-                              onChange={(e) => setGender(e.target.value)}
-                            >
-                              <MenuItem value={10}>MALE</MenuItem>
-                              <MenuItem value={20}>FEMALE</MenuItem>
-                            </Select>
-                          </FormControl>
-                        </Box>
-                      </div>
-                      <div className="col-lg-6">
-                        <Box>
-                          <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">
-                              WAS VACINATED
-                            </InputLabel>
-                            <Select
-                              labelId="demo-simple-select-label"
-                              id="demo-simple-select"
-                              value={wasVacinated}
-                              label="Age"
-                              onChange={(e) => setWasVacinated(e.target.value)}
-                            >
-                              <MenuItem value={10}>YES</MenuItem>
-                              <MenuItem value={20}>NO</MenuItem>
-                            </Select>
-                          </FormControl>
-                        </Box>
-                      </div>
-                    </div>
-                  </div>
+            <div className="main_content empdetail_c">
+              <div className="mb-4 mt-1 row addemp_input_m gy-4">
+                <div className="col-lg-6">
+                  <Box
+                    sx={{
+                      width: "100%",
+                      maxWidth: "100%",
+                      fontSize: "20px",
+                      height: "40px",
+                    }}
+                  >
+                    <TextField
+                      fullWidth
+                      placeholder="Paseos de san miguel 5041"
+                      label="ADDRESS 1"
+                      id="ADDRESS 1"
+                      value={address1}
+                      onChange={(e) => setAddress1(e.target.value)}
+                    />
+                  </Box>
                 </div>
-                {/* : ""
+                <div className="col-lg-6">
+                  <Box
+                    sx={{
+                      width: "100%",
+                      maxWidth: "100%",
+                      fontSize: "20px",
+                      height: "40px",
+                    }}
+                  >
+                    <TextField
+                      fullWidth
+                      placeholder="Paseos de san miguel 5041"
+                      label="ADDRESS 2"
+                      id="ADDRESS 2"
+                      value={address2}
+                      onChange={(e) => setAddress2(e.target.value)}
+                    />
+                  </Box>
+                </div>
+
+                <div className="col-lg-6">
+                  <Box
+                    sx={{
+                      width: "100%",
+                      maxWidth: "100%",
+                      fontSize: "20px",
+                      height: "40px",
+                    }}
+                  >
+                    <TextField
+                      fullWidth
+                      placeholder="Querétaro"
+                      label="STATE"
+                      value={state}
+                      onChange={(e) => setState(e.target.value)}
+                      id="STATE"
+                    />
+                  </Box>
+                </div>
+                <div className="col-lg-6">
+                  <Box
+                    sx={{
+                      width: "100%",
+                      maxWidth: "100%",
+                      fontSize: "20px",
+                      height: "40px",
+                    }}
+                  >
+                    <TextField
+                      fullWidth
+                      placeholder="México"
+                      label="COUNTRY"
+                      id="COUNTRY"
+                      value={country}
+                      onChange={(e) => setCountry(e.target.value)}
+                    />
+                  </Box>
+                </div>
+                <div className="col-lg-6">
+                  <Box
+                    sx={{
+                      width: "100%",
+                      maxWidth: "100%",
+                      fontSize: "20px",
+                      height: "40px",
+                    }}
+                  >
+                    <TextField
+                      fullWidth
+                      placeholder="76118"
+                      label="POST CODE"
+                      value={postcode}
+                      onChange={(e) => setPostCode(e.target.value)}
+                      id="POST CODE"
+                    />
+                  </Box>
+                </div>
+                <div className="col-lg-6">
+                  <Box
+                    sx={{
+                      width: "100%",
+                      maxWidth: "100%",
+                      fontSize: "20px",
+                      height: "40px",
+                    }}
+                  >
+                    <TextField
+                      fullWidth
+                      placeholder="4425625658"
+                      label="HOME NUMBER"
+                      value={homeNumber}
+                      onChange={(e) => setHomeNumber(e.target.value)}
+                      id="HOME NUMBER"
+                    />
+                  </Box>
+                </div>
+
+                <div className="col-lg-6">
+                  <Box
+                    sx={{
+                      width: "100%",
+                      maxWidth: "100%",
+                      fontSize: "20px",
+                      height: "40px",
+                    }}
+                  >
+                    <TextField
+                      fullWidth
+                      placeholder="A+"
+                      label="BLOOD TYPE"
+                      value={bloodType}
+                      onChange={(e) => setBloodType(e.target.value)}
+                      id="BLOOD TYPE"
+                    />
+                  </Box>
+                </div>
+
+                <div className="col-lg-6">
+                  <Box
+                    sx={{
+                      width: "100%",
+                      maxWidth: "100%",
+                      fontSize: "20px",
+                      height: "40px",
+                    }}
+                  >
+                    <TextField
+                      fullWidth
+                      placeholder="لويس إنريكي كورنيجو أريولا"
+                      label="ARABIC NAME"
+                      id="ARABIC NAME"
+                      value={arabicName}
+                      onChange={(e) => setArabicName(e.target.value)}
+                    />
+                  </Box>
+                </div>
+
+                <div className="col-lg-6">
+                  <Box>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">
+                        GENDER
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={gender}
+                        label="Age"
+                        onChange={(e) => setGender(e.target.value)}
+                      >
+                        <MenuItem value={10}>MALE</MenuItem>
+                        <MenuItem value={20}>FEMALE</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                </div>
+                <div className="col-lg-6">
+                  <Box>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">
+                        WAS VACINATED
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={wasVacinated}
+                        label="Age"
+                        onChange={(e) => setWasVacinated(e.target.value)}
+                      >
+                        <MenuItem value={10}>YES</MenuItem>
+                        <MenuItem value={20}>NO</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* : ""
           } */}
-              </div>
-              <div className="mb-5">
-                {/* Section Two start */}
-                <div className="contract_access_r">
-                  <div className="access_right_m">
-                    <p className="mb-2">CONTRACT</p>
-                    <div className="main_content access_right_card ">
-                      <div className="d-flex">
-                        <div className="col-lg-6">
-                          <div className="mt-4 mb-5 col-lg">
-                            <Box>
-                              <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">
-                                  Role
-                                </InputLabel>
-                                <Select
-                                  labelId="demo-simple-select-label"
-                                  id="demo-simple-select"
-                                  value={role.name}
-                                  name={role.id}
-                                  onChange={(e) => setRole({
-                                    name: e.target.value,
-                                    id: e.target.name
-                                  })}
-                                >
-                                  {
-                                    contractRoles?.map(item => (
-                                      <MenuItem value={item.name} name={item.id}>{item.name}</MenuItem>
-                                    ))
-                                  }
-                                </Select>
-                              </FormControl>
-                            </Box>
-                          </div>
+        </div>
+        <div className="mb-5">
+          {/* Section Two start */}
+          <div className="contract_access_r">
+            <div className="access_right_m">
+              <p className="mb-2">CONTRACT</p>
+              <div className="main_content access_right_card ">
+                <div className="d-flex">
+                  <div className="col-lg-6">
+                    <div className="mt-4 mb-5 col-lg">
+                      <Box>
+                        <FormControl fullWidth>
+                          <InputLabel id="demo-simple-select-label">
+                            Role
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={role.name}
+                            name={role.id}
+                            onChange={(e) => setRole({
+                              name: e.target.value,
+                              id: e.target.name
+                            })}
+                          >
+                            {
+                              contractRoles?.map(item => (
+                                <MenuItem value={item.name} name={item.id}>{item.name}</MenuItem>
+                              ))
+                            }
+                          </Select>
+                        </FormControl>
+                      </Box>
+                    </div>
 
-                          <div className="mt-4 mb-5 col-lg">
-                            <Box
-                              sx={{
-                                width: "100%",
-                                maxWidth: "100%",
-                                fontSize: "20px",
-                                height: "40px",
-                              }}
-                            >
-                              <TextField
-                                fullWidth
-                                placeholder="IBL-454515151"
-                                label="EMPLOYEE ID"
-                                id="EMPLOYEE ID"
-                                value={employeeId}
-                                onChange={(e) => setEmployeeId(e.target.value)}
-                              />
-                            </Box>
-                          </div>
+                    <div className="mt-4 mb-5 col-lg">
+                      <Box
+                        sx={{
+                          width: "100%",
+                          maxWidth: "100%",
+                          fontSize: "20px",
+                          height: "40px",
+                        }}
+                      >
+                        <TextField
+                          fullWidth
+                          placeholder="IBL-454515151"
+                          label="EMPLOYEE ID"
+                          id="EMPLOYEE ID"
+                          value={employeeId}
+                          onChange={(e) => setEmployeeId(e.target.value)}
+                        />
+                      </Box>
+                    </div>
 
-                          <div className="mt-4 mb-5 col-lg">
-                            <Box>
-                              <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">
-                                  Contract Status
-                                </InputLabel>
-                                <Select
-                                  labelId="demo-simple-select-label"
-                                  id="demo-simple-select"
-                                  label="Age"
-                                  value={contractStatus}
-                                  onChange={(e) => setContractStatus(e.target.value)}
-                                >
-                                  <MenuItem value={10}>GENERAL EMPLOYEE</MenuItem>
-                                  <MenuItem value={20}>MANAGER</MenuItem>
-                                </Select>
-                              </FormControl>
-                            </Box>
-                          </div>
-                        </div>
-                        <div className="col-lg-6">
-                          <div className="mt-4 mb-5 col-lg">
-                            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                              <Stack spacing={3}>
-                                <DesktopDatePicker
-                                  label="START DATE"
-                                  inputFormat="MM/dd/yyyy"
-                                  value={startdate}
-                                  onChange={(e) => setStartdate(e)}
-                                  renderInput={(params) => <TextField {...params} />}
-                                />
-                              </Stack>
-                            </LocalizationProvider>
-                          </div>
-                          <div className="mt-4 mb-5 col-lg">
-                            <Box>
-                              <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">
-                                  WORK STATION
-                                </InputLabel>
-                                <Select
-                                  labelId="demo-simple-select-label"
-                                  id="demo-simple-select"
-                                  label="Age"
-                                  value={workStation.name}
-                                  name={workStation.id}
-                                  onChange={(e) => setWorkStation({
-                                    name: e.target.value,
-                                    id: e.target.name
-                                  })}
-                                >
-                                  {
-                                    contractAllowedZones?.map(item => (
-                                      <MenuItem value={item.name} name={item.id}>{item.name}</MenuItem>
-                                    ))
-                                  }
-                                </Select>
-                              </FormControl>
-                            </Box>
-                          </div>
-                          <div className="mt-4 mb-5 col-lg">
-                            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                              <Stack spacing={3}>
-                                <DesktopDatePicker
-                                  label="END DATE"
-                                  inputFormat="MM/dd/yyyy"
-                                  value={endDate}
-                                  onChange={(e) => setEndDate(e)}
-                                  renderInput={(params) => <TextField {...params} />}
-                                />
-                              </Stack>
-                            </LocalizationProvider>
-                          </div>
-                        </div>
-                      </div>
+                    <div className="mt-4 mb-5 col-lg">
+                      <Box>
+                        <FormControl fullWidth>
+                          <InputLabel id="demo-simple-select-label">
+                            Contract Status
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            label="Age"
+                            value={contractStatus}
+                            onChange={(e) => setContractStatus(e.target.value)}
+                          >
+                            <MenuItem value={10}>GENERAL EMPLOYEE</MenuItem>
+                            <MenuItem value={20}>MANAGER</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Box>
+                    </div>
+                  </div>
+                  <div className="col-lg-6">
+                    <div className="mt-4 mb-5 col-lg">
+                      <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <Stack spacing={3}>
+                          <DesktopDatePicker
+                            label="START DATE"
+                            inputFormat="MM/dd/yyyy"
+                            value={startdate}
+                            onChange={(e) => setStartdate(e)}
+                            renderInput={(params) => <TextField {...params} />}
+                          />
+                        </Stack>
+                      </LocalizationProvider>
+                    </div>
+                    <div className="mt-4 mb-5 col-lg">
+                      <Box>
+                        <FormControl fullWidth>
+                          <InputLabel id="demo-simple-select-label">
+                            WORK STATION
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            label="Age"
+                            value={workStation.name}
+                            name={workStation.id}
+                            onChange={(e) => setWorkStation({
+                              name: e.target.value,
+                              id: e.target.name
+                            })}
+                          >
+                            {
+                              contractAllowedZones?.map(item => (
+                                <MenuItem value={item.name} name={item.id}>{item.name}</MenuItem>
+                              ))
+                            }
+                          </Select>
+                        </FormControl>
+                      </Box>
+                    </div>
+                    <div className="mt-4 mb-5 col-lg">
+                      <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <Stack spacing={3}>
+                          <DesktopDatePicker
+                            label="END DATE"
+                            inputFormat="MM/dd/yyyy"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e)}
+                            renderInput={(params) => <TextField {...params} />}
+                          />
+                        </Stack>
+                      </LocalizationProvider>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
 
-              <div className="contract_access_r">
-                {/* <div className="access_right_m">
+        <div className="contract_access_r">
+          {/* <div className="access_right_m">
             <p className="mb-2 infoEmpl_text">ACCESS RIGHTS</p>
             <div className="main_content access_right_card ">
               <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -930,10 +895,10 @@ const AddEmployeeRecord = () => {
               </div>
             </div>
           </div> */}
-              </div>
+        </div>
 
-              <div className=" type_nfc_card">
-                {/* <div className="pt-4 access_textt">
+        <div className=" type_nfc_card">
+          {/* <div className="pt-4 access_textt">
             <Link to="">cards</Link>
             <span className="pull-right">
               <button
@@ -1149,21 +1114,19 @@ const AddEmployeeRecord = () => {
             </div>
           </div>*/}
 
-                <div className="addemp_dletuser">
-                  <div className="pull-right d-flex align-items-center mb-4">
-                    <Link to="/dashboard/company">
-                      <span style={{ cursor: "pointer" }}>CANCEL</span>
-                    </Link>
-                    <button className="btn btn-danger btn-lg" onClick={handleSaveChanges}>
-                      SAVE CHANGES
-                    </button>
-                  </div>
-                </div>
-              </div>
-              {/* Section Two End*/}
+          <div className="addemp_dletuser">
+            <div className="pull-right d-flex align-items-center mb-4">
+              <Link to="/dashboard/company">
+                <span style={{ cursor: "pointer" }}>CANCEL</span>
+              </Link>
+              <button className="btn btn-danger btn-lg" onClick={handleSaveChanges}>
+                SAVE CHANGES
+              </button>
             </div>
-          </>
-      }
+          </div>
+        </div>
+        {/* Section Two End*/}
+      </div>
 
       <NewCard
         title="New Card"

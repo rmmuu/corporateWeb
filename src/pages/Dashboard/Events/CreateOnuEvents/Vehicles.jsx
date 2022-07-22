@@ -1,112 +1,122 @@
 
-import React, { useState } from 'react'
-import CustomDatatable from '../../../../components/customDatatable'
-import { FaRegTrashAlt } from 'react-icons/fa';
-import SaveIcon from "@mui/icons-material/Save";
-import CreateEventModal from "../subComponents/createEventModal"
+import React, { useEffect, useState } from 'react'
+import deleteIcon from '../../../../assets/images/ic-delete-red.svg';
+import Add from "@mui/icons-material/Add";
+import AddNewVehicle from './AddNewVehicle';
+import { getAllVehiclesData } from '../../../../reduxToolkit/EmployeeEvents/EmployeeEventsApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveOunVehiclesList, updateOunVehicleData } from '../../../../reduxToolkit/EmployeeEvents/EmployeeEventsSlice';
+import NoEvent from '../NoEvent';
 
 const Vehicles = () => {
- 
-    const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
+  const vehicleData = useSelector(state => state?.EmployeeEventsSlice?.getAllVehiclesData);
+  const ounVehiclesList = useSelector(state => state?.EmployeeEventsSlice?.ounVehiclesList);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+  const [show, setShow] = useState(false);
+  const [addVehiclequery, setAddVehicleQuery] = useState("");
 
-    const employeeTable = [
-        {
-            icon: <FaRegTrashAlt style={{ fill: '#e24c4b' }} />,
-            columns : [
-                {
-                  name: "BRAND",
-                  label: "BRAND",
-                  options: {
-                    filter: true,
-                  },
-                },
-                {
-                  name: "SUB_BRAND",
-                  label: "SUB-BRAND",
-                  options: {
-                    filter: true,
-                    sort: false,
-                  },
-                },
-                {
-                  name: "MODEL",
-                  label: "MODEL",
-                  options: {
-                    filter: true,
-                    sort: false,
-                  },
-                },
-                {
-                  name: "PLATES",
-                  label: "PLATES",
-                  options: {
-                    filter: true,
-                    sort: false,
-                  },
-                },
-                {
-                  name: "COLOR",
-                  label: "COLOR",
-                  options: {
-                    filter: true,
-                    sort: false,
-                  },
-                },
-                {
-                    name: "S_N",
-                    label: "S/N",
-                    options: {
-                      filter: true,
-                      sort: false,
-                    },
-                  },
-                  {
-                    name: "OPT",
-                    label: "OPT",
-                    options: {
-                      filter: true,
-                      sort: false,
-                    },
-                  }
-              ],
-              data : [
-                {
-                    BRAND: "Joe James",
-                    SUB_BRAND: "Test Corp",
-                    MODEL: "Yonkers",
-                    PLATES: "NY",
-                    COLOR: "NY",
-                    S_N: "NY",
-                    OPT: <FaRegTrashAlt style={{ fill: '#e24c4b' }} />,
-                }
-              ]
-          }
-        ]
-  
-    return (
-        <div className='vehicles'>
-            <div className="vehicleTable">
-                <div className="head">
-                    <div className="add_vehicle">
-                        <button className="btn btn-lg" onClick={() => handleShow(true)}>
-                            CREATE EVENT
-                            <SaveIcon />
-                        </button>
-                        <CreateEventModal
-                            show={show}
-                            onHide={() => handleClose(false)}
-                        />
-                    </div>
-                </div>
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-                <CustomDatatable tableData={employeeTable} />
-            </div>
-           
+  useEffect(() => {
+    dispatch(getAllVehiclesData());
+    // setSelectedVehicle([])
+  }, [])
+
+  const handleselected = (vehicle) => {
+    dispatch(saveOunVehiclesList([...ounVehiclesList, vehicle]))
+    dispatch(updateOunVehicleData(vehicleData.filter(data => data.id !== vehicle.id)));
+    setAddVehicleQuery("")
+  }
+  const handleVehicleInviteDelete = (vehicle) => {
+    dispatch(saveOunVehiclesList(ounVehiclesList.filter(data => data.id !== vehicle.id)))
+    dispatch(updateOunVehicleData([...vehicleData, vehicle]));
+
+  }
+
+  return (
+    <>
+      <div className="head1" style={{ margin: "40px 40px 5px 40px" }}>
+        <div className="searchVehicles">
+          <input
+            type="text"
+            value={addVehiclequery}
+            onChange={(e) => setAddVehicleQuery(e.target.value)}
+            placeholder="Type to search someone ..."
+          />
+          <span class="search_btn">
+            <button class="btn btn-default" type="button">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </span>
         </div>
-    )
+        <button className="vehicleBtn" onClick={() => handleShow(true)}>
+          ADD NEW VEHICLE
+          <Add />
+        </button>
+        <AddNewVehicle
+          show={show}
+          onHide={() => handleClose(false)}
+        />
+      </div>
+      <div className="searchItem" style={{ display: addVehiclequery !== '' ? "block" : "none", margin: "0 40px" }}>
+        {
+          vehicleData?.filter(vehicle => {
+            if (addVehiclequery === '') {
+              return vehicle;
+            } else if (vehicle.brand.toLowerCase().includes(addVehiclequery.toLowerCase())) {
+              return vehicle;
+            }
+          }).map(vehicle => (
+            <div
+              className='add_some_one_item'
+              key={vehicle.id}
+              onClick={() => handleselected(vehicle)}
+            >
+              <p>{vehicle.brand}</p>
+            </div>
+          ))
+        }
+      </div>
+      {
+        ounVehiclesList?.content?.length !== 0 ?
+          <div className="eventTables" style={{ height: "25rem", margin: "0px 25px" }}>
+            <table style={{ width: "100%" }}>
+              <thead>
+                <th className='first'>brand</th>
+                <th>sub-brand</th>
+                <th>modal</th>
+                <th>plates</th>
+                <th>color</th>
+                <th>s/n</th>
+                <th className='last'>opt</th>
+              </thead>
+              {
+                ounVehiclesList?.map(item => (
+                  <tr key={item.id}>
+                    <td className='first'>{item?.brand}</td>
+                    <td>{item?.subBrand}</td>
+                    <td>{item?.plate}</td>
+                    <td>{item?.color}</td>
+                    <td>{item?.serialNumber}</td>
+                    <td>{item?.vin}</td>
+                    <td className='last'>
+                      <img
+                        src={deleteIcon}
+                        alt="delete"
+                        onClick={() => handleVehicleInviteDelete(item)}
+                      />
+                    </td>
+                  </tr>
+                ))
+              }
+            </table>
+          </div> :
+          <NoEvent title="incoming Events" />
+      }
+    </>
+  )
 }
 
 export default Vehicles

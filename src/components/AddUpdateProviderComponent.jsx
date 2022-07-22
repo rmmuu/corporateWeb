@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useMemo, useState } from "react";
+import { Link, useLocation,useNavigate   } from "react-router-dom";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SaveIcon from "@mui/icons-material/Save";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
-
+import { debounce } from "lodash";
 import { Box } from "@mui/system";
+import { toast } from 'react-toastify';
 import {
   FormControl,
   InputAdornment,
@@ -15,6 +16,9 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import apiInstance from "../Apis/Axios";
+
+let no;
 const AddUpdateProviderContractor = ({
   addProviderFlag,
   addContractorFlag,
@@ -32,7 +36,13 @@ const AddUpdateProviderContractor = ({
   const [addContractor, setaddContractor] = useState(false);
   const [updateContractor, setupdateContractor] = useState(false);
   const [addProvider, setaddProvider] = useState(false);
-
+  
+  const [findEmail, setFindEmail]=useState(false)
+  const [findNo, setFindNo]=useState(false)
+  const [formData, setFormData]=useState();
+  
+  const [userID,setUserID]=useState();
+  let navigate = useNavigate();
   useEffect(() => {
     console.log(
       { addProviderFlag },
@@ -45,6 +55,89 @@ const AddUpdateProviderContractor = ({
     setUpdateProvider(updateProviderFlag);
     setupdateContractor(updateContractorFlag);
   }, []);
+  no=phoneNumber
+  let eml="luis.cornejo.2610@gmail.com";
+  const getByEmail = async (vv) => {
+    const result = await apiInstance.get(`user-service​/get-by-email​/${eml}`).then(function (response) {
+        if(response.status == 200){
+          let id= response?.data?.data?.id;
+          setUserID(id)
+          setFindEmail(true)
+          setName(response?.data?.data?.name)
+          setPhoneNumber( response?.data?.data?.phoneNumber)
+          setGender(response?.data?.data?.gender?.name)
+        }
+      })
+      .catch(function (error) {
+        return error.response;
+      });
+  };
+
+  let phone="+524427065909"
+  const getByPhone = async () => {
+    const result = await apiInstance.get(`user-service/get-by-phone-number/${no}`).then(function (response) {
+        if(response.status == 200){
+          let id= response?.data?.data?.id;
+        toast("User Find With Phone Number")
+          setUserID(id)
+          setFindNo(true)
+          setName(response?.data?.data?.name)
+          setGender(response?.data?.data?.gender?.name)
+          setEmail(response?.data?.data?.email)
+        }
+      }).catch(function (error) {
+        // toast("this user has no data")
+        document.getElementById("overlay").style.display = "none"
+      });
+     
+  };
+
+  
+  const delayedPhoneSearch = useMemo(
+    () => debounce(() => getByPhone(), 100),
+    []
+  );
+
+  const onlyCreateContract=async(id)=>{
+    const y = await apiInstance.post(`contractor-service/create`,{
+      "user": {
+          "id": id
+      }, 
+      "acronym": acronym,
+      "contractorCompanyName": companyName
+  }
+  ).then(function (response) {
+    toast("contractor was created successfully")
+    navigate("/dashboard/contractors-outlet" ,{replace: true});
+      })
+      .catch(function (error) {
+        toast(error?.response?.data?.message)
+        document.getElementById("overlay").style.display = "none"
+      });
+  }
+
+
+
+  const handleSubmit=async()=>{
+    if(findNo == false && findEmail == false){
+      const y = await apiInstance.post(`authentication-service/pre-register-user`,{email,name,phoneNumber}
+      ).then(function (response) {
+        if(response.status == 201){
+          let id= response?.data?.data?.id;
+          onlyCreateContract(id);
+        }
+        })
+        .catch(function (error) {
+          toast("Pre Register User fail")
+        document.getElementById("overlay").style.display = "none"
+
+        });
+    }
+    else{
+      onlyCreateContract(userID);
+    }
+  }
+
   return (
     <>
       <div className="head">
@@ -65,15 +158,17 @@ const AddUpdateProviderContractor = ({
           {updateProvider && "UPDATE PROVIDER"}
         </h2>
         <div style={{ display: "flex" }}>
-          <Link to="/dashboard/uploademployeefile">
-            <button className="btn btn-lg">
+        {/* <Link to="/dashboard/uploademployeefile"> */}
+
+          
+            <button className="btn btn-lg" onClick={handleSubmit}>
               {addProvider && "ADD PROVIDER"}
               {addContractor && "ADD CONTRACTOR"}
               {updateContractor && "UPDATE CONTRACTOR"}
               {updateProvider && "UPDATE PROVIDER"}
               <SaveIcon />
             </button>
-          </Link>
+         
         </div>
       </div>
       <div className="mt-5  add_provider">
@@ -149,6 +244,7 @@ const AddUpdateProviderContractor = ({
               value={name}
               onChange={(e) => setName(e.target.value)}
               className=""
+              focused 
             />
           </Box>
           <Box
@@ -166,6 +262,7 @@ const AddUpdateProviderContractor = ({
               label="Email"
               id="Email"
               value={email}
+              focused 
               onChange={(e) => setEmail(e.target.value)}
               InputProps={{
                 endAdornment: (
@@ -191,7 +288,12 @@ const AddUpdateProviderContractor = ({
               label="Phone Number"
               id="Phone Number"
               value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              focused 
+              onChange={(e) => {setPhoneNumber(e.target.value)
+               }}
+              onBlur={() => 
+                (findEmail ? null : delayedPhoneSearch(phoneNumber))
+               }
               className="NoShadowInput"
               InputProps={{
                 endAdornment: (
@@ -240,16 +342,18 @@ const AddUpdateProviderContractor = ({
             }}
           >
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Gender</InputLabel>
+              <InputLabel id="demo-simple-select-label">{gender ? gender : "Gender"}</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={gender}
+                displayEmpty={false}
                 label="Age"
+                defaultValue={gender}
                 onChange={(e) => setGender(e.target.value)}
               >
-                <MenuItem value={10}>Male</MenuItem>
-                <MenuItem value={20}>Female</MenuItem>
+                <MenuItem value={"male"}>Male</MenuItem>
+                <MenuItem value={"female"}>Female</MenuItem>
               </Select>
             </FormControl>
           </Box>

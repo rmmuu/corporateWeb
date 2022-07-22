@@ -3,7 +3,8 @@ import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ic_check from "../../../assets/images/ic-check.svg";
 
-const ZoneCardDetail = () => {
+const ZoneCardDetail = ({ item }) => {
+  console.log(item)
   return (
     <>
       <div className="row zoneCardDetail">
@@ -12,26 +13,37 @@ const ZoneCardDetail = () => {
             <thead >
               <tr>
                 <th className="nameTD">TOTAL ACCESS DEVICES</th>
-                <th className="text-center">32 DEVICES</th>
+                <th className="text-center">{item?.accessDeviceDTO?.noMantra + item?.accessDeviceDTO?.noPda + item?.accessDeviceDTO?.noTelpo450 +
+                  item?.accessDeviceDTO?.noTelpo980 + item?.accessDeviceDTO?.noTelpoF6 + item?.accessDeviceDTO?.noTelpoK5}{" "}DEVICES</th>
               </tr>
             </thead>
             <tbody>
               <tr >
-                <td>PDA</td>
-                <td className="text-center">16</td>
+                <td>MANTARA</td>
+                <td className="text-center">{item?.accessDeviceDTO?.noMantra}</td>
               </tr>
               <tr >
-                <td>BIOMETRIC</td>
-                <td className="text-center">8</td>
+                <td>PDA</td>
+                <td className="text-center">{item?.accessDeviceDTO?.noPda}</td>
               </tr>
-              <tr style={{ border: "hidden" }}>
-                <td>DELAY</td>
-                <td className="text-center">5</td>
+              <tr >
+                <td>TELPO450</td>
+                <td className="text-center">{item?.accessDeviceDTO?.noTelpo450}</td>
               </tr>
-              <tr style={{ border: "hidden" }}>
-                <td>Terminal</td>
-                <td className="text-center">5</td>
+              <tr >
+                <td>TELPO980</td>
+                <td className="text-center">{item?.accessDeviceDTO?.noTelpo980}</td>
               </tr>
+              <tr >
+                <td>TELPOF6</td>
+                <td className="text-center">{item?.accessDeviceDTO?.noTelpoF6}</td>
+              </tr>
+              <tr >
+                <td>TELPOk5</td>
+                <td className="text-center">{item?.accessDeviceDTO?.noTelpoK5}</td>
+              </tr>
+
+
             </tbody>
           </Table>
         </div>
@@ -47,49 +59,46 @@ const ZoneCardDetail = () => {
               </tr>
             </thead>
             <tbody>
-              <tr style={{ border: "hidden" }}>
-                <td className="nameTD">
-                  Querétaro <Link to="/dashboard/singlezonedetails"><sub>MORE DETAILS</sub></Link>
-                </td>
-                <td className="text-center">
-                  <img src={ic_check} alt="ic-img" />
-                </td>
-                <td className="text-center">
-                  <img src={ic_check} alt="ic-img" />
-                </td>
-                <td className="text-center" style={{ color: '#146f62', fontWeight: "bold" }}>
-                  active <i style={{ fontSize: '10px', color: '#146f62' }} class="fa fa-circle" aria-hidden="true"></i>
-                </td>
-              </tr>
-              <tr style={{ border: "hidden" }}>
-                <td className="nameTD">
-                  Corregidora <Link to="/dashboard/singlezonedetails"><sub>MORE DETAILS</sub></Link>
-                </td>
-                <td className="text-center">
-                  <img src={ic_check} alt="ic-img" />
-                </td>
-                <td className="text-center">
-                  <img src={ic_check} alt="ic-img" />
-                </td>
-                <td className="text-center" style={{ color: '#146f62', fontWeight: "bold" }}>
-                  active <i style={{ fontSize: '10px', color: '#146f62' }} class="fa fa-circle" aria-hidden="true"></i>
-                </td>
-              </tr>
+              {
+                item?.children?.map((item, index) => {
+                  return (
 
-              <tr style={{ border: "hidden" }}>
-                <td className="nameTD">
-                  Tequisquiapan <Link to="/dashboard/singlezonedetails"><sub>MORE DETAILS</sub></Link>
-                </td>
-                <td className="text-center">
-                  <img src={ic_check} alt="ic-img" />
-                </td>
-                <td className="text-center">
-                  <img src={ic_check} alt="ic-img" />
-                </td>
-                <td className="text-center" style={{ color: '#146f62', fontWeight: "bold" }}>
-                  active <i style={{ fontSize: '10px', color: '#146f62' }} class="fa fa-circle" aria-hidden="true"></i>
-                </td>
-              </tr>
+                    <tr style={{ border: "hidden" }} key={index}>
+                      <td className="nameTD">
+                        {item?.name} <Link to="/dashboard/singlezonedetails"><sub>MORE DETAILS</sub></Link>
+                      </td>
+                      <td className="text-center">
+                        {
+                          item?.devices.length == 0 &&
+                          <i class="fa fa-times" aria-hidden="true" style={{ color: "red", fontSize: "1.2rem" }}></i>
+                        }
+                        {
+                          item?.devices.length > 0 &&
+                          <i class="fa fa-check" aria-hidden="true" style={{ color: 'green', fontSize: "1.2rem" }}></i>
+                        }
+
+                      </td>
+                      <td className="text-center">
+                        {
+                          item?.commonArea == null &&
+                          <i class="fa fa-times" aria-hidden="true" style={{ color: "red", fontSize: "1.2rem" }}></i>
+                        }
+                        {
+                          item?.commonArea != null &&
+                          <i class="fa fa-check" aria-hidden="true" style={{ color: 'green', fontSize: "1.2rem" }}></i>
+                        }
+                      </td>
+                      <td className="text-center" style={{ color: '#146f62', fontWeight: "bold" }}>
+                        {item?.status?.name} <i style={{ fontSize: '10px', color: '#146f62' }} class="fa fa-circle" aria-hidden="true"></i>
+                      </td>
+                    </tr>
+
+
+
+
+                  )
+                })
+              }
             </tbody>
           </Table>
         </div>

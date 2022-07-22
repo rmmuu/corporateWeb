@@ -13,7 +13,6 @@ const IncomingModel = ({ setShowIncome }) => {
     const eventFilterData = useSelector(state => state?.EmployeeEventsSlice?.eventFilters);
     const pageableObj = useSelector(state => state?.EmployeeEventsSlice?.pageableObj);
     console.log(eventFilterData)
-    console.log(pageableObj)
     let body;
     const d = new Date();
     let time_in_miliseconds = Math.round(d.getTime());
@@ -28,8 +27,21 @@ const IncomingModel = ({ setShowIncome }) => {
         dispatch(GetEventFilters());
     }, [])
 
-    const handleSortBy = (e) => {
+    const handleOrderBy = (e) => {
         setOrderby(e.target.value);
+        dispatch(handlePagination({
+            name: "order",
+            value: e.target.value === "asc" ? true : false,
+        }));
+        body = {
+            date: time_in_miliseconds,
+            pagination: pageableObj
+        }
+        dispatch(GetIncomingEventsPageable(body));
+    }
+
+    const handleSortBy = (e) => {
+        setSort(e.target.value);
         dispatch(handlePagination({
             name: "sortBy",
             value: e.target.value
@@ -40,20 +52,6 @@ const IncomingModel = ({ setShowIncome }) => {
         }
         dispatch(GetIncomingEventsPageable(body));
     }
-
-    const handleOrderBy = (e) => {
-        setSort(e.target.value);
-        dispatch(handlePagination({
-            name: "order",
-            value: e.target.value
-        }));
-        body = {
-            date: time_in_miliseconds,
-            pagination: pageableObj
-        }
-        dispatch(GetIncomingEventsPageable(body));
-    }
-
 
     return (
         <div
@@ -155,13 +153,10 @@ const IncomingModel = ({ setShowIncome }) => {
                             <Select
                                 value={orderby}
                                 label="ORDER BY"
-                                onChange={handleSortBy}
+                                onChange={handleOrderBy}
                             >
-                                {
-                                    eventFilterData?.map((item, index) => (
-                                        <MenuItem key={index} value={item}>{item}</MenuItem>
-                                    ))
-                                }
+                                <MenuItem value="asc">ASC</MenuItem>
+                                <MenuItem value="des">DES</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>
@@ -179,10 +174,13 @@ const IncomingModel = ({ setShowIncome }) => {
                             <Select
                                 value={sort}
                                 label="SORT"
-                                onChange={handleOrderBy}
+                                onChange={handleSortBy}
                             >
-                                <MenuItem value="ASC">ASC</MenuItem>
-                                <MenuItem value="DES">DES</MenuItem>
+                                {
+                                    eventFilterData?.map((item, index) => (
+                                        <MenuItem key={index} value={item}>{item}</MenuItem>
+                                    ))
+                                }
                             </Select>
                         </FormControl>
                     </Box>

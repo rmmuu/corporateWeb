@@ -10,6 +10,8 @@ export const apiInstance = axios.create({
     // timeout: 10000,
     headers: {
         "Accept": "application/json",
+        // "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Headers": '*'
         // "Authorization": `Bearer ${sessionStorage.getItem("bearerToken")}`
     }
 })

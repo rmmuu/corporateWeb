@@ -4,10 +4,13 @@ import DashboardRoutes from "./DashboardRoutes";
 
 import BounceLoader from "react-spinners/BounceLoader";
 import { override } from "./Helpers/spinnercss";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend'
+
 
 const App = () => {
   return (
-    <>
+    <DndProvider backend={HTML5Backend}>
       <Suspense fallback={<BounceLoader loading="true" css={override} size={50} />}>
         <DashboardRoutes />
       </Suspense>
@@ -23,7 +26,7 @@ const App = () => {
         draggable
         pauseOnHover
       />
-    </>
+    </DndProvider>
   );
 }
 

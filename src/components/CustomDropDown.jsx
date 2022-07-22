@@ -7,6 +7,7 @@ import ic_edit_outline from '../assets/images/ic-edit-outline-1.svg'
 import ic_table from '../assets/images/ic-table.svg'
 import ic_list_detail from '../assets/images/ic-list-detail.svg'
 import id_badge from '../assets/images/id-badge.svg'
+import vehicleDocPanel from '../assets/images/vehicleDocPanel.svg'
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => {
     return (
@@ -60,7 +61,7 @@ const CustomDropDown = () => {
                 </Link>
                 <Link to='/dashboard/company/vehicle-doc-panel'>
                     <div className='dropdownDiv'>
-                        <img src={id_badge} alt="images" />
+                        <img src={vehicleDocPanel} alt="images" />
                         <span>Vehicle Doc Panel</span>
                     </div>
                 </Link>

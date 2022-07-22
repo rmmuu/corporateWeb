@@ -6,6 +6,7 @@ import { endpoints } from "../../Apis/Constants";
 export const loginMiddleware = createAsyncThunk('users/loginMiddleware', async (authValues, thunkAPI) => {
     try {
         let response = await apiInstance.post(endpoints.LOGIN, authValues.values);
+        console.log("this is response",response)
         if (response.status === 200) {
             sessionStorage.setItem("userdata", JSON.stringify(response))
             authValues.navigate('/login-option');

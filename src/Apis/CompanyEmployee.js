@@ -42,7 +42,7 @@ export const getAllCompanyEmployees = (body) => apiInstance.post(
 
 export const getRoles = () => apiInstance.get(GET_ROLES);
 
-export const getWorkStations = (body) => apiInstance.post(GET_WORK_STATIONS, body);
+export const getWorkStations = () => apiInstance.get(GET_WORK_STATIONS);
 
 export const deleteUser = (id) => apiInstance.post(DELETE_EMPLOYEE_BY_ID + id);
 

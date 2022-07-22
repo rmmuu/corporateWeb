@@ -1,5 +1,5 @@
 import React from "react";
-import pdfpng from "../../../../assets/images/PDF.PNG";
+import pdfpng from "../../../../assets/images/pdf.svg";
 import cloudsvg from "../../../../assets/images/cloud.svg";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { Box, InputAdornment, TextField } from "@mui/material";

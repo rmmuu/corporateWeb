@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import pdfImg from '../../../assets/images/pdf.svg'
 import ic_delete_red from '../../../assets/images/ic-delete-red.svg'
 import download_Img from '../../../assets/images/ic-download-file.svg'
 import { Link } from 'react-router-dom'
 import { getAllEmployeesDocuments, getAllExternalDocuments } from '../../../Apis/documents';
 import { toast } from 'react-toastify'
-import { deleteImg, downloadImg } from '../../../Apis/imageController';
-import { override } from "../../../Helpers/spinnercss";
-import { HashLoader } from 'react-spinners'
+import { deleteImg } from '../../../Apis/imageController';
 import AddDocsModal from './CompanyModals/addDocsModal'
+import { useSelector } from 'react-redux'
+import { URL } from '../../../Apis/Constants'
 
 
 
 const UserDocPanel = () => {
-  const userdata = JSON.parse(sessionStorage.getItem("userdata"));
-  const companyId = "bc9789f1-3f16-4759-851d-5501cc37ec97";
+  // const userdata = JSON.parse(sessionStorage.getItem("userdata"));
+  const userdata = useSelector(state => state?.authenticatioauthennSlice?.user.data);
+  const companyId = "a6bd2887-0f4a-4e5f-b0b5-000d9817ab23";
 
   const [show, setShow] = useState(false);
   const [toggleState, setToggleState] = useState(1);
@@ -25,20 +25,19 @@ const UserDocPanel = () => {
   const toggleTab = (index) => {
     setToggleState(index);
   }
+  const body = {
+    companyId: companyId,
+    userId: userdata?.id,
+    email: userdata?.email,
+    userTypes: userdata?.userType?.name
+  }
 
 
 
   useEffect(() => {
-    const body = {
-      companyId: companyId,
-      userId: userdata?.data.id,
-      email: userdata?.data.email,
-      userTypes: userdata?.data?.userType.name
-    }
-
     getAllEmployeesDocuments(body).then(({ data: { data } }) => {
       setAllEmployeesDocs(data);
-      console.log(data)
+      // console.log(data)
     }).catch(error => {
       toast.error("something went wrong.")
     })
@@ -49,22 +48,22 @@ const UserDocPanel = () => {
     }).catch(error => {
       toast.error("something went wrong.")
     })
-  }, [status,show])
+  }, [status, show])
 
   const handleDeleteDoc = (selectedId) => {
     const body = {
       companyId: companyId,
-      userId: userdata?.data.id,
-      email: userdata?.data.email,
-      userTypes: userdata?.data?.userType.name,
+      userId: userdata?.id,
+      email: userdata?.email,
+      userTypes: userdata?.userType.name,
       id: selectedId,
       option: toggleState === 1 ? "company_document_employee" : "company_document_external"
     }
 
     deleteImg(body).then(({ data: { data } }) => {
       setStatus(data);
-      toast.error("Deleted successfully!")
-      console.log(data)
+      toast.success("Deleted successfully!")
+      // console.log(data)
     }).catch(error => {
       toast.error("something went wrong.")
     })
@@ -73,7 +72,7 @@ const UserDocPanel = () => {
   const handleDownloadDoc = (selectedId) => {
 
     const bearerToken = sessionStorage.getItem("bearerToken");
-    fetch(`http://182.176.161.38:8080/corporate-user-pre-prod-v1/image-service/download-by-id/${selectedId}/option/company_document_external`, {
+    fetch(`${URL}image-service/download-by-id/${selectedId}/option/company_document_external`, {
       method: 'GET',
       headers: {
         "Accept": "application/json",
@@ -123,6 +122,7 @@ const UserDocPanel = () => {
             <i className="fa fa-plus" aria-hidden="true"></i>
           </button>
           <AddDocsModal
+            modalrelation="user"
             show={show}
             onHide={() => setShow(false)}
           />
@@ -169,7 +169,7 @@ const UserDocPanel = () => {
             role="tabpanel"
             aria-labelledby="pills-home-tab"
           >
-            <div className="col-6 mx-auto notifications">
+            <div className="col-8 mx-auto notifications">
               <div className='documents-detail-sec'>
 
                 <div className="table-header">
@@ -179,34 +179,30 @@ const UserDocPanel = () => {
                   <div className='text-end'>REMOVE</div>
                 </div>
                 {
-                  allEmployeesDocs ?
-                    allEmployeesDocs?.length === 0 ?
-                      <div className='no-data'>No Documents in Employees Section!</div> :
-                      allEmployeesDocs?.map(item => (
-                        <div className='data-row first-row' key={item?.id}>
-                          <div>{item?.document}</div>
-                          <div className='text-center'>{item?.path}</div>
-                          <div className='text-center'>
-                            <img
-                              className='cancel'
-                              onClick={() => handleDownloadDoc(item?.id)}
-                              src={download_Img}
-                              alt="ic_delete_red"
-                            />
-                          </div>
-                          <div className='text-end'>
-                            <img
-                              className='cancel'
-                              onClick={() => handleDeleteDoc(item?.id)}
-                              src={ic_delete_red}
-                              alt="ic_delete_red"
-                            />
-                          </div>
+                  allEmployeesDocs?.length === 0 ?
+                    <div className='no-data'>No Documents in Employees Section!</div> :
+                    allEmployeesDocs?.map(item => (
+                      <div className='data-row first-row' key={item?.id}>
+                        <div>{item?.document}</div>
+                        <div className='text-center'>{item?.path}</div>
+                        <div className='text-center'>
+                          <img
+                            className='cancel'
+                            onClick={() => handleDownloadDoc(item?.id)}
+                            src={download_Img}
+                            alt="ic_delete_red"
+                          />
                         </div>
-                      )) :
-                    <div className="overlay">
-                      <HashLoader loading="true" css={override} size={50} color="#fff" />
-                    </div>
+                        <div className='text-end'>
+                          <img
+                            className='cancel'
+                            onClick={() => handleDeleteDoc(item?.id)}
+                            src={ic_delete_red}
+                            alt="ic_delete_red"
+                          />
+                        </div>
+                      </div>
+                    ))
                 }
               </div>
             </div>
@@ -222,39 +218,35 @@ const UserDocPanel = () => {
 
                 <div className="table-header">
                   <div>DOCUMENT NAME</div>
-                  <div className='text-center'>ForM</div>
+                  <div className='text-center'>FROM</div>
                   <div className='text-center'>DOWNLOAD</div>
                   <div className='text-end'>REMOVE</div>
                 </div>
                 {
-                  allExternalDocs ?
-                    allExternalDocs?.length === 0 ?
-                      <div className='no-data'>No Documents in External Section!</div> :
-                      allExternalDocs?.map(item => (
-                        <div className='data-row first-row' key={item?.id}>
-                          <div>{item?.document}</div>
-                          <div className='text-center'>{item?.path}</div>
-                          <div className='text-center'>
-                            <img
-                              className='cancel'
-                              onClick={() => handleDownloadDoc(item?.id)}
-                              src={download_Img}
-                              alt="ic_delete_red"
-                            />
-                          </div>
-                          <div className='text-end'>
-                            <img
-                              className='cancel'
-                              onClick={() => handleDeleteDoc(item?.id)}
-                              src={ic_delete_red}
-                              alt="ic_delete_red"
-                            />
-                          </div>
+                  allExternalDocs?.length === 0 ?
+                    <div className='no-data'>No Documents in External Section!</div> :
+                    allExternalDocs?.map(item => (
+                      <div className='data-row first-row' key={item?.id}>
+                        <div>{item?.document}</div>
+                        <div className='text-center'>{item?.path}</div>
+                        <div className='text-center'>
+                          <img
+                            className='cancel'
+                            onClick={() => handleDownloadDoc(item?.id)}
+                            src={download_Img}
+                            alt="ic_delete_red"
+                          />
                         </div>
-                      )) :
-                    <div className="overlay">
-                      <HashLoader loading="true" css={override} size={50} color="#fff" />
-                    </div>
+                        <div className='text-end'>
+                          <img
+                            className='cancel'
+                            onClick={() => handleDeleteDoc(item?.id)}
+                            src={ic_delete_red}
+                            alt="ic_delete_red"
+                          />
+                        </div>
+                      </div>
+                    ))
                 }
               </div>
 

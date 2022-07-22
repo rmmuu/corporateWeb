@@ -1,6 +1,6 @@
 import React from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import pdfpng from "../../../assets/images/PDF.PNG";
+import pdfpng from "../../../assets/images/pdf.svg";
 import cloudsvg from "../../../assets/images/cloud.svg";
 import excelpng from "../../../assets/images/excel.png";
 import { Link } from "react-router-dom";
@@ -9,7 +9,7 @@ import { Box, InputAdornment, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import MUIDataTable from "mui-datatables";
 
-// import pdfpng from "../../../../assets/images/PDF.PNG";
+// import pdfpng from "../../../../assets/images/pdf.svg";
 
 const UploadContractorFile = () => {
   const columns = [

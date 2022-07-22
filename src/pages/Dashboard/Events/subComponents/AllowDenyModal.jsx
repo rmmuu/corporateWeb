@@ -12,7 +12,8 @@ const AllowDenyModal = (props) => {
             id: props.eventid,
             option: option
         }
-        dispatch(allowDenyEvent(body))
+        dispatch(allowDenyEvent(body));
+        props.onHide();
     }
 
     return (

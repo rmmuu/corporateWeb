@@ -593,6 +593,7 @@ table {
       @include color(#000000, 0.8rem, normal, capitalize);
     }
   }
+
 }
 
 .scedule_text_building {
@@ -623,6 +624,8 @@ table {
 }
 
 .schedule_zoneb {
+  margin-left: -48px;
+
   h2 {
     opacity: 0.8;
     @include color(black, 1rem, bold, uppercase);
@@ -637,6 +640,8 @@ table {
   p {
     @include color(#707070, 1rem, normal, uppercase);
   }
+
+  border-left: 3px solid #146F62;
 }
 
 .zones_d_access {
@@ -1164,13 +1169,30 @@ table {
 
 // zone second section 
 .zone_Data_info {
+
   margin: 2.4rem 0rem;
 
-  h1 {
+  .heading_zone {
+    display: flex;
+    align-items: center;
+    gap: 30px;
 
-    @include color(#65aba0, 2rem, bold, uppercase);
-    margin-bottom: 1rem;
+    h1 {
+
+      @include color(#65aba0, 2rem, bold, uppercase);
+
+      margin-bottom: 1rem;
+    }
+
+    .line {
+      width: 72%;
+      height: 3px;
+      background: #65aba0;
+    }
+
   }
+
+
 
   .form_data_zone_info {
     margin-top: 1rem;
@@ -1189,7 +1211,7 @@ table {
 
   .bottom_line {
 
-    border-bottom: 3px dashed #146f62;
+    // border-bottom: 3px dashed #146f62;
     margin-top: 1.8rem;
   }
 
@@ -1262,7 +1284,7 @@ table {
   margin-top: 1rem;
 
   h1 {
-    @include color(#146F62, 1.6rem, 600, uppercase);
+    @include color(#146F62, 18px, 600, uppercase);
   }
 
   input[type=checkbox] {
@@ -1280,7 +1302,7 @@ table {
   margin-top: 1rem;
 
   h1 {
-    @include color(#146F62, 1.6rem, 600, uppercase);
+    @include color(#146F62, 18px, 600, uppercase);
   }
 
   input[type=checkbox] {
@@ -1299,7 +1321,7 @@ table {
   margin-top: 1rem;
 
   h1 {
-    @include color(#146F62, 1.6rem, 600, uppercase);
+    @include color(#146F62, 18px, 600, uppercase);
   }
 
   .label_unlink {
@@ -1333,6 +1355,7 @@ table {
   display: flex;
   align-items: center;
   margin-top: 1rem;
+  gap: 10px;
 
   h2 {
     letter-spacing: 0.4rem;
@@ -1347,6 +1370,12 @@ table {
     font-size: 0.9rem;
     margin-left: 0.6rem !important;
     color: #707070;
+  }
+
+  .line {
+    width: 44%;
+    height: 3px;
+    background: #65aba0;
   }
 
 }
@@ -1380,6 +1409,8 @@ table {
     // height: 43px;
     margin-top: 1.5rem;
     padding: 0rem 1rem;
+    z-index: 1;
+    // z-index: 9999;
 
     .show_device_navigation_item {
       display: flex;
@@ -1440,6 +1471,8 @@ table {
     position: absolute;
     right: 0%;
     top: 2%;
+    z-index: 1;
+
 
     button:hover {
       @include color(#ffffff, 1.6rem, normal, capitalize);
@@ -1482,6 +1515,7 @@ table {
     position: absolute;
     right: 0%;
     top: 8%;
+    // z-index: 9999;
 
     button:hover {
       @include color(#ffffff, 1.6rem, normal, capitalize);
@@ -1523,6 +1557,7 @@ table {
     position: absolute;
     right: 0%;
     top: 14%;
+    z-index: 1;
 
     button {
       @include color(#ffffff, 1.6rem, normal, capitalize);
@@ -1535,6 +1570,28 @@ table {
         margin-bottom: 0.4rem;
       }
     }
+  }
+
+  .Image_container_zone {
+    .img_zone {
+      width: 100%;
+      height: 100%;
+    }
+
+    position: relative;
+    // z-index: -1;
+
+    // .marker {
+    //   position: absolute;
+    //   top: 0px;
+    //   right: 100px;
+    //   width: 20px;
+    //   height: 20px;
+    //   // background: #146F62;
+    //   // border-radius: 50%;
+    //   // border: 2px solid #fff;
+    //   // box-shadow: 0px 0px 4px #00000080;
+    // }
   }
 }
 
@@ -1676,7 +1733,7 @@ table {
 //show device list model 
 #showdevice_listModal {
   transition: transform 0.3s ease-out;
-  transform: translate(43%, 24%) !important;
+  transform: translate(47%, 12%) !important;
 
   h1 {
     // margin: -1rem 0rem 6rem 0rem;
@@ -1686,10 +1743,36 @@ table {
   }
 
   .modal-content {
-    width: 65%;
+    width: 277px !important;
+    height: 204px !important;
+    overflow-y: scroll;
+
+    ::-webkit-scrollbar {
+      width: 0;
+      /* Remove scrollbar space */
+      background: transparent;
+      /* Optional: just make scrollbar invisible */
+    }
   }
 
+  // .list_drag_device {
+
+
+
   p {
+
+    // width: 120px;
+    // height: 120px;
+    // background-color: rgb(255, 79, 79);
+    // color: #fff;
+    // border-radius: 7px;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // padding: 15px;
+    // text-align: center;
+    // letter-spacing: 0.6px;
+
     padding-bottom: 0.8rem;
     border-bottom: 1px dashed #146f62;
     margin-top: 1rem !important;
@@ -1706,6 +1789,10 @@ table {
       }
     }
   }
+
+  // }
+
+
 }
 
 
@@ -1754,3 +1841,281 @@ table {
 //     }
 //   }
 // }
+
+.add_zone_modal {
+  .modal-content {
+    width: 100% !important;
+  }
+}
+
+
+// create Zone Device
+.create_device_data {
+  p {
+    font: normal normal 600 18px/22px Montserrat;
+    letter-spacing: 4.5px;
+    color: #146F62;
+    opacity: 1;
+  }
+
+  ;
+
+
+  padding: 2rem 4rem;
+
+  .form_field {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+}
+
+.smart_lock_setting {
+
+
+  h1 {
+    @include color(#146F62, 18px, 600, uppercase);
+  }
+
+  .form_field {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+
+}
+
+.create_device_footer {
+  padding: 0rem 5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+
+  .cancel {
+
+    box-shadow: 0px 0px 4px #00000080;
+    border-radius: 4px;
+    opacity: 1;
+    width: 350px;
+    height: 40px;
+    border: none;
+    font: normal normal bold 18px/22px Montserrat;
+    letter-spacing: 0px;
+    color: #BC0000;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 2px;
+
+  }
+
+  .create {
+    background: #146F62 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 4px #00000080;
+    border-radius: 4px;
+    opacity: 1;
+    width: 350px;
+    height: 40px;
+    border: none;
+    font: normal normal bold 18px/22px Montserrat;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+  }
+}
+
+// zone plane modal
+.removePlanModal {
+  .zoneCardMoadlBody {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    h1 {
+      font: normal normal bold 20px/24px Montserrat;
+      letter-spacing: 7px;
+      color: #146F62;
+      opacity: 1;
+    }
+
+    h4 {
+      font: normal normal normal 16px/19px Montserrat;
+      letter-spacing: 0px;
+      color: #707070;
+      opacity: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .cardModalFooter {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+
+      .cancel {
+        font: normal normal normal 16px/19px Montserrat;
+        letter-spacing: 0px;
+        color: #BC0000;
+        opacity: 1;
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        border-radius: 2px;
+        opacity: 1;
+        border: none;
+        width: 178px;
+        height: 30px;
+      }
+
+      .confirm {
+        background: #146F62 0% 0% no-repeat padding-box;
+        box-shadow: 0px 0px 4px #00000080;
+        border-radius: 4px;
+        opacity: 1;
+        font: normal normal 600 16px/19px Montserrat;
+        letter-spacing: 0px;
+        color: #FFFFFF;
+        opacity: 1;
+        border: none;
+        width: 178px;
+        height: 30px;
+      }
+    }
+
+  }
+}
+
+
+
+
+
+// checking
+
+
+
+
+
+
+.marker {
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  width: 60px;
+  height: 80px;
+  animation: marker-animation 1s ease infinite;
+
+  svg {
+    fill: #F0E522;
+    cursor: pointer;
+  }
+}
+
+
+.pop_up_zone_img {
+  h1 {
+    text-align: center;
+    font: normal normal normal 16px/19px Montserrat;
+    letter-spacing: 0px;
+    color: #146F62;
+    opacity: 1;
+  }
+
+  p {
+    text-align: center;
+    font: normal normal 600 12px/15px Montserrat;
+    letter-spacing: 0px;
+    color: #707070;
+    opacity: 1;
+  }
+}
+
+.zone_plane_drag_drop_container {
+  background-color: red;
+
+  .zone_plane_device_list {
+
+    position: absolute;
+    top: 116px;
+    right: 0;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 4px #00000080;
+    border-radius: 6px;
+    opacity: 1;
+    width: 277px;
+    height: 204px;
+    z-index: 2;
+
+    .cross_container {
+      position: relative;
+
+      .cross_zone_device {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 16px;
+        height: 16px;
+        color: red;
+      }
+
+    }
+
+    h4 {
+      text-align: center;
+      font: normal normal bold 20px/24px Montserrat;
+      letter-spacing: 7px;
+      color: #146F62;
+      opacity: 1;
+      padding-top: 2rem;
+      padding-bottom: 1rem;
+    }
+
+    .device_lists {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px dashed #146F62;
+      width: 80%;
+      margin: 0 auto;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+
+
+
+      .left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        img {
+          width: 20px;
+          height: 23px;
+        }
+
+        p {
+          font: normal normal normal 18px/22px Montserrat;
+          letter-spacing: 0px;
+          color: #707070;
+          opacity: 1;
+        }
+      }
+
+      .right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        P {
+          font: normal normal bold 18px/22px Montserrat;
+          letter-spacing: 0px;
+          color: #707070;
+          opacity: 1;
+        }
+
+        i {
+          color: red;
+        }
+      }
+
+
+    }
+
+  }
+}

@@ -1,10 +1,25 @@
 import React, { useState } from "react";
 import UploadImage from "../UploadImage";
 import iccancel from "../../../../assets/images/ic-cancel.svg";
+import { Box, TextField } from "@mui/material";
+import { CreateZonePlane, UploadImgZonePlane } from "../../../../reduxToolkit/EmployeeZones/EmployeeZonesApi";
+import { useDispatch } from "react-redux";
 
 const ShowDeviceModal = ({ setProfileImage }) => {
   const [imagePreviewUrl, setimagePreviewUrl] = useState([]);
   const [dropzone1, setdropzone1] = useState([]);
+  const [name, setName] = useState("");
+
+  // console.log(imagePreviewUrl);
+  // console.log(dropzone1);
+
+  const dispatch = useDispatch();
+
+  const resetForm = () => {
+    setimagePreviewUrl([]);
+    setdropzone1([]);
+    setName("");
+  }
 
   const addFilesToDropzone = (files, dropzone) => {
     let files_with_preview = [];
@@ -17,8 +32,26 @@ const ShowDeviceModal = ({ setProfileImage }) => {
     setimagePreviewUrl(files_with_preview["preview"]);
     setdropzone1([...files_with_preview]);
   };
+
+  const createZoneplaneHandler = () => {
+    const createData = {
+      name,
+      zone: {
+
+        id: localStorage.getItem('singlezoneId'),
+      },
+      file: dropzone1[0],
+      option: "zone+"
+    }
+
+
+    dispatch(CreateZonePlane(createData))
+    resetForm()
+
+
+  }
   return (
-    <div class="modal " id="showdeviceModal">
+    <div class="modal " id="showdeviceModal" >
       <div class="modal-dialog">
         <div class="modal-content">
 
@@ -37,6 +70,27 @@ const ShowDeviceModal = ({ setProfileImage }) => {
               <div className="text-center mb-4">
                 <h1>ADD NEW PLANE</h1>
               </div>
+              <div>
+                <Box
+                  sx={{
+                    width: "100%",
+                    maxWidth: "100%",
+                    fontSize: "20px",
+                    height: "50px",
+                  }}
+                >
+                  <TextField
+                    fullWidth
+                    focused
+                    placeholder="Plane 1"
+                    label="NAME"
+                    id="NAME"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+
+                  />
+                </Box>
+              </div>
 
               <div>
                 <UploadImage
@@ -45,7 +99,7 @@ const ShowDeviceModal = ({ setProfileImage }) => {
                     addFilesToDropzone(files, "dropzone1");
                   }}
                   dropzone1={dropzone1}
-                  imagePreviewUrl={imagePreviewUrl}
+                  imagePreviewUrl={dropzone1[0]?.preview}
                 />
               </div>
 
@@ -71,6 +125,7 @@ const ShowDeviceModal = ({ setProfileImage }) => {
                     } else {
                       setProfileImage("");
                     }
+                    createZoneplaneHandler()
                   }}
                 >
                   UPLOAD

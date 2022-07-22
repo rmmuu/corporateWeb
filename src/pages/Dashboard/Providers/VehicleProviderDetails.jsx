@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import personPng from "../../../assets/images/person.png";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useSelector } from "react-redux";
 
 const VehicleProviderDetails = () => {
   const vehicle = {
@@ -15,6 +16,8 @@ const VehicleProviderDetails = () => {
     driver: "Luis Enrique Cornejo Arreola",
     status: "Active",
   };
+  const { detailEmployeeProviderVehicle } = useSelector(state => state.EmployeeProviderSlice);
+  console.log(detailEmployeeProviderVehicle);
   return (
     <>
       <div className="head">
@@ -42,28 +45,28 @@ const VehicleProviderDetails = () => {
       >
         <div className="vehicleProviderDetails">
           <img src={personPng} className="__vehicleImage" />
-          <p className="__vehicleStatus">ACTIVE</p>
+          <p className="__vehicleStatus"> {detailEmployeeProviderVehicle?.status?.name}</p>
           <div className="__body" style={{ display: "flex" }}>
             <div className="col-md-8" style={{ padding: "0" }}>
               <p>BRAND</p>
-              <span>Kia</span>
+              <span> {detailEmployeeProviderVehicle?.brand}</span>
               <p>COLOR</p>
-              <span>Electic Blue</span>
-              <p>PLATES</p>
-              <span>SS-568-45D</span>
+              <span> {detailEmployeeProviderVehicle?.color}</span>
+              <p>PLATES </p>
+              <span> {detailEmployeeProviderVehicle?.plate}</span>
               <p>DRIVER</p>
-              <span>Luis Enrique Cornejo Arreola</span>
+              <span>Luis Enrique Cornejo Arreola {""}</span>
             </div>
             <div className="col-md-4" style={{ padding: "0" }}>
               <p>SUB-BRAND</p>
-              <span>RIO</span>
+              <span> {detailEmployeeProviderVehicle?.subBrand}</span>
               <p>MODEL</p>
-              <span>2018</span>
+              <span> {detailEmployeeProviderVehicle?.model}</span>
               <p>VEHICLE TYPE</p>
-              <span>Sedan</span>
+              <span> {detailEmployeeProviderVehicle?.vehicalType}</span>
 
               <p>STATUS</p>
-              <span>Active</span>
+              <span>Active {""}</span>
             </div>
           </div>
         </div>

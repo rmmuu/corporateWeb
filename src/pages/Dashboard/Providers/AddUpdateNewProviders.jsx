@@ -25,7 +25,7 @@ const AddUpdateNewProviders = () => {
   const [status, setStatus] = useState();
   const [gender, setGender] = useState();
   const location = useLocation();
-  const {updateProviderState } = location.state;
+  const { updateProviderState } = location.state;
   const [updateProvider, setUpdateProvider] = useState(false);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const AddUpdateNewProviders = () => {
               }}
             />
           </Link>
-          {updateProvider ? "UPDATE PROVIDER" : "ADD PROVIDER"}
+          {updateProvider ? "UPDATE PROVIDER" : "ADD PROVIDER fjdkl"}
         </h2>
         <div style={{ display: "flex" }}>
           <Link to="/dashboard/uploademployeefile">

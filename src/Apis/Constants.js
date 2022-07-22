@@ -30,7 +30,7 @@ export const endpoints = {
     GET_USER_BY_EMAIL: "user-service/get-by-email/",
     GET_ALL_EMPLOYEE_PAGEABLE: "employee-service/get-all-pageable",
     GET_ROLES: "role-service/get-all",
-    GET_WORK_STATIONS: "get-all/allowed-zones",
+    GET_WORK_STATIONS: "work-shift-service/get-all/allowed-zones",
     DELETE_EMPLOYEE_BY_ID: "employee-service/delete-by-id/",
     UPDATE_USER: "user-service/update",
     ORDER_BY_EMPLOYEES: "assets-service/employee-user-company/get-filters",

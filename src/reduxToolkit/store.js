@@ -9,13 +9,26 @@ import authenticatioauthennSlice from './authentication/authenticationSlice';
 import EmployeeEventsSlice from './EmployeeEvents/EmployeeEventsSlice';
 import EmployeeProviderSlice from './EmployeeProviders/EmployeeProviderSlice';
 import EmployeeContractorsSlice from './EmployeeContractors/EmployeeContractorsSlice';
+import EmployeeZonesSlice from './EmployeeZones/EmployeeZoneSlice';
+import vehicleDocumentSlice from './CompanyDocuments/vehicleDocumentSlice';
+import CompanyWorkShiftSlice from './CompanyWorkShift/CompanyWorkShiftSlice';
+import NotificationsSlice from './Notifications/NotificationsSlice';
+import AccessHistorySlice from './AccessHistory/AccessHistorySlice';
+import LogSlice from './Logs/LogSlice'
+
 
 
 const reducers = combineReducers({
     authenticatioauthennSlice,
+    vehicleDocumentSlice,
     EmployeeContractorsSlice,
     EmployeeEventsSlice,
-    EmployeeProviderSlice
+    EmployeeProviderSlice,
+    EmployeeZonesSlice,
+    CompanyWorkShiftSlice,
+    NotificationsSlice,
+    AccessHistorySlice,
+    LogSlice
 });
 
 

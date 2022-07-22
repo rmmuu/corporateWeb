@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import AddWorkShift from "./Modals/AddWorkShift";
 import RemoveUser from "./Modals/RemoveUser";
 import WorkShiftPanelCard from "./WorkShiftPanelCard";
-
+import { useDispatch } from "react-redux";
 const WorkShiftPanel = () => {
+  let dispatch=useDispatch()
   const [workShiftModalShow, setWorkShiftModalShow] = useState(false);
   const [removeUserModal, setRemoveUserModal] = useState();
 

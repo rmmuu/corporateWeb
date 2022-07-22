@@ -25,11 +25,16 @@ const UploadImage = ({ onPress, dropzone1, imagePreviewUrl }) => {
                 </div>
               </div>
               {dropzone1.map((file) => (
-                <img
-                  className="img_preview_set text-wrap"
-                  src={file.preview}
-                  alt={file.path}
-                />
+                <>
+                  <img
+                    className="img_preview_set text-wrap"
+                    src={file.preview}
+                    alt={file.path}
+
+                  />
+
+                </>
+
               ))}
             </div>
           </div>

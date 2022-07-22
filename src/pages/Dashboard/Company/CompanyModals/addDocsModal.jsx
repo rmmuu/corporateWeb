@@ -5,13 +5,15 @@ import { Modal } from "react-bootstrap";
 import cancel from '../../../../assets/images/ic-cancel.svg'
 import cloud from '../../../../assets/images/cloud.svg'
 import { createEmployeeDocuments, createExternalDocuments } from "../../../../Apis/documents";
-import { getCompanyData } from "../../../../Apis/companydata";
 import { toast } from "react-toastify";
 import { uploadImg } from "../../../../Apis/imageController";
+import { useDispatch } from "react-redux";
+import { createVehicles, getCompanyVehicles } from "../../../../reduxToolkit/CompanyDocuments/VehicleDocumentsApi";
 
 const AddDocsModal = (props) => {
+  const dispatch = useDispatch();
   const userdata = JSON.parse(sessionStorage.getItem("userdata"));
-  const companyId = "bc9789f1-3f16-4759-851d-5501cc37ec97";
+  const companyId = "a6bd2887-0f4a-4e5f-b0b5-000d9817ab23";
 
   const [checked, setChecked] = useState(false);
   const [documentName, setDocumentName] = useState();
@@ -21,9 +23,6 @@ const AddDocsModal = (props) => {
 
   const onFileChange = (e) => {
     setUploadFile(e.target.files[0])
-    // console.log(e.target.files[0])
-    // const [file] = e.target.files;
-    // setCompanyImg(URL.createObjectURL(file));
   };
 
   const handleSwitch = (checked) => {
@@ -31,24 +30,11 @@ const AddDocsModal = (props) => {
   }
 
   const handleUploadFile = () => {
-    getCompanyData(companyId).then(({ data: { data } }) => {
+    const body = {
+      "document": documentName,
+    }
 
-      const body = {
-        companyDocumentExternal: {
-          document: documentName,
-          driveId: data?.driveId,
-          file: null,
-          path: data?.path,
-          company: {
-            id: companyId,
-          },
-        },
-        companyId: companyId,
-        userId: userdata?.data.id,
-        email: userdata?.data.email,
-        userTypes: userdata?.data?.userType.name
-      }
-
+    if (props.relation === "user") {
       if (checked === true) {
         setLoading(true);
         createExternalDocuments(body).then(({ data: { data } }) => {
@@ -100,10 +86,30 @@ const AddDocsModal = (props) => {
         })
 
       }
+    }
+    if (props.modalrelation === "vehicle") {
 
-    }).catch(error => {
-      toast.error("something went wrong.")
-    })
+      dispatch(createVehicles(body)).then(({ payload: { data: { data } } }) => {
+        if (data?.id) {
+          let formData = new FormData();
+          formData.append('id', data?.id);
+          formData.append('option', "company_document_external_vehicle");
+          formData.append('file', uploadFile);
+
+          uploadImg(formData).then(({ data: { data: { data } } }) => {
+            toast.success("file uploaded successfully!");
+            setDocumentName("")
+            props.onHide();
+            dispatch(getCompanyVehicles());
+            setLoading(false);
+          }).catch(error => {
+            toast.error("something went wrong.");
+            setLoading(false);
+          })
+        }
+
+      })
+    }
   }
 
   return (
@@ -121,40 +127,45 @@ const AddDocsModal = (props) => {
         <img onClick={() => props.onHide()} className="modalClose" src={cancel} alt="" />
       </Modal.Header>
       <Modal.Body className="docsModalBody">
-        <p>Type</p>
-        <div className="d-flex align-items-center">
-          <span
-            style={{
-              fontSize: "14px",
-              color: checked ? "#707070" : "#65ABA0",
-              textDecoration: checked ? "none" : "underline",
-              marginRight: "10px"
-            }}
-          >EMPLOYEE</span>
-          <Switch
-            checked={checked}
-            onChange={handleSwitch}
-            onColor="#65ABA0"
-            onHandleColor="#178A7B"
-            handleDiameter={14}
-            uncheckedIcon={false}
-            checkedIcon={false}
-            boxShadow="0px 1px 2px rgba(0, 0, 0, 0.6)"
-            activeBoxShadow="0px 0px 1px 2px rgba(0, 0, 0, 0.2)"
-            height={11}
-            width={26}
-            className="react-switch"
-            id="material-switch"
-          />
-          <span
-            style={{
-              fontSize: "14px",
-              color: checked ? "#65ABA0" : "#707070",
-              textDecoration: checked ? "underline" : "none",
-              marginLeft: "10px"
-            }}
-          >EXTERNAL</span>
-        </div>
+        {
+          props.modalrelation === "user" ?
+            <>
+              <p>Type</p>
+              <div className="d-flex align-items-center">
+                <span
+                  style={{
+                    fontSize: "14px",
+                    color: checked ? "#707070" : "#65ABA0",
+                    textDecoration: checked ? "none" : "underline",
+                    marginRight: "10px"
+                  }}
+                >EMPLOYEE</span>
+                <Switch
+                  checked={checked}
+                  onChange={handleSwitch}
+                  onColor="#65ABA0"
+                  onHandleColor="#178A7B"
+                  handleDiameter={14}
+                  uncheckedIcon={false}
+                  checkedIcon={false}
+                  boxShadow="0px 1px 2px rgba(0, 0, 0, 0.6)"
+                  activeBoxShadow="0px 0px 1px 2px rgba(0, 0, 0, 0.2)"
+                  height={11}
+                  width={26}
+                  className="react-switch"
+                  id="material-switch"
+                />
+                <span
+                  style={{
+                    fontSize: "14px",
+                    color: checked ? "#65ABA0" : "#707070",
+                    textDecoration: checked ? "underline" : "none",
+                    marginLeft: "10px"
+                  }}
+                >EXTERNAL</span>
+              </div>
+            </> : null
+        }
         <Box
           component="form"
           sx={{

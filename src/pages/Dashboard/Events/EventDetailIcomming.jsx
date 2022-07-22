@@ -1,39 +1,49 @@
 import React, { useEffect } from 'react'
-import CancelEvent from './CancelEvent';
+import CancelEventModal from './CancelEventModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from "react";
 import { Link, useParams } from 'react-router-dom';
-import { deleteUserInvitation, getEventDetail, getUserInvitations, getVehiclesInvitations } from '../../../reduxToolkit/EmployeeEvents/EmployeeEventsApi';
+import {
+    deleteUserInvitation,
+    downloadSignature,
+    getEventDetail,
+    getUserInvitations,
+    getVehiclesInvitations
+} from '../../../reduxToolkit/EmployeeEvents/EmployeeEventsApi';
 import NoEvent from './NoEvent';
 import deleteIcon from '../../../assets/images/ic-delete-red.svg';
+import signatureimg from '../../../assets/images/as.jpg';
 import checkTrue from '../../../assets/images/ic-check.svg';
 import checkFalse from '../../../assets/images/ic-cancel.svg';
-import { getComopanyRestructions } from '../../../Apis/companydata';
+// import { getComopanyRestructions } from '../../../Apis/companydata';
 import { URL } from '../../../Apis/Constants';
 
 const EventDetailIcomming = () => {
     const { id } = useParams();
-    const companyId = "bc9789f1-3f16-4759-851d-5501cc37ec97";
+    // const companyId = "a6bd2887-0f4a-4e5f-b0b5-000d9817ab23";
     const dispatch = useDispatch();
     const incomingsData = useSelector(state => state?.EmployeeEventsSlice?.eventDetail);
     const userInvitationsData = useSelector(state => state?.EmployeeEventsSlice?.userInvitationsData);
     const vehiclesInvitationsData = useSelector(state => state?.EmployeeEventsSlice?.vehiclesInvitationsData);
-    console.log(vehiclesInvitationsData)
+    const companyRestrictionsData = useSelector(state => state?.EmployeeEventsSlice?.companyRestrictionsData);
+    console.log(userInvitationsData)
 
     const [showEvent, setShowEvent] = useState(false);
-    const [restructions, setRestructions] = useState();
+    // const [restructions, setRestructions] = useState();
 
 
     useEffect(() => {
         dispatch(getEventDetail(id));
         dispatch(getUserInvitations(id));
         dispatch(getVehiclesInvitations(id));
-        getComopanyRestructions(companyId).then(({ data: { data } }) => {
-            setRestructions(data)
-        })
+        // dispatch(downloadSignature({
+        //     id: id,
+        //     option: "event"
+        // }))
     }, [])
 
     const handlePdfDownload = () => {
+        console.log(id)
         fetch(`${URL}file-service/download-report-onu/${id}`, {
             method: 'GET',
             headers: {
@@ -43,7 +53,6 @@ const EventDetailIcomming = () => {
         })
             .then((response) => response.blob())
             .then((blob) => {
-                // Create blob link to download
                 const url = window.URL.createObjectURL(
                     new Blob([blob]),
                 );
@@ -53,20 +62,22 @@ const EventDetailIcomming = () => {
                     'download',
                     `FileName.pdf`,
                 );
-
-                // Append to html link element page
                 document.body.appendChild(link);
-
-                // Start download
                 link.click();
-
-                // Clean up and remove the link
                 link.parentNode.removeChild(link);
             });
     }
     const handleuserInviteDelete = (userinvitId) => {
         dispatch(deleteUserInvitation(userinvitId));
         dispatch(getUserInvitations(id));
+    }
+
+    const checkStatus = (name) => {
+        if (name === "EVENT_IN_VALIDATION") {
+            return "#0C4523"
+        } else if (name === "EVENT_CANCEL") {
+            return "red"
+        }
     }
 
     return (
@@ -79,27 +90,33 @@ const EventDetailIcomming = () => {
                     <h2>Events Detail</h2>
                 </div>
                 <div className="d-flex">
-                    <button
-                        className='btn btn-primary'
-                        style={{ marginRight: "0.5rem", background: '#146F62', border: 'none' }}
-                        onClick={handlePdfDownload}
-                    >
-                        DOWNLOAD PDF
-                        <i style={{ marginLeft: '0.5rem' }} class="fa fa-download" aria-hidden="true"></i>
-                    </button>
-                    <button
-                        className='btn btn-primary'
-                        style={{ marginRight: "0.5rem", background: '#e24c4b', border: 'none', }}
-                        onClick={() => setShowEvent(true)}
-                    >
-                        CANCEL EVENT
-                        <i style={{ marginLeft: '0.5rem' }} class="fa fa-trash" aria-hidden="true"></i>
-                        <CancelEvent
-                            eventid={id}
-                            show={showEvent}
-                            onHide={() => setShowEvent(false)}
-                        />
-                    </button>
+                    {
+                        companyRestrictionsData?.isOnuEvent ?
+                            <button
+                                className='btn btn-primary'
+                                style={{ marginRight: "0.5rem", background: '#146F62', border: 'none' }}
+                                onClick={handlePdfDownload}
+                            >
+                                DOWNLOAD PDF
+                                <i style={{ marginLeft: '0.5rem' }} class="fa fa-download" aria-hidden="true"></i>
+                            </button> : null
+                    }
+                    {
+                        incomingsData?.status?.name !== "EVENT_CANCEL" ?
+                            <button
+                                className='btn btn-primary'
+                                style={{ marginRight: "0.5rem", background: '#e24c4b', border: 'none', }}
+                                onClick={() => setShowEvent(true)}
+                            >
+                                CANCEL EVENT
+                                <i style={{ marginLeft: '0.5rem' }} class="fa fa-trash" aria-hidden="true"></i>
+                                <CancelEventModal
+                                    eventid={id}
+                                    show={showEvent}
+                                    onHide={() => setShowEvent(false)}
+                                />
+                            </button> : null
+                    }
                 </div>
             </div>
 
@@ -108,9 +125,29 @@ const EventDetailIcomming = () => {
                     <p style={{ color: '#146F62', fontSize: '20px', letterSpacing: '7px', fontWeight: "bold", }}>DETAILS</p>
                     <div style={{ boxShadow: '0px 0px 4px #000000B3', borderRadius: '8px', padding: "15px", marginTop: '1rem', position: "relative" }}>
                         <div>
-                            <span style={{ position: "absolute", top: "5px", right: '20px', fontSize: "12px" }}>To Approve</span>
-                            <div style={{ width: "12px", height: '12px', background: '#F2A100', borderRadius: '50%', position: "absolute", top: "8px", right: '5px' }}>
-
+                            <span
+                                style={{
+                                    position: "absolute",
+                                    top: "5px",
+                                    right: '20px',
+                                    fontSize: "12px",
+                                    color: checkStatus(incomingsData?.status?.name),
+                                    fontWeight: "bold"
+                                }}
+                            >
+                                {incomingsData?.status?.name.replaceAll('_', ' ')}
+                            </span>
+                            <div
+                                style={{
+                                    width: "12px",
+                                    height: '12px',
+                                    backgroundColor: checkStatus(incomingsData?.status?.name),
+                                    borderRadius: '50%',
+                                    position: "absolute",
+                                    top: "8px",
+                                    right: '5px'
+                                }}
+                            >
                             </div>
                         </div>
 
@@ -197,44 +234,53 @@ const EventDetailIcomming = () => {
             <div style={{ marginTop: '1rem' }}>
                 <div className="row">
                     <div className="col-md-5">
-
                         <p style={{ color: '#146F62', fontSize: '20px', letterSpacing: '7px', fontWeight: "bold", }}>COMMENTS</p>
                         <div style={{ boxShadow: '0px 0px 4px #000000B3', borderRadius: '8px', padding: "15px", marginTop: '1rem', position: "relative", height: '146px' }}>
                             <div style={{ display: "flex", justifyContent: "space-between" }}>
                                 <div style={{ marginTop: '0.7rem' }}>
                                     <h6 style={{ color: '#707070', fontSize: "15px", fontWeight: "bold" }}>VISITOR'S COMMENT</h6>
-                                    <p style={{ color: '#707070', fontSize: "16px" }}>BE PUNTUAL</p>
+                                    <p style={{ color: '#707070', fontSize: "16px" }}>{incomingsData?.visitorComment}</p>
                                 </div>
                                 <div style={{ marginTop: '0.7rem' }}>
                                     <h6 style={{ color: '#707070', fontSize: "15px", fontWeight: "bold" }}>VALIDATION'S COMMENT</h6>
-                                    <p style={{ color: '#707070', fontSize: "16px" }}>NONE</p>
+                                    <p style={{ color: '#707070', fontSize: "16px" }}>{incomingsData?.validationComment}</p>
                                 </div>
                             </div>
-
-
-                        </div>
-
-                    </div>
-                    <div className="col-md-4">
-                        <p style={{ color: '#146F62', fontSize: '20px', letterSpacing: '7px', fontWeight: "bold", }}>VALIDATED BY</p>
-                        <div style={{ boxShadow: '0px 0px 4px #000000B3', borderRadius: '8px', padding: "15px", marginTop: '1rem', position: "relative", height: '146px' }}>
-
-                            <div >
-                                <h6 style={{ color: '#707070', fontSize: "15px", fontWeight: "bold" }}>NAME</h6>
-                                <p style={{ color: '#707070', fontSize: "16px" }}>lcornejo@ibl.mx   </p>
-                            </div>
-                            <div >
-                                <h6 style={{ color: '#707070', fontSize: "15px", fontWeight: "bold" }}>PHONE NUMBER</h6>
-                                <p style={{ color: '#707070', fontSize: "16px" }}>+524431232322</p>
-                            </div>
-                            <div >
-                                <h6 style={{ color: '#707070', fontSize: "15px", fontWeight: "bold" }}>ACTION</h6>
-                                <p style={{ color: '#707070', fontSize: "16px" }}>APPROVED</p>
-                            </div>
                         </div>
                     </div>
+                    {
+                        incomingsData?.validatedBy !== null ?
+                            <div className="col-md-4">
+                                <p style={{ color: '#146F62', fontSize: '20px', letterSpacing: '7px', fontWeight: "bold", }}>VALIDATED BY</p>
+                                <div style={{ boxShadow: '0px 0px 4px #000000B3', borderRadius: '8px', padding: "15px", marginTop: '1rem', position: "relative", height: '146px' }}>
+
+                                    <div >
+                                        <h6 style={{ color: '#707070', fontSize: "15px", fontWeight: "bold" }}>NAME</h6>
+                                        <p style={{ color: '#707070', fontSize: "16px" }}>Luis</p>
+                                    </div>
+                                    <div >
+                                        <h6 style={{ color: '#707070', fontSize: "15px", fontWeight: "bold" }}>PHONE NUMBER</h6>
+                                        <p style={{ color: '#707070', fontSize: "16px" }}>+524431232322</p>
+                                    </div>
+                                    <div >
+                                        <h6 style={{ color: '#707070', fontSize: "15px", fontWeight: "bold" }}>ACTION</h6>
+                                        <p style={{ color: '#707070', fontSize: "16px" }}>APPROVED</p>
+                                    </div>
+                                </div>
+                            </div> : null
+                    }
                     <div className="col-md-3">
                         <p style={{ color: '#146F62', fontSize: '20px', letterSpacing: '7px', fontWeight: "bold", }}>SIGNATURE</p>
+                        <img
+                            src={signatureimg}
+                            style={{
+                                width: "100%",
+                                height: "9rem",
+                                marginTop: "1rem",
+                                borderRadius: "8px"
+                            }}
+                            alt="signature"
+                        />
                     </div>
                 </div>
             </div>
@@ -290,7 +336,7 @@ const EventDetailIcomming = () => {
 
             {/* vehicle */}
             {
-                restructions?.isOnuEvent ?
+                companyRestrictionsData?.isOnuEvent ?
                     <>
                         <p style={{ color: '#146F62', fontSize: '20px', letterSpacing: '7px', fontWeight: "bold", }}>VEHICLES</p>
                         <div className='remove_filter_visitor'>

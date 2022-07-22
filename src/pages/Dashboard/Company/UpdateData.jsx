@@ -6,17 +6,19 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getComopanyRestructions, getCompanyData, updateComopanyImg, updateComopanyRestructions, updateCompanyData } from '../../../Apis/companydata';
 import { toast } from 'react-toastify';
+import { companyRestrictions } from '../../../reduxToolkit/EmployeeEvents/EmployeeEventsApi';
 
 
 const UpdateData = () => {
   const navigate = useNavigate();
-  const companyId = "bc9789f1-3f16-4759-851d-5501cc37ec97";
+  const dispatch = useDispatch();
+  const companyId = "a6bd2887-0f4a-4e5f-b0b5-000d9817ab23";
 
   const [getCompany, setGetCompany] = useState();
   const [showMap, setShowMap] = useState(false);
-  const [companyImg, setCompanyImg] = useState();
   const [arrData, setarrData] = useState();
   const [updateCompanyImg, setUpdateCompanyImg] = useState();
+  const [companyImg, setCompanyImg] = useState();
   const [updateres, setUpdateres] = useState();
   const [companyData, setCompanyData] = useState({
     id: getCompany?.id,
@@ -139,6 +141,8 @@ const UpdateData = () => {
   const handleSubmit = () => {
     updateComopanyRestructions(updateres).then(({ data: { data } }) => {
 
+      dispatch(companyRestrictions(companyId));
+
       updateCompanyData(companyData).then(data => {
 
         let formData = new FormData();
@@ -146,14 +150,18 @@ const UpdateData = () => {
         formData.append('option', "company");
         formData.append('file', updateCompanyImg);
 
-        updateComopanyImg(formData).then((data) => {
-          console.log(data);
-          toast.success("Company Data updated successfully!");
-          navigate('/dashboard/company');
+        if (updateCompanyImg !== undefined) {
+          updateComopanyImg(formData).then((data) => {
+            // console.log(data);
+            toast.success("Company Data updated successfully!");
+            navigate('/dashboard/company');
 
-        }).catch(error => {
-          toast.error("something went wrong in updating image company section")
-        })
+          }).catch(error => {
+            toast.error("something went wrong in updating image company section")
+          })
+        } else {
+          navigate('/dashboard/company');
+        }
 
       }).catch(error => {
         toast.error("something went wrong in updating company profile section")
@@ -273,8 +281,8 @@ const UpdateData = () => {
           {
             showMap ? <div className='my-5'>
               <LefletMap
-                        latlng={[31.5204, 74.3587]}
-                // latlng={[companyData?.latitud, companyData?.longitud]}
+                latlng={[31.5204, 74.3587]}
+              // latlng={[companyData?.latitud, companyData?.longitud]}
               />
             </div> : null
           }

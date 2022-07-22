@@ -14,7 +14,7 @@ import deleteIcon from '../../../assets/images/ic-delete-red.svg';
 
 const ManageRoleModal = (props) => {
     const userdata = JSON.parse(sessionStorage.getItem("userdata"));
-    const companyId = "bc9789f1-3f16-4759-851d-5501cc37ec97";
+    const companyId = "a6bd2887-0f4a-4e5f-b0b5-000d9817ab23";
     // const navigate = useNavigate();
     const { id } = useParams();
 

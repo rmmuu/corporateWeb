@@ -76,7 +76,7 @@ export const getAllEmployees = createAsyncThunk("employeeEvents/allEmployees", a
 
 export const searchByEmail = createAsyncThunk("employeeEvents/searchByEmail", async (email) => {
 
-    let response = await apiInstance.get(`user-service/get-by-email/zafar99@gmail.com`).then((response) => {
+    let response = await apiInstance.get(`user-service/get-by-email/${email}`).then((response) => {
         return response
     }).catch((error) => {
         return error.response
@@ -194,3 +194,110 @@ export const allowDenyEvent = createAsyncThunk("employeeEvents/allowDenyEvent", 
 
 });
 
+export const companyRestrictions = createAsyncThunk("employeeEvents/companyRestrictions", async (companyId) => {
+
+    let response = await apiInstance.get(`company-service/company-restriction/get-by-company-id/${companyId}`).then((response) => {
+        return response
+    }).catch((error) => {
+        return error.response
+    })
+    const { data, status } = response;
+    return { data, status }
+
+});
+
+export const getAllVehiclesData = createAsyncThunk("employeeEvents/getAllVehiclesData", async () => {
+
+    let response = await apiInstance.get(`vehicle-company-service/get-all-only-vehicle-data/by-company-id`).then((response) => {
+        return response
+    }).catch((error) => {
+        return error.response
+    })
+    const { data, status } = response;
+    return { data, status }
+
+});
+
+export const createOnuVehicle = createAsyncThunk("employeeEvents/createVehicle", async (body) => {
+
+    let response = await apiInstance.post(`vehicle-service/create-for-company`, body).then((response) => {
+        return response
+    }).catch((error) => {
+        return error.response
+    })
+    const { data, status } = response;
+    return { data, status }
+
+});
+
+export const createOnuEvent = createAsyncThunk("employeeEvents/createOnuEvent", async (body) => {
+
+    let response = await apiInstance.post(`event-service/create`, body).then((response) => {
+        return response
+    }).catch((error) => {
+        return error.response
+    })
+    const { data, status } = response;
+    return { data, status }
+
+});
+
+export const preRegisterUser = createAsyncThunk("employeeEvents/preRegisterUser", async (body) => {
+
+    let response = await apiInstance.post(`authentication-service/pre-register-user`, body).then((response) => {
+        return response
+    }).catch((error) => {
+        return error.response
+    })
+    const { data, status } = response;
+    return { data, status }
+
+});
+
+export const downloadOnuFile = createAsyncThunk("employeeEvents/downloadOnuFile", async (id) => {
+
+    let response = await apiInstance.get(`file-service/download-report-onu/${id}`).then((response) => {
+        return response
+    }).catch((error) => {
+        return error.response
+    })
+    const { data, status } = response;
+    return { data, status }
+
+});
+
+export const getOnuAllZones = createAsyncThunk("employeeEvents/getOnuAllZones", async (body) => {
+
+    let response = await apiInstance.post(`work-shift-service/reservation/get-all-free-common-areas-by-dates`, body).then((response) => {
+        return response
+    }).catch((error) => {
+        return error.response
+    })
+    const { data, status } = response;
+    return { data, status }
+
+});
+
+export const createVehicleInvitations = createAsyncThunk("employeeEvents/createVehicleInvitations", async (body) => {
+
+    let response = await apiInstance.post(`event-service/create-vehicle-invitations`, body).then((response) => {
+        return response
+    }).catch((error) => {
+        return error.response
+    })
+    const { data, status } = response;
+    return { data, status }
+
+});
+
+export const downloadSignature = createAsyncThunk("employeeEvents/downloadSignature", async ({ id, option }) => {
+
+    let response = await apiInstance.get(`image-service/download-by-id/${id}/option/${option}`).then((response) => {
+        return response
+    }).catch((error) => {
+        return error.response
+    })
+    const { data, status } = response;
+    return { data, status }
+
+});

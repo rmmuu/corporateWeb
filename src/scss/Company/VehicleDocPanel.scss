@@ -1,5 +1,4 @@
 .documentsPanel {
-    padding: 26px 0rem 2rem 1rem;
     .page-heading {
         font-size: 39px;
         font-weight: 500;
@@ -17,7 +16,7 @@
         }
     }
     .row {
-        margin-top: 105px;
+        margin-top: 65px;
         justify-content: center;
         .table-heading {
             margin: 14px 0;
@@ -54,15 +53,14 @@
     }
 }
 .documents-detail-sec {
-    width: 505px;
+    // width: 505px;
     .table-header {
         padding: 0 14.34px;
+        // height: 34px;
         display: flex;
         justify-content: space-between;
         div {
-            // width: 33.33%;
-            // height: 18px;
-            font: normal normal bold 14px/18px Montserrat;
+            width: 33.33%;
             letter-spacing: 0px;
             color: #65aba0;
             opacity: 1;
@@ -89,9 +87,10 @@
         opacity: 1;
         margin: 5px 0;
         align-items: center;
-        font: normal normal bold 14px/18px Montserrat;
+        padding: 5px 14px;
         div {
-            width: 33.33%;
+            width: 25%;
+            overflow-wrap: break-word;
         }
         .cancel {
             height: 12px;
@@ -107,10 +106,10 @@
             text-align: center;
         }
     }
-    .first-row,
-    .third-row {
-        height: 34px;
-    }
+    // .first-row,
+    // .third-row {
+    //     height: 34px;
+    // }
 }
 
 .documents-panel-modal {

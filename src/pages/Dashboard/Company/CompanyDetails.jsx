@@ -5,38 +5,18 @@ import { Vehicles } from './Vehicles/Vehicles';
 import CustomDropDown from '../../../components/CustomDropDown';
 import LefletMap from '../../../components/LefletMap';
 import { getCompanyData } from '../../../Apis/companydata';
-import { getAllCompanyVehicles } from '../../../Apis/companyVehicle';
 
 export const CompanyDetails = () => {
-    const userdata = JSON.parse(sessionStorage.getItem("userdata"));
-    const companyId = "bc9789f1-3f16-4759-851d-5501cc37ec97";
+    const companyId = "a6bd2887-0f4a-4e5f-b0b5-000d9817ab23";
 
     const [companyDetail, setCompanyDetail] = useState();
-    const [vehicleData, setVehicleData] = useState();
-    const [page1, setPage1] = useState("0");
-    const [rowsPerPage1, setRowsPerPage1] = useState("8");
 
     useEffect(() => {
-
         getCompanyData(companyId).then(({ data: { data } }) => {
             // console.log(data)
             setCompanyDetail(data);
             localStorage.setItem("companyId", data[0]?.id)
 
-        }).catch(error => {
-            // toast.error("something went wrong.")
-        })
-
-        const pagination = {
-            order: true,
-            page: 10,
-            size: 5,
-            sortBy: "id"
-        }
-
-        getAllCompanyVehicles(pagination).then(({ data: { data } }) => {
-            setVehicleData(data.content)
-            // console.log(data)
         }).catch(error => {
             // toast.error("something went wrong.")
         })
@@ -94,14 +74,10 @@ export const CompanyDetails = () => {
             </div>
             <div className="row">
                 <div className="col-md-6">
-                    <Employees noOfEmployees={companyDetail?.noEmployees}
-                    />
+                    <Employees />
                 </div>
                 <div className="col-md-6">
-                    <Vehicles
-                        vehicleData={vehicleData}
-                        noVehicles={companyDetail?.noVehicles}
-                    />
+                    <Vehicles />
                 </div>
             </div>
         </div>

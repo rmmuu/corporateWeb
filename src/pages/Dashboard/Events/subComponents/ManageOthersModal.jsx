@@ -5,39 +5,92 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Box, InputAdornment, TextField } from '@mui/material';
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import searchIcon from '../../../../assets/images/ic-search.svg';
 import userregular from "../../../../assets/images/user-regular.svg";
-import { searchByEmail, searchByPhone } from '../../../../reduxToolkit/EmployeeEvents/EmployeeEventsApi';
-import { SaveEmailPhoneSearchList } from '../../../../reduxToolkit/EmployeeEvents/EmployeeEventsSlice';
+import { preRegisterUser, searchByEmail, searchByPhone } from '../../../../reduxToolkit/EmployeeEvents/EmployeeEventsApi';
+import { SaveEmailPhoneSearchList, setReadOnly } from '../../../../reduxToolkit/EmployeeEvents/EmployeeEventsSlice';
 
 const ManageOthersModal = (props) => {
     const dispatch = useDispatch();
     const emailPhoneSearchData = useSelector(state => state?.EmployeeEventsSlice?.emailPhoneSearchData);
+    const readOnly = useSelector(state => state?.EmployeeEventsSlice?.readOnly);
     // console.log(emailPhoneSearchData)
-    // +15556106679
+    // +15554006679
     const [checked, setChecked] = useState(true);
     const [cellular, setCellular] = useState();
     const [email, setEmail] = useState();
     const [preRegisterObj, setPreRegisterObj] = useState({
-        name: emailPhoneSearchData?.name,
-        email: emailPhoneSearchData?.email,
-        phoneNumber: emailPhoneSearchData?.phoneNumber
+        name: "",
+        email: "",
+        phoneNumber: ""
     })
+
     useEffect(() => {
-    // dispatch(searchByPhone())
-    dispatch(searchByEmail())
-    }, [])
+        if (props.show === false) {
+            setPreRegisterObj({
+                name: "",
+                email: "",
+                phoneNumber: ""
+            });
+            setEmail('');
+            setCellular('');
+            dispatch(setReadOnly(false))
+        }
+        if (readOnly === false) {
+            setPreRegisterObj({
+                name: "",
+                email: "",
+                phoneNumber: ""
+            });
+            setEmail('');
+            setCellular('');
+        }
+    }, [props.show, readOnly])
 
     const handleSwitch = (checked) => {
-        setChecked(checked)
+        setChecked(checked);
+        setCellular("");
+        setEmail("");
+        setPreRegisterObj({
+            name: "",
+            email: "",
+            phoneNumber: ""
+        });
     }
 
-    const handleChange = (e) => {
-        setCellular(e.target.value);
-        dispatch(searchByPhone(e.target.value))
+    const handleSearch = () => {
+        if (checked) {
+            dispatch(searchByPhone(cellular)).then(({ payload: { data: { data: data } } }) => {
+                setPreRegisterObj({
+                    name: data?.name,
+                    email: data?.email,
+                    phoneNumber: data?.phoneNumber
+                })
+            })
+        } else {
+            dispatch(searchByEmail(email)).then(({ payload: { data: { data: data } } }) => {
+                setPreRegisterObj({
+                    name: data?.name,
+                    email: data?.email,
+                    phoneNumber: data?.phoneNumber
+                })
+            })
+        }
     }
+
 
     const handleConfirm = () => {
-        dispatch(SaveEmailPhoneSearchList(emailPhoneSearchData));
+        if (readOnly === true) {
+            dispatch(SaveEmailPhoneSearchList(emailPhoneSearchData))
+        } else if (readOnly === false) {
+            dispatch(preRegisterUser({
+                email: preRegisterObj.email,
+                name: preRegisterObj.name,
+                phoneNumber: preRegisterObj.cellular
+            })).then(({ payload: { data: { data: data } } }) => {
+                dispatch(SaveEmailPhoneSearchList(data))
+            })
+        }
         props.onHide();
     }
 
@@ -89,23 +142,25 @@ const ManageOthersModal = (props) => {
                     >FIND BY PHONE NUMBER</span>
                 </div>
                 <div className="findPersonDiv">
-                    {
-                        checked ?
-                            <Box
-                                sx={{
-                                    width: "100%",
-                                    maxWidth: "100%",
-                                    fontSize: "20px",
-                                    height: "40px",
-                                }}
-                            >
+                    <Box
+                        sx={{
+                            width: "100%",
+                            maxWidth: "100%",
+                            fontSize: "20px",
+                            height: "40px",
+                            display: "flex",
+                            alignItems: "center"
+                        }}
+                    >
+                        {
+                            checked ?
                                 <TextField
                                     fullWidth
                                     placeholder="4426562658"
                                     label="NUMBER"
                                     id="CELULAR"
                                     value={cellular}
-                                    onChange={handleChange}
+                                    onChange={(e) => setCellular(e.target.value)}
                                     InputProps={{
                                         endAdornment: (
                                             <InputAdornment position="end">
@@ -113,16 +168,7 @@ const ManageOthersModal = (props) => {
                                             </InputAdornment>
                                         ),
                                     }}
-                                />
-                            </Box> :
-                            <Box
-                                sx={{
-                                    width: "100%",
-                                    maxWidth: "100%",
-                                    fontSize: "20px",
-                                    height: "40px",
-                                }}
-                            >
+                                /> :
                                 <TextField
                                     fullWidth
                                     placeholder="lcornejo@ibl.mx"
@@ -138,8 +184,32 @@ const ManageOthersModal = (props) => {
                                         ),
                                     }}
                                 />
-                            </Box>
-                    }
+                        }
+                        <div
+                            style={{
+                                padding: "5px",
+                                borderRadius: "5px",
+                                backgroundColor: "rgb(20, 111, 98)",
+                                height: "35px",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                width: "3rem",
+                                marginLeft: "10px",
+                                cursor: "pointer"
+                            }}
+                            onClick={handleSearch}
+                        >
+                            <img
+                                src={searchIcon}
+                                alt="searchIcon"
+                                style={{
+                                    width: "20px",
+                                    height: "20px"
+                                }}
+                            />
+                        </div>
+                    </Box>
                 </div>
                 <p className='bottomText'><span>USUARIO NOTFUNDED </span>, please pre-register the user</p>
                 <div className="preRegisterUserFields">
@@ -156,10 +226,11 @@ const ManageOthersModal = (props) => {
                             placeholder="LUIS ENRIQUE"
                             label="NAME"
                             id="NAME"
-                            value={emailPhoneSearchData?.name}
-                            defaultValue=" "
+                            value={preRegisterObj?.name}
+                            // defaultValue=" "
+                            disabled={readOnly}
                             required
-                            onChange={(e) => setPreRegisterObj([preRegisterObj, e.target.value])}
+                            onChange={(e) => setPreRegisterObj({ ...preRegisterObj, "name": e.target.value })}
                             className=""
                             InputProps={{
                                 endAdornment: (
@@ -187,9 +258,10 @@ const ManageOthersModal = (props) => {
                             placeholder="4426562658"
                             label="NUMBER"
                             id="CELULAR"
-                            value={emailPhoneSearchData?.phoneNumber}
-                            defaultValue=" "
-                            onChange={(e) => setPreRegisterObj([preRegisterObj, e.target.value])}
+                            disabled={readOnly}
+                            value={preRegisterObj?.phoneNumber}
+                            // defaultValue=" "
+                            onChange={(e) => setPreRegisterObj({ ...preRegisterObj, "phoneNumber": e.target.value })}
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
@@ -211,9 +283,10 @@ const ManageOthersModal = (props) => {
                             fullWidth
                             placeholder="lcornejo@ibl.mx"
                             label="EMAIL"
-                            value={emailPhoneSearchData?.email}
-                            defaultValue=" "
-                            onChange={(e) => setPreRegisterObj([preRegisterObj, e.target.value])}
+                            value={preRegisterObj?.email}
+                            // defaultValue=" "
+                            disabled={readOnly}
+                            onChange={(e) => setPreRegisterObj({ ...preRegisterObj, "email": e.target.value })}
                             id="EMAIL"
                             InputProps={{
                                 endAdornment: (

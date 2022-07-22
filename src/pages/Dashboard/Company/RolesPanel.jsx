@@ -4,17 +4,13 @@ import { Link } from "react-router-dom";
 import deleteIcon from '../../../assets/images/ic-delete-red.svg';
 import TablePagination from '@mui/material/TablePagination';
 import { Accordion } from 'react-bootstrap';
-import HashLoader from "react-spinners/HashLoader";
 import { getAllroleEmployeesPageable, rolesListing } from "../../../Apis/roles";
 import DeleteRoleModal from "./CompanyModals/DeleteRoleModal";
 import ManageRoleModal from "./ManageRoleModal";
-import { override } from "../../../Helpers/spinnercss";
-
-
 
 const RolesPanel = () => {
     const userdata = JSON.parse(sessionStorage.getItem("userdata"));
-    const companyId = "bc9789f1-3f16-4759-851d-5501cc37ec97";
+    const companyId = "a6bd2887-0f4a-4e5f-b0b5-000d9817ab23";
 
     const [show, setShow] = useState(false);
     const [manageShow, setManageShow] = useState(false);
@@ -138,89 +134,85 @@ const RolesPanel = () => {
             <div className="rolesPanel">
                 <Accordion defaultActiveKey="0">
                     {
-                        showRoleList ?
-                            showRoleList?.content.map((item, index) => (
-                                <Accordion.Item
-                                    eventKey={index}
-                                    key={index}
+                        showRoleList?.content.map((item, index) => (
+                            <Accordion.Item
+                                eventKey={index}
+                                key={index}
+                            >
+                                <Accordion.Header
+                                    onClick={() => handleSelectTab(item.id)}
                                 >
-                                    <Accordion.Header
-                                        onClick={() => handleSelectTab(item.id)}
-                                    >
-                                        <div className="rolesHeader">
-                                            <div className="leftText">
-                                                <p>{item.name}</p>
-                                                <Link to={`/dashboard/company/add-update-role/${item.id}`}>
-                                                    <span>manage role</span>
-                                                </Link>
-                                            </div>
-                                            <div
-                                                className="rightText"
+                                    <div className="rolesHeader">
+                                        <div className="leftText">
+                                            <p>{item.name}</p>
+                                            <Link to={`/dashboard/company/add-update-role/${item.id}`}>
+                                                <span>manage role</span>
+                                            </Link>
+                                        </div>
+                                        <div
+                                            className="rightText"
+                                            onClick={() => {
+                                                setDeleteId(item.id)
+                                                setdeleteItemName("role")
+                                                setShow(true)
+                                            }}
+                                        >
+                                            <span>delete role</span><img src={deleteIcon} alt="deleteimg" />
+                                        </div>
+                                    </div>
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                    <div className="roleBody">
+                                        <div className="upper">
+                                            <p style={{ textTransform: "uppercase" }}>USERS IN THE ROLE</p>
+                                            <p
+                                                style={{
+                                                    textDecoration: "underline",
+                                                    cursor: "pointer"
+                                                }}
                                                 onClick={() => {
-                                                    setDeleteId(item.id)
-                                                    setdeleteItemName("role")
-                                                    setShow(true)
+                                                    setroleId(item.id)
+                                                    setManageShow(true)
                                                 }}
                                             >
-                                                <span>delete role</span><img src={deleteIcon} alt="deleteimg" />
+                                                manage Users
+                                            </p>
+                                        </div>
+                                        <p style={{ textTransform: "uppercase", fontSize: "12px" }}>Name</p>
+                                        <div className="nameList row">
+                                            {
+                                                roleEmployees?.content.map(item => (
+                                                    <div className="col-3 my-1" key={item.id}>
+                                                        <img
+                                                            src={deleteIcon}
+                                                            alt="deleteimg"
+                                                            onClick={() => {
+                                                                setDeleteId(item.id)
+                                                                setdeleteItemName("user")
+                                                                setShow(true)
+                                                            }}
+                                                        />
+                                                        <span>{item.name}</span>
+                                                    </div>
+                                                ))
+                                            }
+                                            <div className="d-flex justify-content-center">
+                                                <TablePagination
+                                                    component="div"
+                                                    rowsPerPageOptions={[2, 4, 6, 8]}
+                                                    count={roleEmployees?.totalElements}
+                                                    page={empPage}
+                                                    onPageChange={handleEmpChangePage}
+                                                    labelRowsPerPage="Roles per page"
+                                                    rowsPerPage={empRowsPerPage}
+                                                    onRowsPerPageChange={handleEmpChangeRowsPerPage}
+                                                />
                                             </div>
                                         </div>
-                                    </Accordion.Header>
-                                    <Accordion.Body>
-                                        <div className="roleBody">
-                                            <div className="upper">
-                                                <p style={{ textTransform: "uppercase" }}>USERS IN THE ROLE</p>
-                                                <p
-                                                    style={{
-                                                        textDecoration: "underline",
-                                                        cursor: "pointer"
-                                                    }}
-                                                    onClick={() => {
-                                                        setroleId(item.id)
-                                                        setManageShow(true)
-                                                    }}
-                                                >
-                                                    manage Users
-                                                </p>
-                                            </div>
-                                            <p style={{ textTransform: "uppercase", fontSize: "12px" }}>Name</p>
-                                            <div className="nameList row">
-                                                {
-                                                    roleEmployees?.content.map(item => (
-                                                        <div className="col-3 my-1" key={item.id}>
-                                                            <img
-                                                                src={deleteIcon}
-                                                                alt="deleteimg"
-                                                                onClick={() => {
-                                                                    setDeleteId(item.id)
-                                                                    setdeleteItemName("user")
-                                                                    setShow(true)
-                                                                }}
-                                                            />
-                                                            <span>{item.name}</span>
-                                                        </div>
-                                                    ))
-                                                }
-                                                <div className="d-flex justify-content-center">
-                                                    <TablePagination
-                                                        component="div"
-                                                        rowsPerPageOptions={[2, 4, 6, 8]}
-                                                        count={roleEmployees?.totalElements}
-                                                        page={empPage}
-                                                        onPageChange={handleEmpChangePage}
-                                                        labelRowsPerPage="Roles per page"
-                                                        rowsPerPage={empRowsPerPage}
-                                                        onRowsPerPageChange={handleEmpChangeRowsPerPage}
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Accordion.Body>
-                                </Accordion.Item>
-                            )) :
-                            <div className="overlay">
-                                <HashLoader loading="true" css={override} size={50} color="#fff" />
-                            </div>
+                                    </div>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        ))
                     }
 
                     <div

@@ -29,7 +29,32 @@ const employeeEventsSlice = createSlice({
             page: 0,
             size: 10,
             sortBy: "id"
-        }
+        },
+        companyRestrictionsData: [],
+        onuDetailsData: {
+            name: "",
+            purpose: "",
+            date: "",
+            time: "",
+            duration: "",
+            zone: "",
+            access: ""
+        },
+        normalEventHost: {
+            accompanied: "",
+            unitSection: "",
+            employee: "",
+            email: "",
+            phoneNo: "",
+        },
+        onuEmployeeData: [],
+        onuOthersData: [],
+        ounVehiclesList: [],
+        getAllVehiclesData: [],
+        createVehicleData: [],
+        OnuAllZones: [],
+        readOnly: false,
+        signatureImage: "",
 
     },
     reducers: {
@@ -53,6 +78,30 @@ const employeeEventsSlice = createSlice({
         },
         updateEmailPhoneSearchList: (state, action) => {
             state.emailPhoneSearchList = action.payload
+        },
+        saveOunDetailsData: (state, { payload }) => {
+            state.onuDetailsData = payload
+        },
+        saveOunHostData: (state, { payload }) => {
+            state.normalEventHost = payload
+        },
+        saveOunEmployeeData: (state, { payload }) => {
+            state.onuEmployeeData = [...state.onuEmployeeData, payload]
+        },
+        updateOunEmployeeData: (state, { payload }) => {
+            state.onuEmployeeData = payload
+        },
+        saveOunOthersData: (state, { payload }) => {
+            state.onuOthersData = [...state.onuOthersData, payload]
+        },
+        saveOunVehiclesList: (state, { payload }) => {
+            state.ounVehiclesList = payload
+        },
+        updateOunVehicleData: (state, { payload }) => {
+            state.getAllVehiclesData = payload
+        },
+        setReadOnly: (state, { payload }) => {
+            state.readOnly = payload
         },
 
     },
@@ -100,6 +149,7 @@ const employeeEventsSlice = createSlice({
         ['employeeEvents/zonesList/fulfilled']: (state, action) => {
             const { data: { data }, status } = action.payload || {}
 
+            console.log(data)
             if (status >= 200 && status < 300) {
                 // toast(data.message)
                 state.zonesList = data
@@ -122,8 +172,12 @@ const employeeEventsSlice = createSlice({
 
             if (status >= 200 && status < 300) {
                 state.emailPhoneSearchData = data
+                state.readOnly = true
+            } else if (status === 400) {
+                toast("Email not exists.please pre-register yourself.")
+                state.readOnly = false
             } else if (status >= 400 && status < 500) {
-                toast("Something went wrong in emailPhoneSearchData")
+                toast("Something went wrong")
             }
         },
         ['employeeEvents/searchByPhone/fulfilled']: (state, action) => {
@@ -131,10 +185,12 @@ const employeeEventsSlice = createSlice({
 
             if (status >= 200 && status < 300) {
                 state.emailPhoneSearchData = data
+                state.readOnly = true
             } else if (status === 400) {
-                toast("phone_number not exists")
+                toast("phone_number not exists.please pre-register yourself.")
+                state.readOnly = false
             } else if (status >= 400 && status < 500) {
-                toast("Something went wrong in emailPhoneSearchData")
+                toast("Something went wrong")
             }
         },
         ['employeeEvents/createNormalEvent/fulfilled']: (state, action) => {
@@ -153,7 +209,7 @@ const employeeEventsSlice = createSlice({
             if (status >= 200 && status < 300) {
                 toast.success("Invitation Succeed..!")
             } else if (status >= 400 && status < 500) {
-                // toast("Something went wrong in createUserInvitation")
+                toast("Something went wrong in createUserInvitation")
             }
         },
         ['employeeEvents/getEventDetail/fulfilled']: (state, action) => {
@@ -196,7 +252,7 @@ const employeeEventsSlice = createSlice({
             const { data: { data }, status } = action.payload || {}
 
             if (status >= 200 && status < 300) {
-                toast.success("event deleted")
+                toast.success("event canceled Successfully")
             } else if (status === 400) {
                 toast("event was already been canceled")
             } else if (status >= 400 && status < 500) {
@@ -211,6 +267,90 @@ const employeeEventsSlice = createSlice({
             } else if (status >= 400 && status < 500) {
                 toast("Something went wrong in allowDenyEvent")
             }
+        },
+        ['employeeEvents/companyRestrictions/fulfilled']: (state, action) => {
+            const { data: { data }, status } = action.payload || {}
+            // console.log(data)
+            if (status >= 200 && status < 300) {
+                state.companyRestrictionsData = data
+            } else if (status >= 400 && status < 500) {
+                toast("Something went wrong in companyRestrictions")
+            }
+        },
+        ['employeeEvents/getAllVehiclesData/fulfilled']: (state, action) => {
+            const { data: { data }, status } = action.payload || {}
+            console.log(data)
+            if (status >= 200 && status < 300) {
+                state.getAllVehiclesData = data
+            } else if (status >= 400 && status < 500) {
+                toast("Something went wrong in getAllVehiclesData")
+            }
+        },
+        ['employeeEvents/createVehicle/fulfilled']: (state, action) => {
+            const { data: { data }, status } = action.payload || {}
+            // console.log(data)
+            if (status >= 200 && status < 300) {
+                toast("Vehicle is created Successfully..!")
+                console.log(data?.vehicle)
+                state.createVehicleData = data?.vehicle
+                state.ounVehiclesList = [...state.ounVehiclesList, data?.vehicle]
+            } else if (status >= 400 && status < 500) {
+                toast("Something went wrong in createVehicle")
+            }
+        },
+        ['employeeEvents/createOnuEvent/fulfilled']: (state, action) => {
+            const { data: { data }, status } = action.payload || {}
+            // console.log(data)
+            if (status >= 200 && status < 300) {
+                toast("ONU Event Created successfully..!")
+                // state.createOnuEventData = data
+            } else if (status >= 400 && status < 500) {
+                toast("Something went wrong in createOnuEvent")
+            }
+        },
+        ['employeeEvents/preRegisterUser/fulfilled']: (state, action) => {
+            const { data: { data }, status } = action.payload || {}
+            console.log(data)
+            if (status >= 200 && status < 300) {
+                toast("pre-register user Created successfully..!")
+                state.emailPhoneSearchData = data
+            } else if (status >= 400 && status < 500) {
+                toast("Something went wrong in preRegisterUser")
+            }
+        },
+        ['employeeEvents/downloadOnuFile/fulfilled']: (state, action) => {
+            const { data: { data }, status } = action.payload || {}
+            console.log(data)
+            if (status >= 200 && status < 300) {
+                toast("download is available")
+            } else if (status >= 400 && status < 500) {
+                toast("Something went wrong in download File")
+            }
+        },
+        ['employeeEvents/getOnuAllZones/fulfilled']: (state, action) => {
+            const { data: { data }, status } = action.payload || {}
+            if (status >= 200 && status < 300) {
+                state.OnuAllZones = data;
+            } else if (status >= 400 && status < 500) {
+                toast("Something went wrong in OnuAllZones")
+            }
+        },
+        ['employeeEvents/createVehicleInvitations/fulfilled']: (state, action) => {
+            const { data: { data }, status } = action.payload || {}
+            if (status >= 200 && status < 300) {
+                toast.success("Vehicle invitation created successfully..!")
+            } else if (status >= 400 && status < 500) {
+                toast("Something went wrong in createVehicleInvitations")
+            }
+        },
+        ['employeeEvents/downloadSignature/fulfilled']: (state, action) => {
+            const { data: { data }, status } = action.payload || {}
+            console.log(data)
+            if (status >= 200 && status < 300) {
+                state.signatureImage = data
+            } else if (status >= 400 && status < 500) {
+                toast("Something went wrong in downloadSignature")
+            }
         }
     }
 })
@@ -222,7 +362,15 @@ export const {
     updateSelectedEmployees,
     SaveEmailPhoneSearchList,
     handlePagination,
-    updateEmailPhoneSearchList
+    updateEmailPhoneSearchList,
+    saveOunDetailsData,
+    saveOunHostData,
+    saveOunEmployeeData,
+    saveOunOthersData,
+    saveOunVehiclesList,
+    updateOunEmployeeData,
+    updateOunVehicleData,
+    setReadOnly
 } = employeeEventsSlice.actions;
 
 export default employeeEventsSlice.reducer;

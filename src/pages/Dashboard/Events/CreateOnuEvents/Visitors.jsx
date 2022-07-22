@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import remove from '../../../../assets/images/ic-delete-red.svg'
-import { FaRegTrashAlt } from 'react-icons/fa';
 import NoEvent from '../NoEvent';
 import ManageEmployeesModal from '../subComponents/ManageEmployeesModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllEmployees } from '../../../../reduxToolkit/EmployeeEvents/EmployeeEventsApi';
 import ManageOthersModal from '../subComponents/ManageOthersModal';
-import { updateEmailPhoneSearchList } from '../../../../reduxToolkit/EmployeeEvents/EmployeeEventsSlice';
+import { updateEmailPhoneSearchList, updateSelectedEmployees } from '../../../../reduxToolkit/EmployeeEvents/EmployeeEventsSlice';
 
 const Visitors = () => {
   const dispatch = useDispatch();
@@ -14,12 +13,7 @@ const Visitors = () => {
   const emailPhoneSearchList = useSelector(state => state?.EmployeeEventsSlice?.emailPhoneSearchList);
   const [show, setShow] = useState(false);
   const [otherShow, setOtherShow] = useState(false);
-  console.log(emailPhoneSearchList)
-
-  const handleRemove = (user) => {
-    // dispatch(updateEmailPhoneSearchList(emailPhoneSearchList.filter(item => item.id !== user.id)))
-  }
-
+  
   return (
     <>
       <div className="d-flex align-items-center">
@@ -64,7 +58,13 @@ const Visitors = () => {
                       <td>{item.phoneNumber}</td>
                       <td>{item.userType.name}</td>
                       <td className='last'>
-                        <img src={remove} alt="remove" />
+                        <img
+                          src={remove}
+                          alt="remove"
+                          onClick={() => {
+                            dispatch(updateSelectedEmployees(selectedEmployees.filter(employee => employee.id !== item.id)))
+                          }}
+                        />
                       </td>
                     </tr>
                   ))
@@ -113,15 +113,17 @@ const Visitors = () => {
               </thead>
               <tbody>
                 {
-                  emailPhoneSearchList?.map(item => (
-                    <tr key={item.id}>
-                      <td className='first'>{item.name}</td>
-                      <td>{item.phoneNumber}</td>
+                  emailPhoneSearchList?.map(user => (
+                    <tr key={user.id}>
+                      <td className='first'>{user.name}</td>
+                      <td>{user.phoneNumber}</td>
                       <td className='last'>
                         <img
                           src={remove}
                           alt="remove"
-                          onClick={() => handleRemove(item)}
+                          onClick={() => {
+                            dispatch(updateEmailPhoneSearchList(emailPhoneSearchList.filter(item => item.id !== user.id)))
+                          }}
                         />
                       </td>
                     </tr>
@@ -130,7 +132,7 @@ const Visitors = () => {
               </tbody>
             </table>
           </div> :
-          <NoEvent title="Employees" />
+          <NoEvent title="Others" />
       }
     </>
   )

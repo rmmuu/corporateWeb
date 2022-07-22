@@ -70,7 +70,7 @@
 
 
         .cards {
-            max-width: 47.666667% !important;
+            // max-width: 47.666667% !important;
             padding: 0 !important;
             display: flex;
             justify-content: space-between;
@@ -113,7 +113,7 @@
         width: 100%;
         box-shadow: 0px 0px 6px #00000099;
         border-radius: 6px;
-        padding: 40px 20px 40px 60px;
+        padding: 40px 60px 40px 60px;
         margin-bottom: 41px;
 
         .__accessbody {
@@ -158,3 +158,19 @@
         margin-right: 84px;
     }
 }
+
+.doc-approve-modal-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font: normal normal normal 12px/18px Montserrat;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+    font-weight: bold;
+    cursor: pointer;
+    svg{
+        float: right;
+    }
+}
+

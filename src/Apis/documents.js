@@ -14,17 +14,17 @@ const {
 // creating docs
 export const createExternalDocuments = (body) => apiInstance.post(
     CREATE_EXTERNAL_DOCS,
-    body.companyDocumentExternal
-) ;
+    body
+);
 
 export const createEmployeeDocuments = (body) => apiInstance.post(
     CREATE_EMPLOYEE_DOCS,
-    body.companyDocumentExternal
+    body
 );
 
 export const createExternalVehicleDocuments = (body) => apiInstance.post(
     CREATE_VEHICLE_DOCS,
-    body.companyDocumentExternal
+    body
 );
 
 // geting docs

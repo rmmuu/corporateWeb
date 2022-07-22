@@ -5,25 +5,39 @@ import Validation from "./Validation";
 import Records from "./Records";
 import CreateEventModal from "./subComponents/createEventModal"
 import IncomingModel from "./IncomingModel";
-import { getComopanyRestructions } from "../../../Apis/companydata";
+// import { getComopanyRestructions } from "../../../Apis/companydata";
+import { useDispatch, useSelector } from "react-redux";
+import { updateEmailPhoneSearchList, updateOunEmployeeData } from "../../../reduxToolkit/EmployeeEvents/EmployeeEventsSlice";
 
 const Events = () => {
-  const companyId = "bc9789f1-3f16-4759-851d-5501cc37ec97";
+  // const companyId = "a6bd2887-0f4a-4e5f-b0b5-000d9817ab23";
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showIncome, setShowIncome] = useState(false);
   const [toggleState, setToggleState] = useState(1);
-  const [restructions, setRestructions] = useState();
+  // const [restructions, setRestructions] = useState();
+
+  const companyRestrictionsData = useSelector(state => state?.EmployeeEventsSlice?.companyRestrictionsData);
 
   const toggleTab = (index) => {
     setToggleState(index);
   };
 
 
-  useEffect(() => {
-    getComopanyRestructions(companyId).then(({ data: { data } }) => {
-      setRestructions(data)
-    })
-  }, [])
+  // useEffect(() => {
+  //   getComopanyRestructions(companyId).then(({ data: { data } }) => {
+  //     setRestructions(data)
+  //   })
+  // }, [])
+
+  const handleCreateEvent = () => {
+    dispatch(updateEmailPhoneSearchList([]));
+    dispatch(updateOunEmployeeData([]));
+    companyRestrictionsData?.isOnuEvent ?
+      navigate("/dashboard/events-panel/onu-events") :
+      navigate("/dashboard/events-panel/normal-events")
+  }
+
 
 
 
@@ -45,11 +59,7 @@ const Events = () => {
 
           <button
             className="ml-2"
-            onClick={() => {
-              restructions?.isOnuEvent ?
-                navigate("/dashboard/events-panel/onu-events") :
-                navigate("/dashboard/events-panel/normal-events")
-            }}
+            onClick={handleCreateEvent}
           >
             CREATE EVENT
             <i className="fa fa-plus" aria-hidden="true"></i>

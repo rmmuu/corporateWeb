@@ -5,7 +5,6 @@ import ic_edit_outline from '../assets/images/ic-edit-outline-red.svg'
 
 const EmployeeVehicleCard = ({ employeeCardData }) => {
     localStorage.setItem("deleteId", employeeCardData?.user.id)
-    // console.log(employeeCardData)
     return (
         <div className='employeeVehicleCard'>
             <img src={person4} className="person4Img" alt="person2" />

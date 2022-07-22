@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux';
 import deleteIcon from '../../../../assets/images/ic-delete-red.svg';
@@ -18,9 +18,16 @@ const ManageEmployeesModal = (props) => {
 
     }
 
+    useEffect(() => {
+        if (props.show === false) {
+            setAddUserQuery('');
+        }
+    }, [props.show])
+
     const handleAddUser = () => {
         dispatch(updateSelectedEmployees(totalEmployees));
         props.onHide();
+        setAddUserQuery('');
     }
 
     const handleRemoveSelected = (user) => {
@@ -49,8 +56,6 @@ const ManageEmployeesModal = (props) => {
                 <i className="fa fa-times cross" aria-hidden="true" onClick={() => props.onHide()}></i>
             </Modal.Header>
             <Modal.Body className="manage_role_modal_body">
-
-
                 <p>REMOVE USER</p>
 
                 {/* search bar role panel */}
@@ -154,7 +159,12 @@ const ManageEmployeesModal = (props) => {
 
                 </div>
                 <div className="buttonArea mt-4">
-                    <button className="btns btn btn-light" onClick={() => props.onHide()}>Cancel</button>
+                    <button
+                        className="btns btn btn-light"
+                        onClick={() => props.onHide()}
+                    >
+                        Cancel
+                    </button>
                     <button
                         className="btn btn-success"
                         onClick={handleAddUser}

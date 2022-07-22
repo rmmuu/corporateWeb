@@ -60,7 +60,7 @@
 .contract-card {
   padding: 5px 10px;
   box-shadow: 0px 0px 4px #00000099;
-  border-radius: 4px;
+  border-radius: 8px;
   opacity: 1;
   span {
     display: block;
@@ -81,7 +81,7 @@
   &__name {
     display: block;
     text-align: left;
-    font: normal normal 600 14px/18px Montserrat;
+    font: normal normal 600 14px/19px Montserrat;
     color: #707070;
     opacity: 1;
   }

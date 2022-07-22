@@ -98,7 +98,7 @@
         transform: translate(0px, 25px);
         padding: 20px;
         width: 216px;
-        height: 99px;
+        // height: 99px;
         border-radius: 15px;
 
         .dropdownDiv {
@@ -285,7 +285,7 @@
 .EventBtns {
   display: flex;
   justify-content: flex-end;
-  margin: 14% 11% 0 11%;
+  margin: 12% 11% 0 11%;
   .EventNextBtn {
     background-color: #146f62;
     border-radius: 4px;
@@ -428,35 +428,41 @@
   }
 }
 
-.vehicles {
-  padding: 0 86px;
-
-  .vehicleTable {
-    position: relative;
-
-    .head {
-      button {
-        width: 100% !important;
-        padding: 7px 30px;
-      }
-    }
-
-    .add_vehicle {
-      position: absolute;
-      top: 20%;
-      right: 0;
-      max-width: 30% !important;
+.head1 {
+  display: flex;
+  justify-content: space-between;
+  margin: 40px;
+  .searchVehicles {
+    display: flex;
+    height: 43px;
+    border: 1px solid lightgray;
+    width: 75%;
+    align-items: center;
+    border-radius: 5px;
+    input {
+      border: none;
+      width: 100%;
+      height: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      outline: none;
     }
   }
 
-  .tss-58la38-MUIDataTable-paper .tss-tlx3x1-MUIDataTableToolbar-root {
-    max-width: 70% !important;
-    // ::after{
-    //   content: 'Add button';
-    //   max-width: 20%;
-    //   background-color: red;
-    //   color: #fff;
-    // }
+  .vehicleBtn {
+    border: none;
+    padding: 7px 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 15rem;
+    border-radius: 5px;
+    background-color: #146f62;
+    color: #fff;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 450;
+    height: 43px;
   }
 }
 
@@ -475,7 +481,7 @@
 }
 
 .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
-  border: 0.114rem solid #707070 !important;
+  border: 0.12rem solid #a7a7a7 !important;
   border-radius: 6px !important;
 }
 
